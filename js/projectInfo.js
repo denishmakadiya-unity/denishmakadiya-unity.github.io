@@ -18,13 +18,13 @@ const Projects = {
             EmbedVideoLinkID: "s0M7-14hcdU",
             NoOfProjectImages: 1
         },
-        TileVisualiser: {
-            ID: "TileVisualiser",
-            Name: "Tile Visualiser",
-            SmallDescription: "Shaders, Occulus Go, Unity3D",
-            LargeDescription: ' • Wrote Surface Shader from scratch in Cg/HLSL (Unity3D) for VR Occulus Go build<br> • Proposed most opptimised way to approach a problem keeping in mind the target platform<br> • Set-up Unity3D for most optimised yet best quality settings<br> • Helped to build realistic Tile Visualiser with dynamic tiles and patterns with different grout<br>',
+        BlockSorterMania: {
+            ID: "BlockSorterMania",
+            Name: "Block Sorter Mania",
+            SmallDescription: "Swipe, sort, and match blocks!",
+            LargeDescription: ' Dive into Block Sorter Mania, the ultimate puzzle challenge where strategy meets speed! Your objective is simple yet captivating: use intuitive swipe controls to rearrange colorful blocks within a grid to perfectly match the target design.As you progress through dozens of unique levels, the puzzles grow in complexity, introducing larger grids, more colors, and trickier patterns that will put your logical thinking and spatial skills to the test. With clean, vibrant graphics, smooth controls, and a calming yet engaging atmosphere, it’s the perfect game to sharpen your mind on the go.',
             DownloadLink: "",
-            EmbedVideoLinkID: "",
+            EmbedVideoLinkID: "50SQ5YbYDI0",
             NoOfProjectImages: 0
         },
         ShiroDash: {
