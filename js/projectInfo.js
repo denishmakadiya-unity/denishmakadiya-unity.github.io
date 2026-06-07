@@ -1,5 +1,5 @@
 const Projects = {
-    Details:{//adding in opposite-chronological order, so it's easy to add later    
+    Details: {//adding in opposite-chronological order, so it's easy to add later    
         Template: {
             ID: "Template",
             Name: "",
@@ -9,11 +9,13 @@ const Projects = {
             EmbedVideoLinkID: "",
             NoOfProjectImages: 1
         },
-        WorkInProgress: {
-            ID: "WorkInProgress",
-            Name: "Work In Progress",
-            SmallDescription: "iOS, Android, AI",
-            LargeDescription: "Have you heard my Under Construction joke?<br>It's not done yet",
+        BallRacing: {
+            ID: "BallRacing",
+            Name: "Ball Racing",
+            SmallDescription: "Experience the thrill of a high-speed marble race!",
+            LargeDescription: "Buckle up for an adrenaline-pumping ride! Get ready to watch the ultimate showdown of speed, precision, and strategy as these vibrant marbles battle it out on an exhilarating, gravity-defying racetrack. From the thrilling 'Ready, Set, Go!' to the nail-biting finish, who will conquer the curves and claim the title of the fastest marble in the sky? Witness the action unfold and feel the rush!",
+            DownloadLink: "",
+            EmbedVideoLinkID: "s0M7-14hcdU",
             NoOfProjectImages: 1
         },
         TileVisualiser: {
@@ -42,7 +44,7 @@ const Projects = {
             DownloadLink: "https://play.google.com/store/apps/details?id=com.CosmicTurtles.Snake3D",
             EmbedVideoLinkID: "0GcFrCnOaTA",
             NoOfProjectImages: 8
-        },        
+        },
         Homography: {
             ID: "Homography",
             Name: "Reactive Display for VR",
