@@ -1,5 +1,4 @@
 var RankedProjects = [
-    Projects.Details.WorkInProgress,
     Projects.Details.Homography,
     Projects.Details.ChemicalCarriageway,
     Projects.Details.MREncyclopedia,
@@ -17,16 +16,28 @@ function SetPorfolioElements() {
     parent.removeChild(element);//remove template element to start clean
 
     for (var projectNo = 0; projectNo < RankedProjects.length; projectNo++) {
+
         var ProjectDetail = RankedProjects[projectNo];
-        // console.log(ProjectDetail.ID);
+
+        // Agar project exist nahi karta to skip kar do
+        if (!ProjectDetail) {
+            console.log("Project missing at index:", projectNo);
+            continue;
+        }
+
         element = element.cloneNode(true);
-        element.firstElementChild.id = ProjectDetail.ID;//change id of first child which is responsible for click
+
+        element.firstElementChild.id = ProjectDetail.ID;
         element.lastElementChild.firstElementChild.innerHTML = ProjectDetail.Name;
+
         var elem = element.getElementsByTagName("img")[0];
+
         element.lastElementChild.lastElementChild.innerHTML = ProjectDetail.SmallDescription;
+
         elem.setAttribute("src", "img/portfolio/" + ProjectDetail.ID + "/thumb.jpg");
-        elem.setAttribute("alt", ProjectDetail.ID + ", " + ProjectDetail.Name + ", " + ProjectDetail.SmallDescription);
-        elem.setAttribute("title", ProjectDetail.Name + ", " + ProjectDetail.SmallDescription);
+        elem.setAttribute("alt", ProjectDetail.ID + ", " + ProjectDetail.Name);
+        elem.setAttribute("title", ProjectDetail.Name);
+
         parent.appendChild(element);
     }
     $(document).keyup(function (e) {
