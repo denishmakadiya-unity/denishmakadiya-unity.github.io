@@ -64,7 +64,7 @@ function detectRepo() {
     const isPage = seg && !/\.html?$/i.test(seg);
     return { owner: m[1], repo: isPage ? seg : `${m[1]}.github.io` };
   }
-  return { owner: 'DenishPhibonacci', repo: 'PranVeda' };
+  return { owner: 'denishmakadiya-unity', repo: 'denishmakadiya-unity.github.io' };
 }
 const store = {
   get(k) { try { return localStorage.getItem(k) ?? sessionStorage.getItem(k); } catch (_) { return null; } },

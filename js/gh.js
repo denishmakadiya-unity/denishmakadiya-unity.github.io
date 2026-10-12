@@ -37,7 +37,7 @@ class GitHubRepo {
   static explain(status, msg, repo = '') {
     const r = repo ? `"${repo}"` : 'this repo';
     if (status === 401) return 'Access key is wrong or expired. Create a new one and log in again.';
-    if (status === 403 && /not accessible|permission/i.test(msg)) return `Your access key cannot write to ${r}. On GitHub edit the key → Repository access must include ${r} → Permissions → Contents: Read and write${repo && repo !== 'PranVeda' ? ' (and Workflows + Actions: Read and write)' : ''}.`;
+    if (status === 403 && /not accessible|permission/i.test(msg)) return `Your access key cannot write to ${r}. On GitHub edit the key → Repository access must include ${r} → Permissions → Contents: Read and write${repo && /radar/i.test(repo) ? ' (and Workflows + Actions: Read and write)' : ''}.`;
     if (status === 403 && /rate limit/i.test(msg)) return 'GitHub rate limit reached — wait a few minutes and try again.';
     if (status === 404) return 'Repository or file not found. Check owner / repo / branch in Config, and that the key has access to this repo.';
     if (status === 409) return 'This repository has no commits yet (it is empty). Reload the page and try again — the admin will set it up automatically.';
