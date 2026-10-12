@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PranVeda — Unity Developer Portfolio</title>
+  <meta name="description" content="Games, Unity plugins and Unity assets — portfolio of a Unity game developer.">
+  <meta name="theme-color" content="#07090d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-grid"></div><div class="bg-glow a"></div><div class="bg-glow b"></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="logo"><span class="logo-mark" data-brand-initial>P</span><span data-brand>PranVeda</span></a>
+      <button class="nav-toggle" aria-label="Menu"></button>
+      <nav class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#" class="resume-link" data-resume hidden>Resume</a>
+        <a href="#contact" class="btn btn-primary btn-sm">Hire me</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="status-pill" id="status"><span class="dot"></span><span id="statusText">Open to freelance &amp; new opportunities</span></span>
+          <h1><span id="heroHi">Hi, I'm</span><span class="accent" id="heroName">Your Name</span></h1>
+          <div class="hero-role"><span id="heroRole">Unity Game Developer</span><span class="cursor"></span></div>
+          <p class="hero-tagline" id="heroTagline"></p>
+          <div class="hero-cta">
+            <a href="#work" class="btn btn-primary">Explore my work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a>
+            <a href="#" class="btn" data-resume hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6m0 6-3-3m3 3 3-3"/></svg>Download Resume</a>
+            <a href="#contact" class="btn btn-ghost">Let's talk</a>
+          </div>
+        </div>
+
+        <div class="viewport" aria-hidden="true">
+          <div class="viewport-bar"><div class="dots"><i></i><i></i><i></i></div><span>Scene · Developer.unity</span><span>▶ PLAY</span></div>
+          <div class="viewport-stage" id="avatarStage">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <div class="gizmo"><b class="x">X</b> 0.00 &nbsp;<b class="y">Y</b> 1.00 &nbsp;<b class="z">Z</b> 0.00</div>
+          </div>
+          <div class="hud">
+            <div class="g"><b id="sGames">0</b><span>Games</span></div>
+            <div class="p"><b id="sPlugins">0</b><span>Plugins</span></div>
+            <div class="a"><b id="sAssets">0</b><span>Assets</span></div>
+            <div><b id="sDownloads">0</b><span>Downloads</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee"><div class="marquee-track" id="marquee"></div></div>
+
+    <!-- WORK -->
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Portfolio</span>
+            <h2 class="section-title">Games, plugins<br>&amp; Unity assets</h2>
+          </div>
+          <p class="section-sub">Play the games, download the APKs, or grab the tools I've built for other Unity developers.</p>
+        </div>
+
+        <div id="featured"></div>
+
+        <div class="filters">
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-type="all">All <span class="count" id="cAll">0</span></button>
+            <button class="tab" data-type="game">Games <span class="count" id="cGame">0</span></button>
+            <button class="tab" data-type="plugin">Plugins <span class="count" id="cPlugin">0</span></button>
+            <button class="tab" data-type="asset">Unity Assets <span class="count" id="cAsset">0</span></button>
+          </div>
+          <label class="search"><span id="searchIcon"></span><input id="search" type="search" placeholder="Search projects, tags…" aria-label="Search projects"></label>
+        </div>
+
+        <div class="grid" id="grid">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about" style="padding-top:40px">
+      <div class="container">
+        <div class="about-grid">
+          <div class="reveal">
+            <span class="eyebrow">About me</span>
+            <h2 class="section-title">From prototype<br>to Play Store.</h2>
+            <div class="facts">
+              <div class="fact"><b id="fYears">0+</b><span>Years with Unity</span></div>
+              <div class="fact"><b id="fCompanies">0</b><span>Studios worked with</span></div>
+              <div class="fact"><b id="fProjects">0</b><span>Projects in portfolio</span></div>
+              <div class="fact"><b id="fLangs">—</b><span>Languages spoken</span></div>
+            </div>
+          </div>
+          <div class="about-text reveal" id="aboutText"></div>
+        </div>
+
+        <div class="services">
+          <div class="service reveal">
+            <div class="ico" style="background:rgba(198,255,61,.12);color:var(--lime)" data-icon="game"></div>
+            <h4>Game Development</h4>
+            <p>Mobile &amp; PC games in Unity — gameplay systems, UI, monetization and store release.</p>
+          </div>
+          <div class="service reveal">
+            <div class="ico" style="background:rgba(61,224,255,.12);color:var(--cyan)" data-icon="plugin"></div>
+            <h4>Plugins &amp; Tools</h4>
+            <p>Editor extensions and runtime plugins that save hours of work for teams and studios.</p>
+          </div>
+          <div class="service reveal">
+            <div class="ico" style="background:rgba(255,181,71,.12);color:var(--amber)" data-icon="asset"></div>
+            <h4>Unity Assets</h4>
+            <p>Ready-to-use packages, templates and systems — drop them in and ship faster.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE + EDUCATION -->
+    <section class="section" id="experience" style="padding-top:40px">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Career</span><h2 class="section-title">Experience</h2></div>
+          <p class="section-sub" id="expSub"></p>
+        </div>
+        <div class="exp-grid">
+          <ol class="timeline reveal" id="timeline"></ol>
+          <aside class="edu reveal">
+            <h3 class="edu-title">Education</h3>
+            <div id="eduList"></div>
+            <a href="#" class="btn btn-primary btn-block" data-resume hidden style="margin-top:18px">Download full resume</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills" style="padding-top:20px">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Toolbox</span><h2 class="section-title">Skills &amp; stack</h2></div>
+        </div>
+        <div class="skills reveal" id="skillsList"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-wrap reveal">
+          <div class="contact-info">
+            <span class="eyebrow">Contact</span>
+            <h2>Have a game idea?<br>Let's build it.</h2>
+            <p>Freelance projects, plugin requests or collaboration — send a message and I'll get back to you.</p>
+            <div class="contact-list" id="contactList"></div>
+            <div class="socials" id="socials"></div>
+          </div>
+          <form class="form" id="contactForm">
+            <div class="row">
+              <div class="field"><label for="cName">Name</label><input id="cName" name="name" required maxlength="100"></div>
+              <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" required maxlength="150"></div>
+            </div>
+            <div class="field"><label for="cMsg">Message</label><textarea id="cMsg" name="message" rows="6" required maxlength="4000" placeholder="Tell me about your project…"></textarea></div>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-note" id="formNote"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year></span> <span data-brand>PranVeda</span>. Built with Unity spirit.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

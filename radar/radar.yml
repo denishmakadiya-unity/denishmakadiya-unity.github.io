@@ -1,0 +1,41 @@
+name: Job Radar
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'   # every 6 hours
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'search or telegram-test'
+        required: false
+        default: 'search'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: job-radar
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Find jobs
+        run: node radar.mjs
+        env:
+          MODE: ${{ github.event.inputs.mode || 'search' }}
+      - name: Save results
+        if: ${{ (github.event.inputs.mode || 'search') == 'search' }}
+        run: |
+          git config user.name "job-radar-bot"
+          git config user.email "job-radar-bot@users.noreply.github.com"
+          git add jobs.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Job radar: update results"
+          for i in 1 2 3; do git pull --rebase --quiet && git push && break; sleep 5; done

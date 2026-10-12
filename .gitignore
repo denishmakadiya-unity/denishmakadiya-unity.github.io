@@ -1,0 +1,7 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+# old local-server data (not used any more)
+/data/

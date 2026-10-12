@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Denish Makadiya</title>
+  <meta name="description" content="Hire Denish Makadiya, Senior Unity Developer, for games, apps, websites and Unity assets — or discuss a full-time role.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact Denish Makadiya — Sr. Unity Developer">
+  <meta property="og:description" content="Games, apps, websites and Unity assets. Tell me about your project.">
+  <meta property="og:url" content="https://denishphibonacci.github.io/PranVeda/contact.html">
+  <meta property="og:image" content="https://denishphibonacci.github.io/PranVeda/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://denishphibonacci.github.io/PranVeda/og-image.png">
+  <meta name="theme-color" content="#07090d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="contact-page">
+  <div class="bg-grid"></div><div class="bg-glow a"></div><div class="bg-glow b"></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo"><span class="logo-mark two" data-brand-initial>DM</span><span data-brand>Denish Makadiya</span></a>
+      <button class="nav-toggle" aria-label="Menu"></button>
+      <nav class="nav-links">
+        <a href="index.html#work">Work</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="#" class="resume-link" data-resume hidden>Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container ct">
+    <section class="ct-hero">
+      <span class="status-pill" id="status"><span class="dot"></span><span id="statusText">Open to new opportunities</span></span>
+      <h1>Let's build something <span>great</span> together.</h1>
+      <p id="ctIntro">Have a game, app or website in mind — or a role on your team? Tell me a little about it and I'll get back to you.</p>
+      <div class="ct-meta">
+        <span><span data-icon="clock"></span><b id="localTime">--:--</b> <span id="tzLabel">local time</span></span>
+        <span><span data-icon="reply"></span><span id="replyTime">Usually replies within 24 hours</span></span>
+      </div>
+    </section>
+
+    <div class="ct-grid">
+      <!-- FORM -->
+      <form class="ct-form" id="ctForm" novalidate>
+        <h2>Send a message</h2>
+        <div class="row">
+          <div class="field"><label for="fName">Your name *</label><input id="fName" name="name" required maxlength="100" autocomplete="name"></div>
+          <div class="field"><label for="fEmail">Email *</label><input id="fEmail" name="email" type="email" required maxlength="150" autocomplete="email"></div>
+        </div>
+        <div class="field"><label for="fCompany">Company / studio (optional)</label><input id="fCompany" name="company" maxlength="120" autocomplete="organization"></div>
+        <div class="field"><span class="flabel">I'm interested in</span>
+          <div class="pick" id="pickType">
+            <label><input type="radio" name="topic" value="Game" checked><span>🎮 Game</span></label>
+            <label><input type="radio" name="topic" value="Mobile app"><span>📱 App</span></label>
+            <label><input type="radio" name="topic" value="Website"><span>🌐 Website</span></label>
+            <label><input type="radio" name="topic" value="Unity asset / tool"><span>📦 Unity asset</span></label>
+            <label><input type="radio" name="topic" value="Full-time role"><span>💼 Job offer</span></label>
+            <label><input type="radio" name="topic" value="Other"><span>✨ Other</span></label>
+          </div>
+        </div>
+        <div class="row" id="projectFields">
+          <div class="field"><label for="fBudget">Budget</label>
+            <select id="fBudget" name="budget"><option value="">Select…</option><option>Under ₹50,000 / $600</option><option>₹50k – ₹2L / $600 – $2.5k</option><option>₹2L – ₹5L / $2.5k – $6k</option><option>₹5L+ / $6k+</option><option>Not sure yet</option></select></div>
+          <div class="field"><label for="fTimeline">Timeline</label>
+            <select id="fTimeline" name="timeline"><option value="">Select…</option><option>ASAP</option><option>Within 1 month</option><option>1 – 3 months</option><option>3+ months</option><option>Flexible</option></select></div>
+        </div>
+        <div class="field"><label for="fMsg">Message *</label><textarea id="fMsg" name="message" rows="6" required maxlength="4000" placeholder="What are you building? Platforms, features, links to references…"></textarea></div>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-primary btn-block" type="submit">Send message <span data-icon="arrow"></span></button>
+        <p class="form-note" id="ctNote" role="status"></p>
+        <p class="ct-privacy">Your details are only used to reply to you.</p>
+      </form>
+
+      <!-- SIDE -->
+      <aside class="ct-side">
+        <div class="ct-card" id="ctCards"></div>
+        <div class="ct-card ct-resume" id="ctResume" hidden>
+          <div><b>Need my resume?</b><small>Experience, skills and education in one file.</small></div>
+          <a class="btn" href="#" data-resume target="_blank" rel="noopener"><span data-icon="file"></span>Download</a>
+        </div>
+        <div class="ct-card">
+          <b class="ct-h">Find me online</b>
+          <div class="socials" id="ctSocials"></div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="ct-steps">
+      <h2 class="section-title" style="font-size:clamp(28px,4vw,40px)">How we'll work</h2>
+      <div class="steps3">
+        <div class="step3"><span>01</span><b>Share your idea</b><p>Send the form with what you need — rough notes are fine.</p></div>
+        <div class="step3"><span>02</span><b>Plan &amp; estimate</b><p>We talk through scope, platforms and timeline, and I send a clear estimate.</p></div>
+        <div class="step3"><span>03</span><b>Build &amp; launch</b><p>Regular builds to test, then store or web release — with support after launch.</p></div>
+      </div>
+    </section>
+
+    <section class="ct-faq" id="faqSec" hidden>
+      <h2 class="section-title" style="font-size:clamp(28px,4vw,40px)">FAQ</h2>
+      <div id="faqList"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year></span> <span data-brand>Denish Makadiya</span>. <span data-footer></span></span>
+      <a href="index.html">← Back to portfolio</a>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

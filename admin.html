@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dev HQ — Admin</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="fx-grid"></div><div class="fx-scan"></div>
+
+  <!-- TITLE SCREEN / LOGIN -->
+  <div class="title-screen" id="loginView" hidden>
+    <div class="title-card">
+      <div class="title-logo" id="loginMark">DM</div>
+      <h1>Dev <span>HQ</span></h1>
+      <div class="title-sub">Portfolio control center</div>
+      <form class="login-box" id="loginForm">
+        <div class="field"><label for="token">GitHub access key</label>
+          <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></div>
+        <label class="toggle" style="padding-top:0"><span><b>Remember on this device</b><small>Don't tick this on a shared computer</small></span><span class="switch"><input type="checkbox" id="remember" checked><span></span></span></label>
+        <div class="error" id="loginError"></div>
+        <button class="btn btn-primary" style="width:100%" type="submit">▶ Press start</button>
+        <details class="help">
+          <summary>How do I get an access key? (one time, 2 min)</summary>
+          <ol>
+            <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"><b>github.com → Settings → Developer settings → Fine-grained tokens → Generate new token</b></a>.</li>
+            <li>Name: <code>Portfolio admin</code>. Expiration: choose what you like (e.g. 1 year).</li>
+            <li><b>Repository access → Only select repositories →</b> pick <code id="repoName">PranVeda</code>.</li>
+            <li><b>Permissions → Repository permissions → Contents → Read and write.</b></li>
+            <li>Click <b>Generate token</b>, copy it and paste it above.</li>
+          </ol>
+        </details>
+      </form>
+      <div class="press">INSERT KEY TO CONTINUE</div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="appView" hidden>
+    <div class="mobile-bar">
+      <div class="side-logo" style="padding:0"><span class="mark" data-initials>DM</span><span><b>Dev HQ</b></span></div>
+      <button class="btn icon-btn" id="menuBtn" aria-label="Menu"></button>
+    </div>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="side-logo"><span class="mark" data-initials>DM</span><span><b>Dev HQ</b><small>ADMIN · v2</small></span></div>
+        <div class="menu-label">MAIN MENU</div>
+        <button class="nav-item" data-view="dashboard" data-ico="dash"><span>HQ<small>Dashboard</small></span></button>
+        <button class="nav-item" data-view="projects" data-ico="grid"><span>Inventory<small>All projects</small></span></button>
+        <button class="nav-item" data-view="new" data-ico="plus"><span>Spawn new<small>Add a project</small></span></button>
+        <div class="menu-label">CHARACTER</div>
+        <button class="nav-item" data-view="profile" data-ico="user"><span>Player profile<small>About, photo, resume</small></span></button>
+        <button class="nav-item" data-view="career" data-ico="trophy"><span>Career<small>Experience &amp; education</small></span></button>
+        <button class="nav-item" data-view="jobs" data-ico="radar"><span>Job Radar<small>Auto job finder</small></span><span class="pill" id="jobsPill" hidden>0</span></button>
+        <button class="nav-item" data-view="site" data-ico="world"><span>World settings<small>Site name &amp; texts</small></span></button>
+        <div class="menu-label">SYSTEM</div>
+        <button class="nav-item" data-view="config" data-ico="gear"><span>Config<small>Repository &amp; key</small></span></button>
+        <div class="spacer"></div>
+        <div class="player-mini" id="playerMini"></div>
+        <a class="nav-item" href="index.html" target="_blank" data-ico="ext"><span>Open website</span></a>
+        <button class="nav-item" id="logoutBtn" data-ico="logout"><span>Quit</span></button>
+      </aside>
+      <main class="main" id="main"></main>
+    </div>
+  </div>
+
+  <div class="overlay" id="loading" hidden>
+    <div class="loading-card">
+      <div class="t" id="loadTitle">Saving</div>
+      <div class="pbar"><i id="loadBar"></i></div>
+      <div class="meta" id="loadMeta"></div>
+      <div class="tip">Tip: your site updates on GitHub Pages about 1 minute after saving.</div>
+    </div>
+  </div>
+  <div class="toasts" id="toasts"></div>
+
+  <script src="js/gh.js"></script>
+  <script src="js/vendor/jszip.min.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/radar-admin.js"></script>
+</body>
+</html>

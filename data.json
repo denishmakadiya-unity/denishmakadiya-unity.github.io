@@ -1,0 +1,189 @@
+{
+  "site": {
+    "brand": "Denish Makadiya",
+    "initials": "DM",
+    "available": true,
+    "statusText": "Open to freelance & new opportunities",
+    "workTitle": "Games, plugins & Unity assets",
+    "workSub": "Play the games, download the APKs, or grab the tools I've built for other Unity developers.",
+    "aboutTitle": "From prototype to Play Store.",
+    "contactTitle": "Have a game idea? Let's build it.",
+    "contactText": "Freelance projects, plugin requests or collaboration — send a message and I'll get back to you.",
+    "footerText": "Built with Unity spirit.",
+    "services": [
+      {
+        "icon": "game",
+        "title": "Game Development",
+        "text": "Mobile & PC games in Unity — gameplay systems, UI, monetization and store release."
+      },
+      {
+        "icon": "plugin",
+        "title": "Plugins & Tools",
+        "text": "Editor extensions and runtime plugins that save hours of work for teams and studios."
+      },
+      {
+        "icon": "asset",
+        "title": "Unity Assets",
+        "text": "Ready-to-use packages, templates and systems — drop them in and ship faster."
+      }
+    ]
+  },
+  "profile": {
+    "name": "Denish Makadiya",
+    "role": "Sr. Unity Developer",
+    "tagline": "Senior Unity developer from Ahmedabad building mobile games, gameplay systems and Unity tools — from first prototype to store release.",
+    "about": "I am a Senior Unity Developer with 9+ years of experience creating mobile games and applications for Android and iOS. Over my career I have worked with seven studios in Ahmedabad — building gameplay, UI, integrations and complete games from idea to launch.\n\nI enjoy solving hard problems, writing clean and reusable C# code, and turning ideas into polished, smooth-running games. Today I lead Unity development at Phibonacci Solution, and I also build plugins and Unity assets that help other developers ship faster.",
+    "objective": "To work as a software developer in a dynamic company that gives an opportunity to grow professionally, technically as well as personally for higher mutual gains, and to become an expert in the field of software development.",
+    "avatar": "",
+    "resume": null,
+    "experienceYears": 9,
+    "location": "Ahmedabad, Gujarat, India",
+    "email": "denish.makadiya@zohomail.com",
+    "phone": "",
+    "languages": [
+      "English",
+      "Hindi",
+      "Gujarati"
+    ],
+    "skills": [
+      "Unity 3D",
+      "C#",
+      "C",
+      "Mobile Game Development",
+      "Android",
+      "iOS",
+      "Xcode",
+      "macOS",
+      "Windows",
+      "Game Development",
+      "Mobile Applications",
+      "phpMyAdmin"
+    ],
+    "skillGroups": [
+      {
+        "label": "Programming Languages",
+        "value": "C, C#"
+      },
+      {
+        "label": "Engine & Tools",
+        "value": "Unity 3D, Xcode"
+      },
+      {
+        "label": "Operating Systems",
+        "value": "Windows, macOS"
+      },
+      {
+        "label": "Area of Interest",
+        "value": "Mobile Applications, Game Development"
+      },
+      {
+        "label": "Databases",
+        "value": "phpMyAdmin"
+      }
+    ],
+    "personal": [
+      {
+        "label": "Nationality",
+        "value": "Indian"
+      },
+      {
+        "label": "Languages Known",
+        "value": "English, Hindi, Gujarati"
+      },
+      {
+        "label": "Based in",
+        "value": "Ahmedabad, Gujarat"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Sr. Unity Developer",
+        "company": "Phibonacci Solution",
+        "location": "Ahmedabad",
+        "duration": "Oct 2022 – Present",
+        "current": true,
+        "summary": ""
+      },
+      {
+        "role": "Sr. Unity Developer",
+        "company": "Khatriji Gaming",
+        "location": "Ahmedabad",
+        "duration": "4 Months",
+        "current": false,
+        "summary": ""
+      },
+      {
+        "role": "Sr. Unity Developer",
+        "company": "AIS Technolabs",
+        "location": "Ahmedabad",
+        "duration": "1.2 Years",
+        "current": false,
+        "summary": ""
+      },
+      {
+        "role": "Sr. Unity Developer",
+        "company": "Epistic Technologies",
+        "location": "Ahmedabad",
+        "duration": "1.1 Years",
+        "current": false,
+        "summary": ""
+      },
+      {
+        "role": "Sr. Unity Developer",
+        "company": "TechDoodles",
+        "location": "Ahmedabad",
+        "duration": "1.2 Years",
+        "current": false,
+        "summary": ""
+      },
+      {
+        "role": "Unity Developer",
+        "company": "Gadget App Development",
+        "location": "Ahmedabad",
+        "duration": "5 Months",
+        "current": false,
+        "summary": ""
+      },
+      {
+        "role": "Unity 3D Game Developer",
+        "company": "iDivine Creation Technology",
+        "location": "Ahmedabad",
+        "duration": "1.7 Years",
+        "current": false,
+        "summary": ""
+      }
+    ],
+    "education": [
+      {
+        "degree": "Master of Computer Application (MCA)",
+        "school": "T.N. Rao College of IT, Rajkot",
+        "board": "GTU",
+        "year": "2015"
+      },
+      {
+        "degree": "Bachelor of Computer Application (BCA)",
+        "school": "Geetanjali IT & Management, Rajkot",
+        "board": "Saurashtra University",
+        "year": "2012"
+      },
+      {
+        "degree": "Higher Secondary (HSC)",
+        "school": "Deepak High School, Moviya",
+        "board": "GSHEB",
+        "year": "2009"
+      }
+    ],
+    "socials": {
+      "github": "https://github.com/DenishPhibonacci",
+      "linkedin": "https://www.linkedin.com/in/denish-makadiya-a0b776ab",
+      "youtube": "",
+      "twitter": "",
+      "instagram": "",
+      "playstore": "",
+      "assetstore": "",
+      "itch": ""
+    }
+  },
+  "projects": [],
+  "updatedAt": "2026-10-12T11:42:41.122Z"
+}

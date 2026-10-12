@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — PranVeda</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <!-- LOGIN -->
+  <div class="login" id="loginView" hidden>
+    <form class="login-card" id="loginForm">
+      <div class="logo"><span class="logo-mark">P</span><span>Admin</span></div>
+      <h1>Welcome back</h1>
+      <p>Sign in to manage your games, plugins and assets.</p>
+      <div class="field"><label for="lUser">Username</label><input id="lUser" type="text" name="username" autocomplete="username" required></div>
+      <div class="field"><label for="lPass">Password</label><input id="lPass" type="password" name="password" autocomplete="current-password" required></div>
+      <div class="error" id="loginError"></div>
+      <button class="btn btn-primary" style="width:100%" type="submit">Sign in</button>
+      <p style="margin:18px 0 0;text-align:center;font-size:13px"><a href="/" style="color:var(--muted)">← Back to website</a></p>
+    </form>
+  </div>
+
+  <!-- APP -->
+  <div id="appView" hidden>
+    <div class="mobile-bar">
+      <div class="logo"><span class="logo-mark">P</span><span>Admin</span></div>
+      <button class="btn icon-btn" id="menuBtn" aria-label="Menu"></button>
+    </div>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="logo"><span class="logo-mark">P</span><span>PranVeda<small>ADMIN PANEL</small></span></div>
+        <button class="nav-item" data-view="dashboard" data-ico="dash">Dashboard</button>
+        <button class="nav-item" data-view="projects" data-ico="list">All Projects</button>
+        <button class="nav-item" data-view="new" data-ico="plus">Add New</button>
+        <button class="nav-item" data-view="messages" data-ico="mail">Messages <span class="pill" id="unreadPill" hidden>0</span></button>
+        <button class="nav-item" data-view="profile" data-ico="user">Profile</button>
+        <button class="nav-item" data-view="account" data-ico="lock">Account</button>
+        <button class="nav-item" data-view="publish" data-ico="gh">GitHub Pages</button>
+        <div class="spacer"></div>
+        <a class="nav-item" href="/" target="_blank" data-ico="ext">View website</a>
+        <button class="nav-item" id="logoutBtn" data-ico="logout">Log out</button>
+      </aside>
+      <main class="main" id="main"></main>
+    </div>
+  </div>
+
+  <div class="overlay" id="progress" hidden>
+    <div class="progress-card">
+      <b id="progTitle">Uploading…</b>
+      <div class="bar"><i id="progBar"></i></div>
+      <div class="meta"><span id="progText">0%</span><span id="progSize"></span></div>
+    </div>
+  </div>
+  <div class="toasts" id="toasts"></div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
