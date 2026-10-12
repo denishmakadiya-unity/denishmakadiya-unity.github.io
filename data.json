@@ -4,11 +4,11 @@
     "initials": "DM",
     "available": true,
     "statusText": "Open to freelance & new opportunities",
-    "workTitle": "Games, plugins & Unity assets",
-    "workSub": "Play the games, download the APKs, or grab the tools I've built for other Unity developers.",
+    "workTitle": "Games, apps, websites & Unity assets",
+    "workSub": "Play the games, install the apps, visit the websites, or grab the Unity assets I have built.",
     "aboutTitle": "From prototype to Play Store.",
     "contactTitle": "Have a game idea? Let's build it.",
-    "contactText": "Freelance projects, plugin requests or collaboration — send a message and I'll get back to you.",
+    "contactText": "Games, apps, websites or collaboration — send a message and I'll get back to you.",
     "footerText": "Built with Unity spirit.",
     "services": [
       {
@@ -17,9 +17,14 @@
         "text": "Mobile & PC games in Unity — gameplay systems, UI, monetization and store release."
       },
       {
-        "icon": "plugin",
-        "title": "Plugins & Tools",
-        "text": "Editor extensions and runtime plugins that save hours of work for teams and studios."
+        "icon": "app",
+        "title": "Mobile Applications",
+        "text": "Android & iOS apps built with Unity — clean UI, smooth performance and store-ready builds."
+      },
+      {
+        "icon": "website",
+        "title": "Websites",
+        "text": "Fast, modern websites and web apps — from landing pages to complete web platforms."
       },
       {
         "icon": "asset",
@@ -32,7 +37,7 @@
     "name": "Denish Makadiya",
     "role": "Sr. Unity Developer",
     "tagline": "Senior Unity developer from Ahmedabad building mobile games, gameplay systems and Unity tools — from first prototype to store release.",
-    "about": "I am a Senior Unity Developer with 9+ years of experience creating mobile games and applications for Android and iOS. Over my career I have worked with seven studios in Ahmedabad — building gameplay, UI, integrations and complete games from idea to launch.\n\nI enjoy solving hard problems, writing clean and reusable C# code, and turning ideas into polished, smooth-running games. Today I lead Unity development at Phibonacci Solution, and I also build plugins and Unity assets that help other developers ship faster.",
+    "about": "I am a Senior Unity Developer with 9+ years of experience creating mobile games and applications for Android and iOS. Over my career I have worked with seven studios in Ahmedabad — building gameplay, UI, integrations and complete games from idea to launch.\n\nI enjoy solving hard problems, writing clean and reusable C# code, and turning ideas into polished, smooth-running games. Today I lead Unity development at Phibonacci Solution, and I also build apps, websites and Unity assets for clients and other developers.",
     "objective": "To work as a software developer in a dynamic company that gives an opportunity to grow professionally, technically as well as personally for higher mutual gains, and to become an expert in the field of software development.",
     "avatar": "",
     "resume": null,
@@ -185,5 +190,5 @@
     }
   },
   "projects": [],
-  "updatedAt": "2026-10-12T11:42:41.122Z"
+  "updatedAt": "2026-10-12T15:59:28.157Z"
 }
