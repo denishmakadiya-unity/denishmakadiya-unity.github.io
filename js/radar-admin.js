@@ -18,10 +18,12 @@ const INDEED = { India: 'in.indeed.com', 'United States': 'www.indeed.com', 'Uni
 let RADAR = null;
 const RS = { cfg: null, jobs: null, status: null, exists: { config: false, script: false }, error: '' };
 
+/* Job Radar can use its own access key (only for the private repo), or fall back to the admin key */
+const radarToken = () => store.get('pv_radar_token') || GH.token;
 async function radarClient() {
-  const name = CFG.radarRepo || RADAR_REPO_DEFAULT;
-  if (RADAR && RADAR.repo === name && RADAR.token === GH.token) return RADAR;
-  const c = new GitHubRepo({ owner: CFG.owner, repo: name, token: GH.token, api: CFG.api, branch: 'main' });
+  const name = CFG.radarRepo || RADAR_REPO_DEFAULT, token = radarToken();
+  if (RADAR && RADAR.repo === name && RADAR.token === token) return RADAR;
+  const c = new GitHubRepo({ owner: CFG.owner, repo: name, token, api: CFG.api, branch: 'main' });
   const info = await c.getRepo();
   c.branch = info.default_branch || 'main';
   c.isPrivate = !!info.private;
@@ -244,7 +246,7 @@ async function viewJobs(main, tab = 'list') {
   catch (err) {
     if (myId !== ROUTE_ID) return; // user already moved to another page
     RS.error = err.status === 404
-      ? `Private repo "${CFG.owner}/${CFG.radarRepo || RADAR_REPO_DEFAULT}" not found, or your access key can't see it yet.`
+      ? `Private repo "${CFG.owner}/${CFG.radarRepo || RADAR_REPO_DEFAULT}" not found, or ${store.get('pv_radar_token') ? 'your Job Radar key' : 'your access key'} can't see it yet. ${store.get('pv_radar_token') ? '' : 'Paste your Job Radar key below (step 2).'}`
       : err.message;
     markTab('setup'); return radarSetup(body);
   }
@@ -632,15 +634,26 @@ function radarSetup(body) {
       <ol class="steps">
         <li><b>Create a private repo</b> named <code>${esc(repoName)}</code>: <a href="https://github.com/new?name=${enc(repoName)}&visibility=private&description=${enc('My private job radar')}" target="_blank" rel="noopener" style="color:var(--cyan)">open GitHub → New repository</a>.
           Choose <b>Private</b> and tick <b>Add a README file</b>, then <b>Create repository</b>. ${ok ? '<span class="chip game">Found ✓</span>' : ''}</li>
-        <li><b>Give your access key access to it:</b> <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener" style="color:var(--cyan)">GitHub → Settings → Developer settings → Fine-grained tokens</a> → open your token → <b>Edit</b>.
-          Under <i>Repository access</i> also select <code>${esc(repoName)}</code>. Under <i>Repository permissions</i> set
-          <b>Contents: Read and write</b>, <b>Workflows: Read and write</b> and <b>Actions: Read and write</b> → <b>Update</b>. (Same key, nothing to paste again.)</li>
+        <li><b>Make a Job Radar access key</b> (separate from your admin key): <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener" style="color:var(--cyan)">GitHub → Fine-grained tokens</a> → open (or generate) the token → <b>Edit</b>.
+          <i>Repository access</i>: <b>Only select repositories</b> → <code>${esc(repoName)}</code>. <i>Repository permissions</i>:
+          <b>Contents</b>, <b>Workflows</b> and <b>Actions</b> → <b>Read and write</b> → <b>Update</b>. Then paste the key in <b>Job Radar access key</b> below.
+          ${store.get('pv_radar_token') ? '<span class="chip game">Key saved ✓</span>' : ''}</li>
         <li><b>Install the radar</b> with the button below. ${RS.exists.script ? '<span class="chip game">Installed ✓</span>' : ''}</li>
         <li>Fill <a href="#jobs/settings" style="color:var(--cyan)">Search profile</a> (add the free Adzuna key for India/city search) and <a href="#jobs/telegram" style="color:var(--cyan)">Telegram</a>, then click <b>Scan now</b>.</li>
       </ol>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
         <button class="btn btn-primary" id="installBtn" ${ok ? '' : 'disabled'}>${ico('upload')} ${RS.exists.script ? 'Update radar' : 'Install radar'}</button>
         <button class="btn" id="recheck">↻ Check again</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Job Radar access key</h2>
+      <p class="hint" style="margin-top:0">Used only for the private <code>${esc(repoName)}</code> repo. Your admin key stays only for the portfolio. Stored in this browser only.
+        ${store.get('pv_radar_token') ? '<b style="color:var(--lime)">A separate key is saved.</b>' : 'No separate key yet — the admin key is used.'}</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div class="field" style="margin:0;flex:1;min-width:240px"><label for="rtoken">Access key (github_pat_…)</label><input type="password" id="rtoken" autocomplete="off" spellcheck="false" placeholder="${store.get('pv_radar_token') ? '•••••••• saved — paste a new one to replace' : 'github_pat_…'}"></div>
+        <button class="btn btn-primary" id="saveRToken">Save key</button>
+        ${store.get('pv_radar_token') ? '<button class="btn btn-danger" id="delRToken">Remove</button>' : ''}
       </div>
     </div>
     <div class="panel">
@@ -660,6 +673,20 @@ function radarSetup(body) {
       </ul>
     </div>`;
   $('#recheck').onclick = () => { RS.loadedAt = 0; viewJobs($('#main'), 'setup'); };
+  $('#saveRToken').onclick = async () => {
+    const t = $('#rtoken').value.trim();
+    if (!/^(github_pat_|ghp_)\w{20,}/.test(t)) return toast('Paste the full key — it starts with github_pat_', 'err');
+    try {
+      loading(true, 'Checking key', .5, repoName);
+      await new GitHubRepo({ owner: CFG.owner, repo: repoName, token: t, api: CFG.api, branch: 'main' }).getRepo();
+      store.set('pv_radar_token', t); RADAR = null; RS.loadedAt = 0; loading(false);
+      toast('Job Radar key saved ✓'); viewJobs($('#main'), 'setup');
+    } catch (err) {
+      loading(false);
+      toast(err.status === 404 || err.status === 403 ? `This key can't see "${repoName}". Edit the token → Repository access → select ${repoName}.` : err.message, 'err');
+    }
+  };
+  if ($('#delRToken')) $('#delRToken').onclick = () => { store.del('pv_radar_token'); RADAR = null; RS.loadedAt = 0; toast('Removed — the admin key is used again'); viewJobs($('#main'), 'setup'); };
   $('#saveRepo').onclick = () => { CFG.radarRepo = $('#rrepo').value.trim() || RADAR_REPO_DEFAULT; store.set('pv_cfg', JSON.stringify(CFG)); RADAR = null; RS.loadedAt = 0; viewJobs($('#main'), 'setup'); };
   $('#installBtn').onclick = async () => {
     try {

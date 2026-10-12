@@ -221,7 +221,7 @@ $('#loginForm').addEventListener('submit', async e => {
   } catch (err) { $('#loginError').textContent = err.message; }
   btn.disabled = false; btn.textContent = '▶ Press start';
 });
-$('#logoutBtn').addEventListener('click', () => { store.del('pv_token'); GH = null; DATA = null; showLogin(); });
+$('#logoutBtn').addEventListener('click', () => { store.del('pv_token'); store.del('pv_radar_token'); GH = null; DATA = null; showLogin(); });
 
 async function boot() {
   const token = store.get('pv_token');
