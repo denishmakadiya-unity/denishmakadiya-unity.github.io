@@ -198,7 +198,7 @@ async function showLogin(msg, mode) {
   $('#appView').hidden = true; $('#loginView').hidden = false;
   $('#loginForm').hidden = $('#setupForm').hidden = true; $('#loginWait').hidden = false;
   $('#repoName').textContent = CFG.repo;
-  VAULT = await vaultFetch(CFG);
+  try { VAULT = await vaultFetch(CFG); } catch (_) { VAULT = null; }
   setLoginMode(mode || (VAULT ? 'login' : 'setup'), msg);
 }
 function setLoginMode(mode, msg = '') {
@@ -212,6 +212,7 @@ function setLoginMode(mode, msg = '') {
   $('#setupIntro').innerHTML = VAULT
     ? 'Forgot your password? Paste a GitHub access key for this repo to prove it is you, then choose a new username and password. <i>A saved Job Radar key will need to be pasted again.</i>'
     : 'Create your admin username and password. You need a GitHub access key <b>once</b> — it is locked with your password and you won\'t have to paste it again.';
+  $('#makeKey').href = keyUrl('Portfolio admin', { contents: 'write' }, `Saves the portfolio website ${CFG.owner}/${CFG.repo} from the admin panel`);
   const legacy = store.get('pv_token'); // people who logged in with a key before
   if (mode === 'setup' && legacy && !$('#sToken').value) $('#sToken').value = legacy;
   setTimeout(() => (mode === 'login' ? $('#lUser') : ($('#sToken').value ? $('#sUser') : $('#sToken'))).focus(), 50);

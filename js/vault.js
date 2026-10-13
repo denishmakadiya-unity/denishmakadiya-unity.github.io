@@ -58,7 +58,9 @@ async function vaultFetch(cfg) {
   tries.push(VAULT_PATH + '?t=' + Date.now()); // same site (works on GitHub Pages, ~1 min behind)
   for (const url of tries) {
     try {
-      const r = await fetch(url, { cache: 'no-store', headers: url.startsWith('http') ? { Accept: 'application/vnd.github.raw+json' } : {} });
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 8000);
+      const r = await fetch(url, { cache: 'no-store', signal: ctl.signal, headers: url.startsWith('http') ? { Accept: 'application/vnd.github.raw+json' } : {} });
+      clearTimeout(timer);
       if (r.status === 404) continue;
       if (!r.ok) continue;
       const j = await r.json();
@@ -80,4 +82,10 @@ function passwordProblem(p) {
   if (p.length < 10) return 'Password must be at least 10 characters.';
   if (!/[a-z]/i.test(p) || !/\d/.test(p)) return 'Use letters and numbers in the password.';
   return '';
+}
+
+/** GitHub page that creates the access key with everything already filled in */
+function keyUrl(name, perms, description) {
+  const q = new URLSearchParams({ name, description, expires_in: '366', ...perms });
+  return 'https://github.com/settings/personal-access-tokens/new?' + q.toString();
 }

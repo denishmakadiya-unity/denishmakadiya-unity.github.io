@@ -635,9 +635,8 @@ function radarSetup(body) {
       <ol class="steps">
         <li><b>Create a private repo</b> named <code>${esc(repoName)}</code>: <a href="https://github.com/new?name=${enc(repoName)}&visibility=private&description=${enc('My private job radar')}" target="_blank" rel="noopener" style="color:var(--cyan)">open GitHub → New repository</a>.
           Choose <b>Private</b> and tick <b>Add a README file</b>, then <b>Create repository</b>. ${ok ? '<span class="chip game">Found ✓</span>' : ''}</li>
-        <li><b>Make a Job Radar access key</b> (separate from your admin key): <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener" style="color:var(--cyan)">GitHub → Fine-grained tokens</a> → open (or generate) the token → <b>Edit</b>.
-          <i>Repository access</i>: <b>Only select repositories</b> → <code>${esc(repoName)}</code>. <i>Repository permissions</i>:
-          <b>Contents</b>, <b>Workflows</b> and <b>Actions</b> → <b>Read and write</b> → <b>Update</b>. Then paste the key in <b>Job Radar access key</b> below.
+        <li><b>Make a Job Radar access key</b> (separate from your admin key): <a href="${keyUrl('Job Radar', { contents: 'write', workflows: 'write', actions: 'write' }, 'Private job radar repo')}" target="_blank" rel="noopener" style="color:var(--cyan)"><b>open GitHub (everything pre-filled) ↗</b></a>.
+          Only choose <b>Only select repositories</b> → <code>${esc(repoName)}</code>, click <b>Generate token</b>, and paste it in <b>Job Radar access key</b> below — once.
           ${hasRadarKey() ? '<span class="chip game">Key saved ✓</span>' : ''}</li>
         <li><b>Install the radar</b> with the button below. ${RS.exists.script ? '<span class="chip game">Installed ✓</span>' : ''}</li>
         <li>Fill <a href="#jobs/settings" style="color:var(--cyan)">Search profile</a> (add the free Adzuna key for India/city search) and <a href="#jobs/telegram" style="color:var(--cyan)">Telegram</a>, then click <b>Scan now</b>.</li>
