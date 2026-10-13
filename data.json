@@ -189,6 +189,34 @@
       "itch": ""
     }
   },
-  "projects": [],
-  "updatedAt": "2026-10-12T15:59:28.157Z"
+  "projects": [
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [],
+      "platforms": [],
+      "gallery": [],
+      "id": "ec974791-d0a2-49ae-bf78-a1751c4954f4",
+      "title": "dsfsdf",
+      "shortDescription": "",
+      "description": "",
+      "docs": "",
+      "changelog": [],
+      "version": "",
+      "unityVersion": "",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-13T06:42:23.962Z",
+      "updatedAt": "2026-10-13T06:42:23.962Z",
+      "slug": "dsfsdf"
+    }
+  ],
+  "updatedAt": "2026-10-13T06:42:24.581Z"
 }
