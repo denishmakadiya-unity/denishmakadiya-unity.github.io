@@ -8,11 +8,17 @@
  * Each source's terms ask for attribution: every job keeps its source name
  * and links back to the original listing.
  *
+ * MODE=email sends one job application e-mail (with your resume attached)
+ * through your own mailbox (SMTP), prepared in the admin panel as outbox/<id>.json.
+ *
  * Node 20+, no dependencies. Installed and updated by the portfolio admin panel.
  */
 import fs from 'node:fs/promises';
+import tls from 'node:tls';
+import net from 'node:net';
+import crypto from 'node:crypto';
 
-const VERSION = 1;
+const VERSION = 2;
 const MODE = process.env.MODE || 'search';
 const FIXTURES = process.env.RADAR_FIXTURES || ''; // for local testing only
 const UA = 'Mozilla/5.0 (compatible; JobRadar/1.0; personal job alerts)';
@@ -213,7 +219,112 @@ async function notify(newJobs, firstRun) {
   return top.length;
 }
 
+/* ---------------- e-mail (SMTP, no dependencies) ---------------- */
+const BAD_MAIL = /^(no-?reply|donotreply|privacy|abuse|support|info@example)|@(example|sentry|wixpress|domain)\./i;
+function findEmail(text) {
+  const all = String(text || '').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || [];
+  return all.map(e => e.replace(/\.$/, '')).find(e => !BAD_MAIL.test(e)) || '';
+}
+const b64 = s => Buffer.from(s).toString('base64');
+const encWord = s => /^[\x20-\x7e]*$/.test(s) ? s : `=?UTF-8?B?${b64(s)}?=`;
+const wrap76 = s => s.replace(/.{1,76}/g, '$&\r\n');
+function buildMime({ from, fromName, to, cc, bcc, replyTo, subject, text, attachments }) {
+  const bnd = 'b_' + crypto.randomBytes(12).toString('hex');
+  const host = from.split('@')[1] || 'localhost';
+  const head = [
+    `From: ${encWord(fromName || from)} <${from}>`, `To: ${to.join(', ')}`, cc.length ? `Cc: ${cc.join(', ')}` : '',
+    replyTo ? `Reply-To: ${replyTo}` : '', `Subject: ${encWord(subject)}`, `Date: ${new Date().toUTCString()}`,
+    `Message-ID: <${crypto.randomUUID()}@${host}>`, 'MIME-Version: 1.0', `Content-Type: multipart/mixed; boundary="${bnd}"`
+  ].filter(Boolean).join('\r\n');
+  let body = `--${bnd}\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: base64\r\n\r\n${wrap76(b64(text.replace(/\r?\n/g, '\r\n')))}`;
+  for (const a of attachments) {
+    body += `--${bnd}\r\nContent-Type: ${a.type}; name="${a.name}"\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename="${a.name}"\r\n\r\n${wrap76(a.data.toString('base64'))}`;
+  }
+  return `${head}\r\n\r\n${body}--${bnd}--\r\n`;
+}
+async function smtpSend(m) {
+  const { host, port = 465, user, pass } = m.smtp;
+  const secure = m.smtp.secure !== undefined ? !!m.smtp.secure : Number(port) === 465; // 465 = SSL, 587 = STARTTLS
+  let sock = secure ? tls.connect({ host, port: Number(port), servername: host }) : net.connect({ host, port: Number(port) });
+  let buf = '', waiters = [];
+  const onData = d => { buf += d.toString('utf8'); flush(); };
+  const flush = () => {
+    const lines = buf.split('\r\n'); if (!waiters.length) return;
+    for (let i = 0; i < lines.length - 1; i++) {
+      if (/^\d{3} /.test(lines[i])) { const resp = lines.slice(0, i + 1).join('\n'); buf = lines.slice(i + 1).join('\r\n'); waiters.shift()(resp); return flush(); }
+    }
+  };
+  const read = () => new Promise((res, rej) => { waiters.push(res); setTimeout(() => rej(new Error('SMTP server did not answer (timeout)')), 30000); flush(); });
+  const attach = s => { s.on('data', onData); s.on('error', e => waiters.length && waiters.shift()('599 ' + e.message)); };
+  attach(sock);
+  const cmd = async (line, ok, hide) => {
+    if (line !== null) sock.write(line + '\r\n');
+    const r = await read();
+    if (!ok.test(r)) throw new Error(`SMTP ${hide ? 'login' : (line || 'connect').split(' ')[0]} failed: ${r.replace(/\s+/g, ' ').slice(0, 200)}`);
+    return r;
+  };
+  await cmd(null, /^220/);
+  let ehlo = await cmd('EHLO job-radar', /^250/);
+  if (!secure) {
+    await cmd('STARTTLS', /^220/);
+    sock.removeAllListeners('data');
+    sock = tls.connect({ socket: sock, servername: host }); attach(sock);
+    await new Promise((res, rej) => { sock.once('secureConnect', res); sock.once('error', rej); });
+    ehlo = await cmd('EHLO job-radar', /^250/);
+  }
+  await cmd('AUTH LOGIN', /^334/);
+  await cmd(b64(user), /^334/, true);
+  await cmd(b64(pass), /^235/, true);
+  await cmd(`MAIL FROM:<${m.from}>`, /^250/);
+  for (const r of [...m.to, ...m.cc, ...m.bcc]) await cmd(`RCPT TO:<${r}>`, /^25[01]/);
+  await cmd('DATA', /^354/);
+  const mime = buildMime(m).replace(/\r\n\./g, '\r\n..');
+  await cmd(mime + '\r\n.', /^250/);
+  sock.write('QUIT\r\n'); sock.end();
+}
+const emailList = s => String(s || '').split(/[,;\s]+/).map(x => x.trim()).filter(x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x));
+async function sendOutbox(id) {
+  const ec = cfg.email || {};
+  if (!ec.host || !ec.user || !ec.pass) throw new Error('E-mail settings missing — fill Job Radar → E-mail in the admin panel');
+  const file = `outbox/${id}.json`;
+  const job = MODE === 'email-test'
+    ? { to: ec.user, subject: 'Job Radar — test e-mail', body: 'This is a test from Job Radar. Your resume is attached, so you can check how employers will receive it.\n\n' + (ec.signature || ''), attachResume: true, resumeUrl: ec.resumeUrl, resumeName: ec.resumeName }
+    : await readJson(file, null);
+  if (!job) throw new Error('Nothing to send: ' + file + ' not found');
+  const attachments = [];
+  if (job.attachResume && job.resumeUrl) {
+    let data;
+    if (FIXTURES) data = Buffer.from('%PDF fixture'); else {
+      const r = await fetch(job.resumeUrl, { headers: { 'User-Agent': UA } });
+      if (!r.ok) throw new Error(`Could not download the resume (${r.status}) from ${job.resumeUrl}`);
+      data = Buffer.from(await r.arrayBuffer());
+    }
+    attachments.push({ name: job.resumeName || 'Resume.pdf', type: /\.pdf$/i.test(job.resumeName || job.resumeUrl) ? 'application/pdf' : 'application/octet-stream', data });
+  }
+  const to = emailList(job.to); if (!to.length) throw new Error('No valid "To" e-mail address');
+  const msg = {
+    smtp: ec, from: ec.from || ec.user, fromName: ec.fromName || '', to, cc: emailList(job.cc), bcc: ec.copyToSelf ? [ec.from || ec.user] : [],
+    replyTo: ec.replyTo || '', subject: job.subject || '', text: job.body || '', attachments
+  };
+  let result;
+  try {
+    if (FIXTURES) console.log('[email]\n' + buildMime(msg).slice(0, 600)); else await smtpSend(msg);
+    result = { status: 'sent', sentAt: new Date().toISOString(), attached: attachments.map(a => a.name) };
+    console.log(`E-mail sent to ${to.join(', ')}`);
+  } catch (e) {
+    result = { status: 'failed', error: String(e.message || e), at: new Date().toISOString() };
+    console.error(result.error);
+  }
+  if (MODE !== 'email-test') await fs.writeFile(file, JSON.stringify({ ...job, ...result }, null, 1) + '\n');
+  if (result.status !== 'sent') process.exitCode = 1;
+}
+
 /* ---------------- main ---------------- */
+if (MODE === 'email' || MODE === 'email-test') {
+  try { await sendOutbox(process.env.OUTBOX_ID || ''); }
+  catch (e) { console.error(String(e.message || e)); process.exitCode = 1; }
+  process.exit();
+}
 if (MODE === 'telegram-test') {
   await telegram('✅ <b>Job Radar test</b>\nTelegram notifications are working. You will get new matching jobs here.');
   console.log('Test message sent');
@@ -249,7 +360,8 @@ for (const j of raw) {
   found.push({
     id: j.id, source: j.source, title: j.title.trim(), company: (j.company || '').trim(), location: (j.location || '').trim(), country: j.country || '',
     remote: !!j.remote, type: j.type, salary: j.salary || '', url: j.url, posted: j.posted || now,
-    summary: strip(j.text).slice(0, 320), score: sc.score, matched: sc.matched, firstSeen: old ? old.firstSeen : now
+    summary: strip(j.text).slice(0, 320), score: sc.score, matched: sc.matched, firstSeen: old ? old.firstSeen : now,
+    email: findEmail(strip(j.text)) || (old && old.email) || ''
   });
 }
 const newJobs = found.filter(j => !prevById.has(j.id));

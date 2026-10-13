@@ -6,7 +6,7 @@
      status.json  your saved / applied / hidden jobs
    ========================================================= */
 const RADAR_REPO_DEFAULT = 'job-radar';
-const RADAR_VERSION = 1;
+const RADAR_VERSION = 2; // 2 = can send application e-mails
 const COUNTRIES = ['India', 'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'Netherlands', 'Singapore', 'United Arab Emirates', 'France',
   'Poland', 'Spain', 'Italy', 'Switzerland', 'New Zealand', 'Austria', 'Belgium', 'Ireland', 'Sweden', 'Japan', 'Saudi Arabia', 'Qatar', 'Brazil', 'Mexico', 'South Africa'];
 const ADZUNA_COUNTRIES = new Set(['India', 'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'Netherlands', 'Singapore', 'France', 'Poland',
@@ -45,7 +45,9 @@ function defaultRadarConfig() {
     types: ['fulltime', 'remote', 'contract'],
     maxDays: 14, minScore: 35,
     adzuna: { appId: '', appKey: '' },
-    telegram: { enabled: false, botToken: '', chatId: '', minScore: 55, maxPerRun: 8, adminUrl: '' }
+    telegram: { enabled: false, botToken: '', chatId: '', minScore: 55, maxPerRun: 8, adminUrl: '' },
+    email: { host: 'smtp.zoho.in', port: 465, user: p.email || '', pass: '', fromName: p.name || '', copyToSelf: true,
+      subject: 'Application for {title} – ' + (p.name || ''), signature: defaultSignature() }
   };
 }
 async function loadRadar() {
@@ -54,10 +56,13 @@ async function loadRadar() {
   await radarClient();
   const [cfg, jobs, status] = await Promise.all([readOr('config.json', null), readOr('jobs.json', null), readOr('status.json', null)]);
   RS.exists.config = !!cfg;
-  RS.exists.script = await RADAR.readText('radar.mjs').then(() => true, () => false);
+  const script = await RADAR.readText('radar.mjs').catch(() => '');
+  RS.exists.script = !!script;
+  RS.exists.email = /sendOutbox/.test(script); // radar version that can send e-mails
   RS.cfg = { ...defaultRadarConfig(), ...(cfg || {}) };
   RS.cfg.telegram = { ...defaultRadarConfig().telegram, ...((cfg && cfg.telegram) || {}) };
   RS.cfg.adzuna = { ...defaultRadarConfig().adzuna, ...((cfg && cfg.adzuna) || {}) };
+  RS.cfg.email = { ...defaultRadarConfig().email, ...((cfg && cfg.email) || {}) };
   RS.jobs = jobs || { jobs: [], lastRun: null };
   RS.status = { saved: [], applied: {}, hidden: [], apps: [], ...(status || {}) };
   if (!Array.isArray(RS.status.apps)) RS.status.apps = [];
@@ -91,8 +96,8 @@ function flushStatus() {
   return statusSaving || Promise.resolve();
 }
 window.addEventListener('beforeunload', e => { if (statusTimer || statusSaving) { flushStatus(); e.preventDefault(); e.returnValue = ''; } });
-async function dispatchRadar(mode = 'search') {
-  await RADAR.req('POST', '/actions/workflows/radar.yml/dispatches', { ref: RADAR.branch, inputs: { mode } });
+async function dispatchRadar(mode = 'search', id = '') {
+  await RADAR.req('POST', '/actions/workflows/radar.yml/dispatches', { ref: RADAR.branch, inputs: id ? { mode, id } : { mode } });
 }
 async function latestRun() {
   const d = await RADAR.req('GET', `/actions/workflows/radar.yml/runs?per_page=1&t=${Date.now()}`);
@@ -169,6 +174,27 @@ function appFromJob(j, when) {
 }
 const findApp = jobId => RS.status.apps.find(a => a.jobId && a.jobId === jobId);
 function portfolioUrl() { return location.href.replace(/admin\.html.*$/, '').replace(/#.*$/, ''); }
+function defaultSignature() {
+  const p = (typeof DATA !== 'undefined' && DATA && DATA.profile) || {};
+  const site = location.origin + location.pathname.replace(/admin(\.html)?$/, '');
+  return ['Best regards,', p.name || 'Denish Makadiya', 'Senior Unity Developer | Unity Tools Engineer',
+    p.phone ? '📞 ' + p.phone : '📞 +91 97234 28591', '✉️ ' + (p.email || 'denish.makadiya@zohomail.com'),
+    (p.socials || {}).linkedin ? '🔗 LinkedIn: ' + p.socials.linkedin : '', '🌐 Portfolio: ' + site].filter(Boolean).join('\n');
+}
+const signature = () => ((RS.cfg && RS.cfg.email && RS.cfg.email.signature) || defaultSignature()).trim();
+/** Public link to the resume uploaded in Player profile (GitHub Actions downloads it from here) */
+function resumeInfo() {
+  const r = DATA && DATA.profile && DATA.profile.resume;
+  const path = r && (typeof r === 'string' ? r : r.path || r.url);
+  if (!path) return null;
+  const ext = (path.match(/\.(pdf|docx?|rtf)(\?|$)/i) || [, 'pdf'])[1].toLowerCase();
+  const name = ((DATA.profile.name || 'Resume').replace(/[^\w]+/g, '_') + '_Resume.' + ext);
+  const url = /^https?:/i.test(path) ? path : `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${GH.branch}/${CFG.dir ? CFG.dir.replace(/^\/+|\/+$/g, '') + '/' : ''}${path.replace(/^\/+/, '')}`;
+  return { url, name };
+}
+const companySite = co => `https://duckduckgo.com/?q=${encodeURIComponent('!ducky ' + co + ' official website')}`;
+const EMAIL_RE = /^[^@\s,;]+@[^@\s,;]+\.[^@\s,;]+$/;
+const emailsIn = s => String(s || '').split(/[,;\s]+/).filter(Boolean);
 function coverLetter(app, job) {
   const p = DATA.profile || {};
   const current = (p.experience || []).find(e => e.current);
@@ -187,9 +213,7 @@ My resume is attached.
 
 I would be glad to talk about how I can help ${app.company || 'your team'}.
 
-Best regards,
-${p.name || ''}
-${contact}`;
+${signature()}`;
 }
 
 /* Small modal used for the cover letter and the add/edit form */
@@ -229,6 +253,84 @@ function showLetter(app, job, onSave) {
   });
 }
 
+/* ---------- E-mail composer (sends through GitHub Actions + your own mailbox) ---------- */
+function showEmail(job, appIn, onDone) {
+  const st = RS.status, ec = RS.cfg.email || {};
+  const app = appIn || (job && findApp(job.id)) || appFromJob(job || {});
+  const resume = resumeInfo();
+  const ready = ec.host && ec.user && ec.pass;
+  const subject = (ec.subject || 'Application for {title}').replace(/\{title\}/g, app.title || 'the open position').replace(/\{company\}/g, app.company || '');
+  const to = app.contactEmail || (job && job.email) || '';
+  openModal(`E-mail — ${app.company || app.title || 'application'}`, `
+    ${!RS.exists.email ? `<div class="banner">Your radar needs a quick update before it can send e-mails. <a href="#jobs/setup" style="color:var(--cyan)">Setup → Update radar</a></div>` : ''}
+    ${!ready ? `<div class="banner">Set up sending once (2 min): <a href="#jobs/email" style="color:var(--cyan)">Job Radar → E-mail</a>. Until then you can copy the text or open your mail app.</div>` : ''}
+    <div class="grid-2">
+      <div class="field"><label for="emTo">To (HR / recruiter e-mail) *</label><input type="text" id="emTo" value="${esc(to)}" placeholder="hr@company.com" autocomplete="off">
+        <small>${to ? (job && job.email && to === job.email ? 'Found in the job post ✓' : '') : `Not in the job post — find it on the <a href="${esc(companySite(app.company || ''))}" target="_blank" rel="noopener" style="color:var(--cyan)">company website ↗</a> (Careers / Contact page) or on LinkedIn.`}</small></div>
+      <div class="field"><label for="emCc">Cc (optional)</label><input type="text" id="emCc" placeholder="another@company.com" autocomplete="off"></div>
+    </div>
+    <div class="field"><label for="emSubject">Subject</label><input type="text" id="emSubject" value="${esc(subject)}"></div>
+    <div class="field"><label for="emBody">Message</label><textarea id="emBody" rows="14" class="mono-area" style="font-family:var(--font-body);font-size:14px">${esc(app.letter || coverLetter(app, job))}</textarea></div>
+    <label class="toggle" style="padding-top:0"><span><b>Attach my resume</b><small>${resume ? esc(resume.name) + ' — from Player profile' : 'No resume uploaded yet — add it in <a href="#profile" style="color:var(--cyan)">Player profile</a>'}</small></span>
+      <span class="switch"><input type="checkbox" id="emAttach" ${resume ? 'checked' : 'disabled'}><span></span></span></label>
+    <div class="error" id="emErr"></div>
+    <div class="modal-acts">
+      <button type="button" class="btn" id="emReset">↺ Regenerate</button>
+      <button type="button" class="btn" id="emCopy">Copy text</button>
+      <a class="btn" id="emMailto" href="#" title="Opens your mail app (attach the resume yourself)">Open in mail app</a>
+      <button type="button" class="btn btn-primary" id="emSend" ${ready && RS.exists.email ? '' : 'disabled'}>✈ Send now</button>
+    </div>`, () => {
+    const val = id => $('#' + id).value.trim();
+    const mailto = () => `mailto:${encodeURIComponent(val('emTo'))}?subject=${encodeURIComponent(val('emSubject'))}&body=${encodeURIComponent($('#emBody').value)}${val('emCc') ? '&cc=' + encodeURIComponent(val('emCc')) : ''}`;
+    $('#emMailto').onclick = e => { e.currentTarget.href = mailto(); };
+    $('#emReset').onclick = () => { $('#emBody').value = coverLetter(app, job); };
+    $('#emCopy').onclick = async () => {
+      try { await navigator.clipboard.writeText(`Subject: ${val('emSubject')}\n\n${$('#emBody').value}`); toast('Copied'); }
+      catch (_) { $('#emBody').select(); toast('Press Ctrl+C to copy'); }
+    };
+    $('#emSend').onclick = async () => {
+      const toList = emailsIn(val('emTo')), ccList = emailsIn(val('emCc'));
+      const bad = [...toList, ...ccList].find(x => !EMAIL_RE.test(x));
+      $('#emErr').textContent = '';
+      if (!toList.length) return ($('#emErr').textContent = 'Add the e-mail address of the company / recruiter.');
+      if (bad) return ($('#emErr').textContent = `"${bad}" is not a valid e-mail address.`);
+      if (!val('emSubject')) return ($('#emErr').textContent = 'Add a subject.');
+      const btn = $('#emSend'); btn.disabled = true; btn.textContent = 'Sending…';
+      const id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      const attach = $('#emAttach').checked && resume;
+      const mail = { to: toList.join(', '), cc: ccList.join(', '), subject: val('emSubject'), body: $('#emBody').value,
+        attachResume: !!attach, resumeUrl: attach ? resume.url : '', resumeName: attach ? resume.name : '',
+        jobId: app.jobId || '', company: app.company || '', title: app.title || '', createdAt: new Date().toISOString() };
+      try {
+        await radarCommit(`Job radar: e-mail to ${app.company || toList[0]}`, [{ path: `outbox/${id}.json`, content: mail }], true);
+        const started = Date.now();
+        await dispatchRadar('email', id);
+        btn.textContent = 'Sending… (about 1 min)';
+        const run = await waitForRun(started);
+        const res = await RADAR.readJson(`outbox/${id}.json`).catch(() => ({}));
+        if (res.status === 'sent' || (run && run.conclusion === 'success' && res.status !== 'failed')) {
+          // record it in My applications
+          if (!st.apps.includes(app)) st.apps.unshift(app);
+          if (app.jobId) st.applied[app.jobId] = st.applied[app.jobId] || new Date().toISOString();
+          if (app.status === 'saved') app.status = 'applied';
+          app.contactEmail = toList[0]; app.letter = mail.body;
+          app.emails = [...(app.emails || []), { to: mail.to, subject: mail.subject, sentAt: res.sentAt || new Date().toISOString(), resume: !!attach }];
+          app.notes = [app.notes, `E-mailed ${mail.to} on ${new Date().toLocaleDateString()}${attach ? ' (resume attached)' : ''}`].filter(Boolean).join('\n');
+          app.updatedAt = new Date().toISOString();
+          saveStatusSoon(); closeModal(); toast(`E-mail sent to ${mail.to} ✓`); onDone && onDone();
+        } else {
+          const why = res.error || (run ? 'see job-radar repo → Actions for details' : 'GitHub did not finish in time — check job-radar repo → Actions');
+          $('#emErr').innerHTML = `Not sent: ${esc(why)}${/535|auth|login/i.test(why) ? '<br>Check the e-mail settings: for Zoho use an <b>app-specific password</b> and the right server (smtp.zoho.in for India accounts).' : ''}`;
+          btn.disabled = false; btn.textContent = '✈ Try again';
+        }
+      } catch (err) {
+        $('#emErr').textContent = err.status === 422 ? 'Your radar needs an update first: Setup → Update radar.' : err.message;
+        btn.disabled = false; btn.textContent = '✈ Send now';
+      }
+    };
+  });
+}
+
 /* =========================================================
    View
    ========================================================= */
@@ -238,7 +340,7 @@ async function viewJobs(main, tab = 'list') {
     `<a class="btn" href="#jobs/settings">${ico('gear')} Search profile</a>`) +
     `<div class="seg radar-tabs" id="rtabs">
       <button data-t="list">${ico('radar', 14)} Jobs</button><button data-t="apps">My applications</button><button data-t="settings">Search profile</button>
-      <button data-t="telegram">Telegram</button><button data-t="setup">Setup</button></div>
+      <button data-t="email">E-mail</button><button data-t="telegram">Telegram</button><button data-t="setup">Setup</button></div>
     <div id="rbody"><div class="panel"><div class="hint">Loading radar…</div></div></div>`;
   $$('#rtabs button').forEach(b => { b.classList.toggle('active', b.dataset.t === tab); b.onclick = () => (location.hash = 'jobs/' + b.dataset.t); });
   const body = $('#rbody');
@@ -252,7 +354,7 @@ async function viewJobs(main, tab = 'list') {
     markTab('setup'); return radarSetup(body);
   }
   if (!RS.exists.script && tab === 'list') { markTab('setup'); return radarSetup(body); }
-  ({ list: radarList, apps: radarApps, settings: radarSettings, telegram: radarTelegram, setup: radarSetup }[tab] || radarList)(body);
+  ({ list: radarList, apps: radarApps, settings: radarSettings, telegram: radarTelegram, email: radarEmail, setup: radarSetup }[tab] || radarList)(body);
 }
 
 function markTab(t) { $$('#rtabs button').forEach(b => b.classList.toggle('active', b.dataset.t === t)); }
@@ -289,7 +391,7 @@ function radarList(body) {
       <select id="jcountry"><option value="any">Any country</option>${countries.map(c => `<option>${esc(c)}</option>`).join('')}<option value="__remote">Remote only</option></select>
       <select id="jsort"><option value="score">Best match</option><option value="date">Newest</option></select>
     </div>
-    <p class="hint btn-help"><b>Open ↗</b> apply on the company's site (upload your resume there) · <b>✓ Applied</b> adds the job to <a href="#jobs/apps" style="color:var(--cyan)">My applications</a> — nothing is sent · <b>✉ Letter</b> ready cover letter to copy · <b>Hide</b> removes it from the list</p>
+    <p class="hint btn-help"><b>Open ↗</b> apply on the company's site (upload your resume there) · <b>✓ Applied</b> adds the job to <a href="#jobs/apps" style="color:var(--cyan)">My applications</a> — nothing is sent · <b>✉ E-mail</b> sends your cover letter + resume to the company · <b>🏢 Company</b> opens the company website · <b>Hide</b> removes it from the list</p>
     <div id="jlist" class="job-list"></div>
     <div class="panel" style="margin-top:18px">
       <h2>Search on job sites</h2>
@@ -334,7 +436,8 @@ function radarList(body) {
           <a class="btn btn-primary btn-sm" href="${esc(j.url)}" target="_blank" rel="noopener" title="Open the job on ${esc(j.source)} and apply there">Open ↗</a>
           <button class="btn btn-sm" data-a="save" title="Keep this job in your Saved list">${saved ? '★ Saved' : '☆ Save'}</button>
           ${applied ? `<a class="btn btn-sm" href="#jobs/apps" title="See it in My applications">📋 Track</a>` : `<button class="btn btn-sm" data-a="applied" title="Add to My applications (does not send anything)">✓ Applied</button>`}
-          <button class="btn btn-sm" data-a="letter" title="Ready cover letter for this job">✉ Letter</button>
+          <button class="btn btn-sm" data-a="email" title="Send an application e-mail with your resume">✉ E-mail${j.email ? ' <i class="dot-ok" title="E-mail found in the post"></i>' : ''}</button>
+          ${j.company ? `<a class="btn btn-sm" href="${esc(companySite(j.company))}" target="_blank" rel="noopener" title="Open ${esc(j.company)}'s website">🏢 Company</a>` : ''}
           <button class="btn btn-sm btn-danger" data-a="hide" title="Remove from this list">${st.hidden.includes(j.id) ? 'Unhide' : 'Hide'}</button>
         </div>
       </article>`;
@@ -351,10 +454,7 @@ function radarList(body) {
     const id = b.closest('.job').dataset.id;
     if (b.dataset.a === 'save') st.saved = st.saved.includes(id) ? st.saved.filter(x => x !== id) : [...st.saved, id];
     const job = (data.jobs || []).find(x => x.id === id);
-    if (b.dataset.a === 'letter') {
-      const app = findApp(id) || appFromJob(job);
-      return showLetter(app, job, findApp(id) ? text => { app.letter = text; app.updatedAt = new Date().toISOString(); saveStatusSoon(); toast('Letter saved'); } : null);
-    }
+    if (b.dataset.a === 'email') return showEmail(job, findApp(id), render);
     if (b.dataset.a === 'applied') {
       st.applied[id] = new Date().toISOString();
       if (!findApp(id)) st.apps.unshift(appFromJob(job));
@@ -421,7 +521,8 @@ function radarApps(body) {
           <div class="app-btns">
             ${a.url ? `<a class="btn btn-sm" href="${esc(a.url)}" target="_blank" rel="noopener" title="Open job page">↗</a>` : ''}
             <button class="btn btn-sm" data-a="edit">${ico('edit', 14)} Edit</button>
-            <button class="btn btn-sm" data-a="letter" title="Cover letter">✉</button>
+            <button class="btn btn-sm" data-a="letter" title="E-mail / cover letter">✉</button>
+            ${a.company ? `<a class="btn btn-sm" href="${esc(companySite(a.company))}" target="_blank" rel="noopener" title="Company website">🏢</a>` : ''}
             <button class="btn btn-sm btn-danger icon-btn" data-a="del" title="Delete">${ico('trash', 14)}</button>
           </div>
         </div>
@@ -476,7 +577,7 @@ function radarApps(body) {
     if (b.dataset.a === 'edit') editForm(a, false);
     if (b.dataset.a === 'letter') {
       const job = (RS.jobs.jobs || []).find(x => x.id === a.jobId);
-      showLetter(a, job, text => { a.letter = text; a.updatedAt = new Date().toISOString(); render(); saveStatusSoon(); toast('Letter saved'); });
+      showEmail(job, a, render);
     }
     if (b.dataset.a === 'del') {
       if (row.classList.contains('confirm')) {
@@ -623,6 +724,77 @@ function radarTelegram(body) {
   };
 }
 
+/* ---------- E-mail sending settings ---------- */
+function radarEmail(body) {
+  const e = RS.cfg.email; let dirty = false;
+  const resume = resumeInfo();
+  body.innerHTML = `
+    ${!RS.exists.email ? `<div class="banner">Your radar is an older version. Click <b>Update radar</b> once so it can send e-mails. <button class="btn btn-sm" id="updRadar" style="margin-left:8px">Update radar</button></div>` : ''}
+    <form id="emf">
+    <div class="panel">
+      <h2>Send applications from your own e-mail</h2>
+      <ol class="steps">
+        <li>On a job click <b>✉ E-mail</b>. Subject, message (cover letter + your signature) and your resume are filled in automatically.</li>
+        <li>Add the company's e-mail if the job post doesn't have one, check the text, and click <b>Send now</b>.</li>
+        <li>GitHub (your private job-radar repo) sends it from <b>your</b> mailbox, so replies come straight to you. The job moves to <b>My applications</b>.</li>
+      </ol>
+      <p class="hint">Resume to attach: ${resume ? `<b>${esc(resume.name)}</b> ✓ (from Player profile)` : '<b style="color:var(--amber)">none yet</b> — upload it in <a href="#profile" style="color:var(--cyan)">Player profile</a>'}</p>
+    </div>
+    <div class="panel">
+      <h2>Mailbox (SMTP)</h2>
+      <details class="help" style="margin:0 0 14px"><summary>Zoho Mail: how to get the password (2 min)</summary><ol>
+        <li>Open <a href="https://accounts.zoho.in/home#security/app_password" target="_blank" rel="noopener">Zoho Accounts → Security → App Passwords</a> (zoho.com accounts: accounts.zoho.com).</li>
+        <li>Click <b>Generate New Password</b>, name it <code>Job Radar</code>, copy the password and paste it below.</li>
+        <li>In Zoho Mail → Settings → <b>Mail Accounts → IMAP/POP/SMTP</b>, make sure SMTP access is on.</li>
+        <li>Server: <code>smtp.zoho.in</code> for India accounts (mail.zoho.in), <code>smtp.zoho.com</code> otherwise. Port <b>465</b>.</li>
+      </ol></details>
+      <div class="grid-2">
+        <div class="field"><label>SMTP server</label><input type="text" name="host" value="${esc(e.host)}" placeholder="smtp.zoho.in"></div>
+        <div class="field"><label>Port</label><select name="port">${[465, 587].map(n => `<option value="${n}" ${Number(e.port) === n ? 'selected' : ''}>${n}${n === 465 ? ' (SSL)' : ' (STARTTLS)'}</option>`).join('')}</select></div>
+        <div class="field"><label>Your e-mail (login)</label><input type="email" name="user" value="${esc(e.user)}" autocomplete="off"></div>
+        <div class="field"><label>App password</label><input type="password" name="pass" value="${esc(e.pass)}" autocomplete="new-password" placeholder="App-specific password"></div>
+        <div class="field"><label>Sender name</label><input type="text" name="fromName" value="${esc(e.fromName)}"></div>
+        <div class="field"><label>Subject</label><input type="text" name="subject" value="${esc(e.subject)}"><small><code>{title}</code> = job title, <code>{company}</code> = company</small></div>
+      </div>
+      <label class="toggle"><span><b>Send me a copy (BCC)</b><small>So every application is also in your inbox</small></span><span class="switch"><input type="checkbox" name="copyToSelf" ${e.copyToSelf ? 'checked' : ''}><span></span></span></label>
+      <p class="hint">The password is stored only in your <b>private</b> job-radar repo, like the Telegram token.</p>
+    </div>
+    <div class="panel">
+      <h2>Signature</h2>
+      <div class="field" style="margin:0"><textarea name="signature" rows="8" style="font-family:var(--font-body)">${esc(e.signature || defaultSignature())}</textarea><small>Added at the end of every e-mail.</small></div>
+    </div>
+    <div class="save-bar"><button type="button" class="btn" id="emTest">Send test to myself</button><button class="btn btn-primary" type="submit">${ico('save')} Save</button></div>
+    </form>`;
+  const form = $('#emf');
+  const collect = () => {
+    const fd = new FormData(form);
+    const g = k => String(fd.get(k) || '').trim();
+    return { ...RS.cfg.email, host: g('host'), port: Number(g('port')) || 465, user: g('user'), pass: String(fd.get('pass') || ''), fromName: g('fromName'),
+      subject: g('subject'), signature: String(fd.get('signature') || '').trim(), copyToSelf: form.copyToSelf.checked,
+      resumeUrl: resume ? resume.url : '', resumeName: resume ? resume.name : '' };
+  };
+  const persist = async () => { const next = { ...RS.cfg, email: collect() }; await radarCommit('Job radar: update e-mail settings', [{ path: 'config.json', content: next }]); RS.cfg = next; dirty = false; };
+  form.addEventListener('input', () => (dirty = true));
+  form.addEventListener('submit', async ev => { ev.preventDefault(); try { await persist(); } catch (_) {} });
+  if ($('#updRadar')) $('#updRadar').onclick = () => { location.hash = 'jobs/setup'; setTimeout(() => $('#installBtn') && $('#installBtn').click(), 1200); };
+  $('#emTest').onclick = async () => {
+    const c = collect();
+    if (!c.host || !c.user || !c.pass) return toast('Fill server, e-mail and app password first', 'err');
+    if (!RS.exists.email) return toast('Update the radar first (button at the top)', 'err');
+    const btn = $('#emTest'); btn.disabled = true; btn.textContent = 'Sending test…';
+    try {
+      await persist();
+      const started = Date.now();
+      await dispatchRadar('email-test');
+      toast(`Sending a test to ${c.user} — about 1 minute`);
+      const r = await waitForRun(started);
+      if (r && r.conclusion === 'success') toast('Test e-mail sent ✓ — check your inbox');
+      else if (r) toast('Test failed — usually a wrong app password or server. Details: job-radar repo → Actions', 'err');
+    } catch (err) { toast(err.status === 403 ? 'The Job Radar key needs "Actions: Read and write".' : err.message, 'err'); }
+    btn.disabled = false; btn.textContent = 'Send test to myself';
+  };
+}
+
 /* ---------- Setup / install ---------- */
 function radarSetup(body) {
   const repoName = CFG.radarRepo || RADAR_REPO_DEFAULT;
@@ -706,7 +878,7 @@ function radarSetup(body) {
       if (!RS.exists.config) files.push({ path: 'config.json', content: { ...RS.cfg, version: RADAR_VERSION } });
       files.push({ path: 'status.json', content: RS.status });
       await radarCommit(RS.exists.script ? 'Job radar: update' : 'Job radar: install', files);
-      RS.exists.script = RS.exists.config = true;
+      RS.exists.script = RS.exists.config = RS.exists.email = true;
       toast('Radar installed ✓ — now fill Search profile and Telegram');
       location.hash = 'jobs/settings';
     } catch (err) {

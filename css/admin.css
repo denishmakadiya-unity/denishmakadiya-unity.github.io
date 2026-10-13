@@ -393,3 +393,7 @@ input[type=date] { width: 100%; padding: 10px 13px; border: 1px solid var(--line
 .title-card { max-width: 480px; }
 .key-btn { width: 100%; justify-content: center; margin: 0 0 8px; border-color: var(--cyan); color: var(--cyan); }
 .key-steps { margin: 0 0 16px !important; font-size: 12.5px; line-height: 1.55; }
+.dot-ok { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--lime); margin-left: 4px; vertical-align: middle; box-shadow: 0 0 6px var(--lime); }
+.job-acts { min-width: 136px; }
+.modal .banner { margin-bottom: 14px; }
+.modal .field small a { text-decoration: underline; }

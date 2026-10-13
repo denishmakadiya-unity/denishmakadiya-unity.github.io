@@ -6,9 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'search or telegram-test'
+        description: 'search, telegram-test, email or email-test'
         required: false
         default: 'search'
+      id:
+        description: 'outbox id (email mode)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -30,6 +34,7 @@ jobs:
         run: node radar.mjs
         env:
           MODE: ${{ github.event.inputs.mode || 'search' }}
+          OUTBOX_ID: ${{ github.event.inputs.id }}
       - name: Save results
         if: ${{ (github.event.inputs.mode || 'search') == 'search' }}
         run: |
@@ -38,4 +43,13 @@ jobs:
           git add jobs.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Job radar: update results"
+          for i in 1 2 3; do git pull --rebase --quiet && git push && break; sleep 5; done
+      - name: Save e-mail status
+        if: ${{ always() && github.event.inputs.mode == 'email' }}
+        run: |
+          git config user.name "job-radar-bot"
+          git config user.email "job-radar-bot@users.noreply.github.com"
+          git add outbox
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Job radar: e-mail status"
           for i in 1 2 3; do git pull --rebase --quiet && git push && break; sleep 5; done
