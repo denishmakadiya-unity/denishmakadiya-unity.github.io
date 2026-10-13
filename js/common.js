@@ -254,7 +254,7 @@ function projectCard(p, i = 0) {
   if (p.type === 'website' && p.otherUrl) actions += `<a class="btn" href="${esc(p.otherUrl)}" target="_blank" rel="noopener" data-track="visit/${esc(p.slug)}">${ICONS.ext} Visit site</a>`;
   else if (p.playStoreUrl) actions += `<a class="btn" href="${esc(p.playStoreUrl)}" target="_blank" rel="noopener">${ICONS.googleplay} Play Store</a>`;
   else if (p.assetStoreUrl) actions += `<a class="btn" href="${esc(p.assetStoreUrl)}" target="_blank" rel="noopener">${ICONS.unity} Asset Store</a>`;
-  if (!actions) actions = `<span class="btn btn-ghost">View details ${ICONS.arrow}</span>`;
+  if (!actions) actions = `<a class="btn btn-ghost" href="${projectHref(p.slug)}">View details ${ICONS.arrow}</a>`;
   return `
   <article class="card" data-type="${esc(p.type)}" style="animation-delay:${Math.min(i, 8) * 60}ms">
     <a class="card-link" href="${projectHref(p.slug)}" aria-label="${esc(p.title)}"></a>
