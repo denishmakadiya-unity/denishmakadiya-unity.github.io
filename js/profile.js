@@ -1,7 +1,7 @@
 /* Profile / resume page — everything comes from data.json */
 const SOCIAL = {
   github: ['GitHub', 'github'], linkedin: ['LinkedIn', 'linkedin'], youtube: ['YouTube', 'youtube'], twitter: ['X / Twitter', 'twitter'],
-  instagram: ['Instagram', 'instagram'], playstore: ['Google Play', 'googleplay'], assetstore: ['Unity Asset Store', 'unity'], itch: ['itch.io', 'itch']
+  instagram: ['Instagram', 'instagram'], playstore: ['Google Play', 'googleplay'], assetstore: ['Unity Asset Store', 'unity'], itch: ['itch.io', 'itch'], discord: ['Discord', 'discord']
 };
 
 function section(title, body, cls = '') {

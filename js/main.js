@@ -2,8 +2,8 @@
 let ALL = [];
 let state = { type: 'all', q: '' };
 
-const SOCIAL_LABEL = { github: 'GitHub', linkedin: 'LinkedIn', youtube: 'YouTube', twitter: 'X / Twitter', instagram: 'Instagram', playstore: 'Google Play', assetstore: 'Unity Asset Store', itch: 'itch.io' };
-const SOCIAL_ICON = { github: 'github', linkedin: 'linkedin', youtube: 'youtube', twitter: 'twitter', instagram: 'instagram', playstore: 'googleplay', assetstore: 'unity', itch: 'itch' };
+const SOCIAL_LABEL = { github: 'GitHub', linkedin: 'LinkedIn', youtube: 'YouTube', twitter: 'X / Twitter', instagram: 'Instagram', playstore: 'Google Play', assetstore: 'Unity Asset Store', itch: 'itch.io', discord: 'Discord' };
+const SOCIAL_ICON = { github: 'github', linkedin: 'linkedin', youtube: 'youtube', twitter: 'twitter', instagram: 'instagram', playstore: 'googleplay', assetstore: 'unity', itch: 'itch', discord: 'discord' };
 
 function setText(sel, val) { const el = $(sel); if (el && val) el.textContent = val; }
 

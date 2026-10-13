@@ -849,7 +849,7 @@ function viewProfile(main) {
   pr.socials = pr.socials || {};
   const groups = pr.skillGroups || [], personal = pr.personal || [];
   let avatarFile = null, removeAvatar = false, resumeFile = null, removeResume = false;
-  const socials = [['github', 'GitHub'], ['linkedin', 'LinkedIn'], ['youtube', 'YouTube'], ['twitter', 'X / Twitter'], ['instagram', 'Instagram'], ['playstore', 'Google Play developer page'], ['assetstore', 'Unity Asset Store publisher page'], ['itch', 'itch.io']];
+  const socials = [['github', 'GitHub'], ['linkedin', 'LinkedIn'], ['youtube', 'YouTube'], ['twitter', 'X / Twitter'], ['instagram', 'Instagram'], ['playstore', 'Google Play developer page'], ['assetstore', 'Unity Asset Store publisher page'], ['itch', 'itch.io'], ['discord', 'Discord']];
 
   main.innerHTML = header('// Character', 'Player profile', 'Shown on the home page and the profile page') + `
   <form id="pf">
