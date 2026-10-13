@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/admin.css?v=20261013">
 </head>
 <body>
   <div class="fx-grid"></div><div class="fx-scan"></div>
@@ -36,18 +36,10 @@
       <form class="login-box" id="setupForm" hidden>
         <h2 class="setup-h" id="setupTitle">First-time setup</h2>
         <p class="hint" id="setupIntro" style="margin:0 0 14px">Create your admin username and password. You need a GitHub access key <b>once</b> — it is locked with your password and you won't have to paste it again.</p>
-        <div class="field"><label for="sToken">GitHub access key (one time)</label>
+        <a class="btn btn-sm key-btn" id="makeKey" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">① Get key from GitHub ↗</a>
+        <p class="hint key-steps">On the GitHub page everything is filled in. Only choose <b>Only select repositories → <span id="repoName">your site repo</span></b>, click <b>Generate token</b>, copy it and paste it below. You do this <b>only once</b>.</p>
+        <div class="field"><label for="sToken">② Paste the key here</label>
           <input id="sToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></div>
-        <details class="help" style="margin:-4px 0 14px">
-          <summary>How do I get an access key? (2 min)</summary>
-          <ol>
-            <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"><b>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token</b></a>.</li>
-            <li>Name: <code>Portfolio admin</code>. Expiration: e.g. 1 year.</li>
-            <li><b>Repository access → Only select repositories →</b> pick <code id="repoName">your site repo</code>.</li>
-            <li><b>Repository permissions → Contents → Read and write.</b></li>
-            <li>Click <b>Generate token</b>, copy it and paste it above.</li>
-          </ol>
-        </details>
         <div class="field"><label for="sUser">New username</label>
           <input id="sUser" type="text" autocomplete="username" spellcheck="false" autocapitalize="off" required minlength="3"></div>
         <div class="field"><label for="sPass">New password</label>
@@ -101,10 +93,10 @@
   </div>
   <div class="toasts" id="toasts"></div>
 
-  <script src="js/gh.js"></script>
-  <script src="js/vault.js"></script>
-  <script src="js/vendor/jszip.min.js"></script>
-  <script src="js/admin.js"></script>
-  <script src="js/radar-admin.js"></script>
+  <script src="js/gh.js?v=20261013"></script>
+  <script src="js/vault.js?v=20261013"></script>
+  <script src="js/vendor/jszip.min.js?v=20261013"></script>
+  <script src="js/admin.js?v=20261013"></script>
+  <script src="js/radar-admin.js?v=20261013"></script>
 </body>
 </html>
