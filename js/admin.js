@@ -73,6 +73,8 @@ const store = {
 };
 let CFG = { ...detectRepo(), branch: '', dir: '', api: 'https://api.github.com' };
 try { Object.assign(CFG, JSON.parse(store.get('pv_cfg') || '{}')); } catch (_) {}
+// On GitHub Pages the address already tells us the right repo — an old saved Config must not override it
+if (/\.github\.io$/i.test(location.hostname)) Object.assign(CFG, detectRepo());
 let GH = null;
 let DATA = null;
 
@@ -212,7 +214,8 @@ function setLoginMode(mode, msg = '') {
   $('#setupIntro').innerHTML = VAULT
     ? 'Forgot your password? Paste a GitHub access key for this repo to prove it is you, then choose a new username and password. <i>A saved Job Radar key will need to be pasted again.</i>'
     : 'Create your admin username and password. You need a GitHub access key <b>once</b> — it is locked with your password and you won\'t have to paste it again.';
-  $('#makeKey').href = keyUrl('Portfolio admin', { contents: 'write' }, `Saves the portfolio website ${CFG.owner}/${CFG.repo} from the admin panel`);
+  $('#makeKey').href = keyUrl('Portfolio admin', { contents: 'write', target_name: CFG.owner }, `Saves the portfolio website ${CFG.owner}/${CFG.repo} from the admin panel`);
+  $('#repoHint').textContent = `${CFG.owner}/${CFG.repo}`;
   const legacy = store.get('pv_token'); // people who logged in with a key before
   if (mode === 'setup' && legacy && !$('#sToken').value) $('#sToken').value = legacy;
   setTimeout(() => (mode === 'login' ? $('#lUser') : ($('#sToken').value ? $('#sUser') : $('#sToken'))).focus(), 50);
@@ -279,7 +282,16 @@ $('#setupForm').addEventListener('submit', async e => {
     ['sToken', 'sPass', 'sPass2'].forEach(id => ($('#' + id).value = ''));
     toast('Login saved ✓ — next time just use your username and password');
     startApp();
-  } catch (e2) { err(e2.status === 401 ? 'This GitHub key is wrong or expired.' : e2.message); }
+  } catch (e2) {
+    let m = e2.status === 401 ? 'This GitHub key is wrong or expired.' : e2.message;
+    if (e2.status === 404 || e2.status === 403) {
+      const who = await GH.getUser().then(u => u.login, () => '');
+      m = who && who.toLowerCase() !== CFG.owner.toLowerCase()
+        ? `This key was made in the GitHub account "${who}", but your website is in "${CFG.owner}". Log in to GitHub as ${CFG.owner} and make the key again.`
+        : `This key can't open the repo "${CFG.owner}/${CFG.repo}". Make the key again and under Repository access choose "Only select repositories" → ${CFG.repo}.`;
+    }
+    err(m);
+  }
   btn.disabled = false; btn.textContent = 'Save login & start';
 });
 

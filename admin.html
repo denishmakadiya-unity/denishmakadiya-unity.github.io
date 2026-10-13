@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=20261013">
+  <link rel="stylesheet" href="css/admin.css?v=20261013b">
 </head>
 <body>
   <div class="fx-grid"></div><div class="fx-scan"></div>
@@ -37,7 +37,7 @@
         <h2 class="setup-h" id="setupTitle">First-time setup</h2>
         <p class="hint" id="setupIntro" style="margin:0 0 14px">Create your admin username and password. You need a GitHub access key <b>once</b> — it is locked with your password and you won't have to paste it again.</p>
         <a class="btn btn-sm key-btn" id="makeKey" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">① Get key from GitHub ↗</a>
-        <p class="hint key-steps">On the GitHub page everything is filled in. Only choose <b>Only select repositories → <span id="repoName">your site repo</span></b>, click <b>Generate token</b>, copy it and paste it below. You do this <b>only once</b>.</p>
+        <p class="hint key-steps">Be logged in to GitHub as the owner of <b id="repoHint">your site</b>. On the GitHub page everything is filled in. Only choose <b>Only select repositories → <span id="repoName">your site repo</span></b>, click <b>Generate token</b>, copy it and paste it below. You do this <b>only once</b>.</p>
         <div class="field"><label for="sToken">② Paste the key here</label>
           <input id="sToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></div>
         <div class="field"><label for="sUser">New username</label>
@@ -93,10 +93,10 @@
   </div>
   <div class="toasts" id="toasts"></div>
 
-  <script src="js/gh.js?v=20261013"></script>
-  <script src="js/vault.js?v=20261013"></script>
-  <script src="js/vendor/jszip.min.js?v=20261013"></script>
-  <script src="js/admin.js?v=20261013"></script>
-  <script src="js/radar-admin.js?v=20261013"></script>
+  <script src="js/gh.js?v=20261013b"></script>
+  <script src="js/vault.js?v=20261013b"></script>
+  <script src="js/vendor/jszip.min.js?v=20261013b"></script>
+  <script src="js/admin.js?v=20261013b"></script>
+  <script src="js/radar-admin.js?v=20261013b"></script>
 </body>
 </html>
