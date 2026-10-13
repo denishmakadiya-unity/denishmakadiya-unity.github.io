@@ -309,7 +309,7 @@
       "changelog": [
         {
           "version": "1.0.0",
-          "date": "18/07/2021",
+          "date": "July  2021",
           "notes": "v1.0.0\n\n🚀 Initial release of Nine Men's Morris!\n\n🤖 Added single-player mode (Play vs Bot).\n\n👥 Added local multiplayer mode (Play vs Friend).\n\n🎨 Introduced custom avatars and player name customization.\n\n🎵 Added sound, music, and vibration controls.\n\n✨ Smooth wooden board UI and completely offline gameplay."
         }
       ],
@@ -324,12 +324,12 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T08:13:14.813Z",
-      "updatedAt": "2026-10-13T13:10:21.466Z",
+      "updatedAt": "2026-10-13T13:13:55.164Z",
       "slug": "nine-mens-morris-board-game",
       "icon": "uploads/images/1791894800939-d40rj-playstore.webp",
       "videoFile": "uploads/videos/1791896461460-jv8de-whatsapp-video-2026-10-13-at-6-1.mp4",
       "cover": "uploads/images/1791897021465-9lta5-gemini-generated-image-iynqlkiynqlkiynq.webp"
     }
   ],
-  "updatedAt": "2026-10-13T13:10:23.034Z"
+  "updatedAt": "2026-10-13T13:13:56.839Z"
 }
