@@ -17,19 +17,19 @@
         "text": "Mobile and PC games built with Unity, including gameplay systems, UI, animations, performance optimization, monetization, and store-ready builds."
       },
       {
+        "icon": "asset",
+        "title": "Unity Tools & Asset Packages",
+        "text": "Develop reusable Unity tools, editor extensions, templates, and asset packages that streamline workflows and help developers build faster."
+      },
+      {
         "icon": "app",
         "title": "Mobile App Development",
         "text": "Android and iOS applications with intuitive UI, reliable integrations, smooth performance, and production-ready builds."
       },
       {
         "icon": "website",
-        "title": "Websites",
-        "text": "Fast, modern websites and web apps — from landing pages to complete web platforms."
-      },
-      {
-        "icon": "asset",
-        "title": "Unity Assets",
-        "text": "Ready-to-use packages, templates and systems — drop them in and ship faster."
+        "title": "Websites & Web Applications",
+        "text": "Build responsive websites and web applications with modern UI, dynamic content, admin dashboards, and maintainable architecture."
       }
     ],
     "replyTime": "Usually replies within 24 hours",
@@ -39,7 +39,24 @@
     "hideRepos": [],
     "web3formsKey": "",
     "goatcounter": "",
-    "faq": [],
+    "faq": [
+      {
+        "q": "Do you take freelance projects?",
+        "a": "Yes — games, mobile apps, websites and Unity tools. Share your idea with the form and I will reply with questions and an estimate."
+      },
+      {
+        "q": "Which platforms do you build for?",
+        "a": "Android, iOS, PC and WebGL with Unity, plus websites and web apps."
+      },
+      {
+        "q": "How do you charge?",
+        "a": "Fixed price for well-defined projects, or hourly / monthly for ongoing work. You get a clear estimate before we start."
+      },
+      {
+        "q": "Are you open to full-time roles?",
+        "a": "I am open to the right opportunity — choose \"Job offer\" in the form and tell me about the role."
+      }
+    ],
     "testimonials": []
   },
   "profile": {
@@ -273,5 +290,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:48:15.962Z"
+  "updatedAt": "2026-10-13T07:51:11.572Z"
 }
