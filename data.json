@@ -293,7 +293,9 @@
       "type": "game",
       "published": true,
       "featured": false,
-      "tags": [],
+      "tags": [
+        "#NineMensMorris #StrategyGame #BoardGames #ClassicGames #Multiplayer #PuzzleGame #BrainTeaser #OfflineGame #BoardGameGeek"
+      ],
       "platforms": [
         "Android",
         "iOS"
@@ -301,11 +303,17 @@
       "gallery": [],
       "id": "8456c490-2a43-4d29-aedd-76d112e0a77a",
       "title": "Nine Men’s Morris (board game)",
-      "shortDescription": "",
-      "description": "",
+      "shortDescription": "Experience the classic Nine Men's Morris! Form a mill, capture opponent pieces, and claim victory! 🧠🎲",
+      "description": "Dive into the ultimate strategic board game, Nine Men's Morris! Also known as Navakankari, Merels, or Mills, this timeless game challenges your logic and planning skills on a beautifully crafted digital wooden board.\n\nKey Features:\n\n🤖 Play vs Bot: Test your strategic skills against an intelligent AI.\n\n👥 Play vs Friend: Enjoy local multiplayer (Pass & Play) with your friends and family.\n\n🧑‍🎨 Custom Avatars & Profiles: Choose your favorite avatar from a unique collection and set your custom player name.\n\n⚙️ Customizable Settings: Easily toggle Sound, Music, and Vibration for a personalized experience.\n\n🏆 Earn Rewards: Win matches to collect in-game coins and track your progress!\n\nHow to Play:\n\nPlace: Take turns placing your pieces on the empty spots of the board.\n\nForm a Mill: Align 3 of your pieces in a straight line to create a \"Mill\" (highlighted in green).\n\nCapture: Every time you form a Mill, capture one of your opponent's pieces.\n\nWin: Reduce your opponent to 2 pieces or block all their possible moves to win the match!",
       "docs": "",
-      "changelog": [],
-      "version": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "18/07/2021",
+          "notes": "v1.0.0\n\n🚀 Initial release of Nine Men's Morris!\n\n🤖 Added single-player mode (Play vs Bot).\n\n👥 Added local multiplayer mode (Play vs Friend).\n\n🎨 Introduced custom avatars and player name customization.\n\n🎵 Added sound, music, and vibration controls.\n\n✨ Smooth wooden board UI and completely offline gameplay."
+        }
+      ],
+      "version": "1.0.0",
       "unityVersion": "2020.1.1f1",
       "price": "",
       "youtubeUrl": "",
@@ -316,11 +324,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T08:13:14.813Z",
-      "updatedAt": "2026-10-13T13:01:01.461Z",
+      "updatedAt": "2026-10-13T13:06:08.083Z",
       "slug": "nine-mens-morris-board-game",
       "icon": "uploads/images/1791894800939-d40rj-playstore.webp",
       "videoFile": "uploads/videos/1791896461460-jv8de-whatsapp-video-2026-10-13-at-6-1.mp4"
     }
   ],
-  "updatedAt": "2026-10-13T13:01:02.322Z"
+  "updatedAt": "2026-10-13T13:06:09.157Z"
 }
