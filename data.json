@@ -14,12 +14,12 @@
       {
         "icon": "game",
         "title": "Game Development",
-        "text": "Mobile & PC games in Unity — gameplay systems, UI, monetization and store release."
+        "text": "Mobile and PC games built with Unity, including gameplay systems, UI, animations, performance optimization, monetization, and store-ready builds."
       },
       {
         "icon": "app",
-        "title": "Mobile Applications",
-        "text": "Android & iOS apps built with Unity — clean UI, smooth performance and store-ready builds."
+        "title": "Mobile App Development",
+        "text": "Android and iOS applications with intuitive UI, reliable integrations, smooth performance, and production-ready builds."
       },
       {
         "icon": "website",
@@ -273,5 +273,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:47:04.160Z"
+  "updatedAt": "2026-10-13T07:48:15.962Z"
 }
