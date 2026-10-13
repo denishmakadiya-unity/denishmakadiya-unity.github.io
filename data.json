@@ -3,13 +3,13 @@
     "brand": "Denish Makadiya",
     "initials": "DM",
     "available": true,
-    "statusText": "Open to freelance & new opportunities",
-    "workTitle": "Games, apps, websites & Unity assets",
-    "workSub": "Play the games, install the apps, visit the websites, or grab the Unity assets I have built.",
-    "aboutTitle": "From prototype to Play Store.",
-    "contactTitle": "Have a game idea? Let's build it.",
-    "contactText": "Games, apps, websites or collaboration — send a message and I'll get back to you.",
-    "footerText": "Built with Unity spirit.",
+    "statusText": "Open to freelance projects & new opportunities",
+    "workTitle": "Featured Projects & Unity Tools",
+    "workSub": "Explore my Unity games, interactive applications, developer tools, and selected projects built with a focus on quality, performance, and usability.",
+    "aboutTitle": "Building Interactive Experiences from Concept to Release",
+    "contactTitle": "Have a Project in Mind? Let's Build It.",
+    "contactText": "Looking for an experienced Unity developer for your next game, interactive application, or custom Unity tool? Let's discuss your requirements and turn your idea into a reliable, high-quality product.",
+    "footerText": "Designed & Developed by Denish Makadiya | Unity Developer",
     "services": [
       {
         "icon": "game",
@@ -31,7 +31,16 @@
         "title": "Unity Assets",
         "text": "Ready-to-use packages, templates and systems — drop them in and ship faster."
       }
-    ]
+    ],
+    "replyTime": "Usually replies within 24 hours",
+    "timezone": "Asia/Kolkata",
+    "showRepos": true,
+    "githubUser": "denishmakadiya-unity",
+    "hideRepos": [],
+    "web3formsKey": "",
+    "goatcounter": "",
+    "faq": [],
+    "testimonials": []
   },
   "profile": {
     "name": "Denish Makadiya",
@@ -264,5 +273,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:37:26.926Z"
+  "updatedAt": "2026-10-13T07:47:04.160Z"
 }
