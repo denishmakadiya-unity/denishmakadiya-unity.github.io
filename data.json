@@ -226,7 +226,17 @@
         "Android",
         "iOS"
       ],
-      "gallery": [],
+      "gallery": [
+        "uploads/images/1791874898125-y43h0-01-home.webp",
+        "uploads/images/1791874898125-ir2or-02-product-guide.webp",
+        "uploads/images/1791874898125-8ehtw-03-settings.webp",
+        "uploads/images/1791874898125-qkvh9-04-code.webp",
+        "uploads/images/1791874898125-vkbrb-05-docs-gamesystems.webp",
+        "uploads/images/1791874898125-j8yg5-05-docs-gamesystems.webp",
+        "uploads/images/1791874898125-2d8c6-07-build.webp",
+        "uploads/images/1791874898126-b7bx4-08-settings-privacydata.webp",
+        "uploads/images/1791874898126-c7e4i-09-testing.webp"
+      ],
       "id": "e039ea3a-8ecc-41f3-bbe3-aeb12f048368",
       "title": "DevForge AI – AI Game Development Toolkit",
       "shortDescription": "AI assistant for the Unity Editor: chat, code agent, scene and UI builders, optimizers and QA. Uses your own AI tool login (Claude Code, Codex, Antigravity, Cursor) – no API keys.",
@@ -250,9 +260,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T06:59:33.454Z",
-      "updatedAt": "2026-10-13T06:59:33.454Z",
-      "slug": "devforge-ai-ai-game-development-toolkit"
+      "updatedAt": "2026-10-13T07:01:38.126Z",
+      "slug": "devforge-ai-ai-game-development-toolkit",
+      "cover": "uploads/images/1791874898125-cvh5o-cover-1950x1300.webp",
+      "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T06:59:34.252Z"
+  "updatedAt": "2026-10-13T07:01:39.360Z"
 }
