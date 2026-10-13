@@ -288,7 +288,37 @@
       "slug": "devforge-ai-ai-game-development-toolkit",
       "cover": "uploads/images/1791874898125-cvh5o-cover-1950x1300.webp",
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [],
+      "id": "8456c490-2a43-4d29-aedd-76d112e0a77a",
+      "title": "Nine Men’s Morris (board game)",
+      "shortDescription": "",
+      "description": "",
+      "docs": "",
+      "changelog": [],
+      "version": "",
+      "unityVersion": "2020.1.1f1",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-13T08:13:14.813Z",
+      "updatedAt": "2026-10-13T08:13:14.813Z",
+      "slug": "nine-mens-morris-board-game"
     }
   ],
-  "updatedAt": "2026-10-13T07:52:26.620Z"
+  "updatedAt": "2026-10-13T08:13:15.679Z"
 }
