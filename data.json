@@ -104,6 +104,10 @@
       {
         "label": "Developer Tools",
         "value": "Unity Editor Extensions, Custom Inspector Tools, Automation"
+      },
+      {
+        "label": "AI Tools & Integration",
+        "value": "Claude Code, OpenAI Codex, Google Gemini, AI-Assisted Development, AI Agent Integration  Copy label and value"
       }
     ],
     "personal": [
@@ -260,5 +264,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:34:13.859Z"
+  "updatedAt": "2026-10-13T07:37:26.926Z"
 }
