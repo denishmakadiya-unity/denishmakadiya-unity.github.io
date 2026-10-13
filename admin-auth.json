@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "note": "Encrypted admin login. Safe to keep in a public repo only with a strong password.",
+  "hint": "d•••",
+  "kdf": {
+    "name": "PBKDF2",
+    "hash": "SHA-256",
+    "iter": 600000,
+    "salt": "GFwLkbJS9Jef1yZxMDfYQg=="
+  },
+  "iv": "SUtw4ad4GIh9LlYI",
+  "data": "AQYMqUtkz/XHxIwHIxdYWczTxlTQgzAgs4DgFilKdLgnabu/Yo1BWDyduyLP0tvlNVpDBsUnJyIGznwACGSZKJvRCfCZ4QCuFz410Fz2tEJoHdCvXhpkPorcr3NLWKFpfKzglK+3227zAw2NIQfC0s4/GJ8PkrPwoksBn4L7uoAFnRABEZSAY2P6r8bPq8WPQ357xkvsCec1dvGqoA4P585aPNw8XirUr8+1O5mDePrHxIp+w7/4d8er+H2edQgqQPs8OaE4Y9LWzeE3bicG9m4DUsF1zJdufUWWVuSzlL2C",
+  "updatedAt": "2026-10-13T06:46:27.587Z"
+}
