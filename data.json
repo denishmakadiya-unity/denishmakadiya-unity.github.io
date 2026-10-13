@@ -206,7 +206,8 @@
       "instagram": "",
       "playstore": "",
       "assetstore": "",
-      "itch": ""
+      "itch": "",
+      "discord": "https://discord.com/channels/@me"
     }
   },
   "projects": [
@@ -259,5 +260,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:30:05.000Z"
+  "updatedAt": "2026-10-13T07:34:13.859Z"
 }
