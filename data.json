@@ -191,33 +191,6 @@
   },
   "projects": [
     {
-      "type": "game",
-      "published": true,
-      "featured": false,
-      "tags": [],
-      "platforms": [],
-      "gallery": [],
-      "id": "ec974791-d0a2-49ae-bf78-a1751c4954f4",
-      "title": "dsfsdf",
-      "shortDescription": "",
-      "description": "",
-      "docs": "",
-      "changelog": [],
-      "version": "",
-      "unityVersion": "",
-      "price": "",
-      "youtubeUrl": "",
-      "downloadUrl": "",
-      "playStoreUrl": "",
-      "assetStoreUrl": "",
-      "githubUrl": "",
-      "otherUrl": "",
-      "order": 0,
-      "createdAt": "2026-10-13T06:42:23.962Z",
-      "updatedAt": "2026-10-13T06:42:23.962Z",
-      "slug": "dsfsdf"
-    },
-    {
       "type": "asset",
       "published": true,
       "featured": false,
@@ -266,5 +239,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:07:27.379Z"
+  "updatedAt": "2026-10-13T07:09:04.274Z"
 }
