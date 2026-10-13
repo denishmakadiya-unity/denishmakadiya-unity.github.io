@@ -66,7 +66,11 @@
     "about": "I am a Senior Unity Developer with 9+ years of experience developing mobile games, interactive applications, and immersive AR/VR experiences. I specialize in Unity and C#, building gameplay systems, user interfaces, cross-platform applications, and optimized real-time experiences from concept to release.\n\nMy expertise includes game architecture, reusable code, performance optimization, multiplayer systems, UI development, and AR/VR technologies. I also leverage AI-powered development tools to build mobile applications, websites, and smarter software solutions more efficiently.\n\nBeyond game development, I explore AI-assisted workflows, custom developer tools, and Unity Editor extensions to streamline development and improve productivity. I enjoy solving complex technical challenges and transforming ideas into reliable, high-quality products.",
     "objective": "To leverage my extensive experience in Unity and C# to design and develop high-quality games, interactive applications, and scalable software solutions. I aim to contribute to challenging projects, solve complex engineering problems, improve application performance, and continue growing as a technical specialist while delivering meaningful value to the organization.",
     "avatar": "uploads/images/1791883793126-gso3g-whatsapp-image-2026-10-13-at-25903-pm.jpeg",
-    "resume": null,
+    "resume": {
+      "path": "uploads/resume/1791913046301-lg401-makadiyadenishh.pdf",
+      "name": "MakadiyaDenishH.pdf",
+      "size": 1304047
+    },
     "experienceYears": 9,
     "location": "Ahmedabad, Gujarat, India",
     "email": "denish.makadiya@zohomail.com",
@@ -331,5 +335,5 @@
       "cover": "uploads/images/1791897021465-9lta5-gemini-generated-image-iynqlkiynqlkiynq.webp"
     }
   ],
-  "updatedAt": "2026-10-13T13:19:23.865Z"
+  "updatedAt": "2026-10-13T17:37:26.892Z"
 }
