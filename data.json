@@ -244,7 +244,7 @@
     {
       "type": "asset",
       "published": true,
-      "featured": false,
+      "featured": true,
       "tags": [],
       "platforms": [
         "Android",
@@ -320,5 +320,5 @@
       "slug": "nine-mens-morris-board-game"
     }
   ],
-  "updatedAt": "2026-10-13T09:29:54.217Z"
+  "updatedAt": "2026-10-13T09:32:23.423Z"
 }
