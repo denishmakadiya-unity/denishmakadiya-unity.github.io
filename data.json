@@ -216,7 +216,43 @@
       "createdAt": "2026-10-13T06:42:23.962Z",
       "updatedAt": "2026-10-13T06:42:23.962Z",
       "slug": "dsfsdf"
+    },
+    {
+      "type": "asset",
+      "published": true,
+      "featured": false,
+      "tags": [],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [],
+      "id": "e039ea3a-8ecc-41f3-bbe3-aeb12f048368",
+      "title": "DevForge AI – AI Game Development Toolkit",
+      "shortDescription": "AI assistant for the Unity Editor: chat, code agent, scene and UI builders, optimizers and QA. Uses your own AI tool login (Claude Code, Codex, Antigravity, Cursor) – no API keys.",
+      "description": "⚡ DevForge AI brings an AI development assistant, project analysis, and safe automated fixes into one Unity Editor window.\n\nDescribe what you want in plain language — a question about your code, a bug to fix, a scene to set up, or a complete feature. DevForge AI collects the relevant project context, asks the AI tool you already use, and shows every proposed change for your review before anything in your project is modified.\n\n🔑 USE YOUR OWN AI — NO API KEYS\n\nDevForge AI has no AI service or subscription of its own. It runs the official command-line tool of your provider with your own login:\n\n• Claude Code (default)\n• OpenAI Codex CLI\n• Google Antigravity CLI (Gemini)\n• Cursor CLI\n• A local OpenAI-compatible model server (e.g. Ollama, LM Studio)\n\nAn account with at least one of these providers is required for AI features.\n\n🧠 WHAT YOU CAN DO\n\n• 💬 AI Chat with automatic project context — project information, scene, selection, Console, and project memory.\n• 🏗️ Build from One Prompt — the AI creates a Development Plan covering systems, scripts, GameObjects, components, references, prefabs, and UI. After approval, agents implement it step by step, compile and verify, then provide a final report.\n• 💻 Code Agent — plan → diff review → apply → compile check → AI error fixing, with rollback support.\n• 🎬 Scene, GameObject, Prefab, UI & Animation Assistants — turn descriptions into reviewed editor operations with a single Undo step.\n• 🤖 Agent Orchestrator — coordinate multi-step feature implementation.\n• 🔍 Project Analyzers & Fixers — detect and fix missing scripts, lighting, textures, audio, models, materials, prefabs, UI, platform settings, and build settings.\n• 🚀 Optimization Tools — performance, mobile, WebGL, graphics, memory, and build-size optimization.\n• 🧪 Testing & QA — Console Fixer, Build Tools, Testing, and one-click Verify Project.\n• 📖 Documentation Generator — generate documentation for game systems, API references, README files, and project architecture.\n\n🛡️ SAFE BY DESIGN\n\n• 👁️ Read-Only AI — the AI can read your project, if you allow it, but cannot directly write files or run commands.\n• 🔎 Review Before Apply — every proposed change is shown first as a diff or operation list and is applied only after you confirm.\n• 💾 Backups & Rollback — files, assets, and settings are backed up; scene edits support Unity Undo and one-click rollback.\n• 📁 Controlled Writes — writes only inside Assets/. Likely secrets are removed from the context before sending.\n• 🚫 No Telemetry — there is no DevForge server or telemetry. Data goes only to the AI provider you choose, and only after you accept the data notice.\n\n👥 WHO IT'S FOR\n\n• 🎮 Indie Developers & Solo Creators — use an AI assistant directly inside Unity without constantly switching between tools.\n• 🏢 Small Studios & Teams — prototype faster with changes that can be reviewed and undone.\n• 👨‍💻 Programmers — generate, fix, and refactor C#, resolve compile errors, and document project APIs.\n• 🎨 Game & Level Designers — create GameObjects, scenes, and UI from descriptions, review the proposed operations, then apply them.\n• 🧑‍🎨 Technical Artists — shader and material checks, Built-in to URP conversion, and texture, audio, and model import fixes.\n• 🎓 Students & Unity Beginners — ask questions about their own project and get errors and code explained.\n• 📱 Mobile & WebGL Teams — use optimization tools, build checks, and Verify Project before release.\n• 🤖 AI Tool Users — anyone already using Claude, ChatGPT (Codex), Google Gemini (Antigravity), Cursor, or a local AI model.\n\nℹ️ Note: DevForge AI is an Editor tool. It helps you build and maintain your game; it does not add AI features to the game at runtime.\n\n📚 DOCUMENTATION\n\nIncludes:\n\n• 📄 Illustrated PDF guide\n• 📘 In-editor Product Guide explaining every feature\n• 📝 Markdown documentation — User Guide, AI Providers, Privacy, Security, Compatibility, and Known Limitations\n\n⚙️ REQUIREMENTS\n\n• Unity 6 (6000.0) or newer\n• 🖥️ Editor-only extension\n• 📦 Nothing is added to your player builds",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "0.9.0",
+          "date": "13/10/2026",
+          "notes": "🚀 0.9.0 – Initial Release\n\n💬 AI Chat with project context and build-from-prompt Development Plans (Approve & Build)\n\n💻 Code Agent with diff review, compile check, AI error fixing and rollback\n\n🎨 Scene, GameObject, Prefab, UI/UX and Animation assistants with Undo\n\n🤖 Agent Orchestrator with final build report\n\n🔍 Project Analyzer, Asset Tools, Shader & Material tools, Optimization, Console Fixer, Build Tools\n\n🧪 Testing & QA with Verify Project\n\n📚 Project documentation generator (Game Systems, API, README, Architecture)\n\n🔌 AI Providers: Claude Code, OpenAI Codex CLI, Google Antigravity CLI, Cursor CLI, Local Model Servers – No API Keys\n\n🔐 Privacy & Data settings\n\n📖 In-Editor Product Guide and PDF Documentation"
+        }
+      ],
+      "version": "",
+      "unityVersion": "",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-13T06:59:33.454Z",
+      "updatedAt": "2026-10-13T06:59:33.454Z",
+      "slug": "devforge-ai-ai-game-development-toolkit"
     }
   ],
-  "updatedAt": "2026-10-13T06:42:24.581Z"
+  "updatedAt": "2026-10-13T06:59:34.252Z"
 }
