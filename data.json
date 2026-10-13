@@ -67,23 +67,43 @@
     "skillGroups": [
       {
         "label": "Programming Languages",
-        "value": "C, C#"
+        "value": "C#, C, C++"
       },
       {
-        "label": "Engine & Tools",
-        "value": "Unity 3D, Xcode"
+        "label": "Game Engine & Tools",
+        "value": "Unity 3D, Unity 6, Unity Editor, Visual Studio"
       },
       {
-        "label": "Operating Systems",
-        "value": "Windows, macOS"
+        "label": "Gameplay Development",
+        "value": "Gameplay Systems, Game Mechanics, Scene Management, UI, Animations"
       },
       {
-        "label": "Area of Interest",
-        "value": "Mobile Applications, Game Development"
+        "label": "Rendering & Shaders",
+        "value": "Shader Graph, URP, Materials, Lighting"
       },
       {
-        "label": "Databases",
-        "value": "phpMyAdmin"
+        "label": "Performance Optimization",
+        "value": "Unity Profiler, Memory Optimization, Object Pooling, Draw Call Optimization"
+      },
+      {
+        "label": "Mobile Development",
+        "value": "Android, iOS, Mobile Performance Optimization"
+      },
+      {
+        "label": "Multiplayer & Integration",
+        "value": "Multiplayer Systems, Socket.IO, REST API Integration"
+      },
+      {
+        "label": "AR/VR Development",
+        "value": "AR/VR, Interactive 3D Experiences"
+      },
+      {
+        "label": "Version Control & Build",
+        "value": "Git, GitHub, Android Build, iOS Build, WebGL"
+      },
+      {
+        "label": "Developer Tools",
+        "value": "Unity Editor Extensions, Custom Inspector Tools, Automation"
       }
     ],
     "personal": [
@@ -239,5 +259,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:24:53.727Z"
+  "updatedAt": "2026-10-13T07:30:05.000Z"
 }
