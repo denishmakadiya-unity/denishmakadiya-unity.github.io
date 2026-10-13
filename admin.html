@@ -20,24 +20,45 @@
       <div class="title-logo" id="loginMark">DM</div>
       <h1>Dev <span>HQ</span></h1>
       <div class="title-sub">Portfolio control center</div>
-      <form class="login-box" id="loginForm">
-        <div class="field"><label for="token">GitHub access key</label>
-          <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></div>
-        <label class="toggle" style="padding-top:0"><span><b>Remember on this device</b><small>Don't tick this on a shared computer</small></span><span class="switch"><input type="checkbox" id="remember" checked><span></span></span></label>
+      <div class="login-box" id="loginWait"><div class="hint" style="text-align:center">Loading…</div></div>
+
+      <form class="login-box" id="loginForm" hidden>
+        <div class="field"><label for="lUser">Username</label>
+          <input id="lUser" type="text" autocomplete="username" spellcheck="false" autocapitalize="off" required></div>
+        <div class="field"><label for="lPass">Password</label>
+          <input id="lPass" type="password" autocomplete="current-password" required></div>
+        <label class="toggle" style="padding-top:0"><span><b>Keep me logged in</b><small>Only on your own computer</small></span><span class="switch"><input type="checkbox" id="remember"><span></span></span></label>
         <div class="error" id="loginError"></div>
         <button class="btn btn-primary" style="width:100%" type="submit">▶ Press start</button>
-        <details class="help">
-          <summary>How do I get an access key? (one time, 2 min)</summary>
+        <button type="button" class="linkish" id="toSetup">Forgot password? Set up login again</button>
+      </form>
+
+      <form class="login-box" id="setupForm" hidden>
+        <h2 class="setup-h" id="setupTitle">First-time setup</h2>
+        <p class="hint" id="setupIntro" style="margin:0 0 14px">Create your admin username and password. You need a GitHub access key <b>once</b> — it is locked with your password and you won't have to paste it again.</p>
+        <div class="field"><label for="sToken">GitHub access key (one time)</label>
+          <input id="sToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></div>
+        <details class="help" style="margin:-4px 0 14px">
+          <summary>How do I get an access key? (2 min)</summary>
           <ol>
-            <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"><b>github.com → Settings → Developer settings → Fine-grained tokens → Generate new token</b></a>.</li>
-            <li>Name: <code>Portfolio admin</code>. Expiration: choose what you like (e.g. 1 year).</li>
-            <li><b>Repository access → Only select repositories →</b> pick <code id="repoName">denishmakadiya-unity.github.io</code>.</li>
-            <li><b>Permissions → Repository permissions → Contents → Read and write.</b></li>
+            <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"><b>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token</b></a>.</li>
+            <li>Name: <code>Portfolio admin</code>. Expiration: e.g. 1 year.</li>
+            <li><b>Repository access → Only select repositories →</b> pick <code id="repoName">your site repo</code>.</li>
+            <li><b>Repository permissions → Contents → Read and write.</b></li>
             <li>Click <b>Generate token</b>, copy it and paste it above.</li>
           </ol>
         </details>
+        <div class="field"><label for="sUser">New username</label>
+          <input id="sUser" type="text" autocomplete="username" spellcheck="false" autocapitalize="off" required minlength="3"></div>
+        <div class="field"><label for="sPass">New password</label>
+          <input id="sPass" type="password" autocomplete="new-password" required minlength="10"><small>At least 10 characters, letters and numbers</small></div>
+        <div class="field"><label for="sPass2">Repeat password</label>
+          <input id="sPass2" type="password" autocomplete="new-password" required></div>
+        <div class="error" id="setupError"></div>
+        <button class="btn btn-primary" style="width:100%" type="submit">Save login &amp; start</button>
+        <button type="button" class="linkish" id="toLogin" hidden>← Back to login</button>
       </form>
-      <div class="press">INSERT KEY TO CONTINUE</div>
+      <div class="press">PLAYER 1 — LOG IN</div>
     </div>
   </div>
 
@@ -60,7 +81,7 @@
         <button class="nav-item" data-view="jobs" data-ico="radar"><span>Job Radar<small>Auto job finder</small></span><span class="pill" id="jobsPill" hidden>0</span></button>
         <button class="nav-item" data-view="site" data-ico="world"><span>World settings<small>Site name &amp; texts</small></span></button>
         <div class="menu-label">SYSTEM</div>
-        <button class="nav-item" data-view="config" data-ico="gear"><span>Config<small>Repository &amp; key</small></span></button>
+        <button class="nav-item" data-view="config" data-ico="gear"><span>Config<small>Password &amp; repository</small></span></button>
         <div class="spacer"></div>
         <div class="player-mini" id="playerMini"></div>
         <a class="nav-item" href="index.html" target="_blank" data-ico="ext"><span>Open website</span></a>
@@ -81,6 +102,7 @@
   <div class="toasts" id="toasts"></div>
 
   <script src="js/gh.js"></script>
+  <script src="js/vault.js"></script>
   <script src="js/vendor/jszip.min.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/radar-admin.js"></script>

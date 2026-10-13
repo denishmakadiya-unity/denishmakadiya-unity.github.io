@@ -36,7 +36,7 @@ class GitHubRepo {
 
   static explain(status, msg, repo = '') {
     const r = repo ? `"${repo}"` : 'this repo';
-    if (status === 401) return 'Access key is wrong or expired. Create a new one and log in again.';
+    if (status === 401) return 'The GitHub key is wrong or has expired. Make a new one and paste it in Config → GitHub access key (or use "Forgot password" on the login screen).';
     if (status === 403 && /not accessible|permission/i.test(msg)) return `Your access key cannot write to ${r}. On GitHub edit the key → Repository access must include ${r} → Permissions → Contents: Read and write${repo && /radar/i.test(repo) ? ' (and Workflows + Actions: Read and write)' : ''}.`;
     if (status === 403 && /rate limit/i.test(msg)) return 'GitHub rate limit reached — wait a few minutes and try again.';
     if (status === 404) return 'Repository or file not found. Check owner / repo / branch in Config, and that the key has access to this repo.';

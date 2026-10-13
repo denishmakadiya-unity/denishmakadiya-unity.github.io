@@ -384,3 +384,10 @@ input[type=range] { accent-color: var(--lime); padding: 0; border: 0; box-shadow
 input[type=date] { width: 100%; padding: 10px 13px; border: 1px solid var(--line-2); background: var(--bg); color: var(--text); font: inherit; color-scheme: dark; }
 .app-btns .btn.icon-btn, .app-btns [data-a=letter] { flex: 0 0 auto; padding-left: 12px; padding-right: 12px; }
 .app-row.confirm [data-a=del] { padding: 0 12px; width: auto; }
+
+/* Username / password login */
+.linkish { display: block; margin: 14px auto 0; background: none; border: 0; color: var(--cyan); font: 600 13px var(--font-body); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.linkish:hover { color: var(--lime); }
+.setup-h { font-family: var(--font-display); font-size: 17px; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 8px; }
+.login-box .field small { display: block; margin-top: 5px; color: var(--dim); font-size: 12px; }
+.title-card { max-width: 480px; }

@@ -25,17 +25,31 @@ GitHub Pages then rebuilds the site, which takes about 1 minute. The admin shows
 | `contact.html` | project form (type, budget, timeline), contact cards, local time, FAQ |
 | `admin.html` | "Dev HQ" admin panel |
 
-## Admin login (first time)
+## Admin login (username + password)
+
+You log in to the admin panel with a **username and password**.
+
+GitHub only allows saving with an access key. The admin therefore still uses one behind the scenes, but you paste it **only once**.
+It is stored **encrypted** in `admin-auth.json` in this repo. Only your username and password can unlock it (PBKDF2-SHA256 with 600,000 rounds, then AES-256-GCM).
+
+**First time:**
 
 1. Create an access key on GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
    - **Token name:** `Portfolio admin`
    - **Repository access:** Only select repositories → `denishmakadiya-unity.github.io`
    - **Repository permissions → Contents:** Read and write
-   - Click **Generate token** and copy it.
-2. Open the admin panel, paste the key and click **Press start**.
+2. Open the admin panel. On **First-time setup**, paste the key once and choose a username and password (at least 10 characters, letters and numbers).
+3. From then on, log in with only your username and password, on any device.
 
-The key is saved only in your browser. Never share it or put it in a file in this repo.
-**Quit** in the admin removes it from the browser.
+| What you want | Where |
+|---|---|
+| Change username or password | Config → **Login & password** |
+| GitHub key expired | Config → **GitHub access key** → paste a new key and your password |
+| Forgot password | Login screen → **Forgot password? Set up login again** → paste a GitHub key and choose a new username and password |
+| Log out | **Quit** in the sidebar |
+
+**Keep me logged in** keeps you logged in on that computer. Without it, closing the tab logs you out.
+`admin-auth.json` is public, so use a **strong password** that you don't use anywhere else.
 
 ## Admin sections
 
@@ -76,7 +90,7 @@ Job Radar uses its **own access key**, separate from the admin key.
    - **Token name:** `job-radar`
    - **Repository access:** Only select repositories → `job-radar`
    - **Repository permissions:** **Contents**, **Workflows** and **Actions** → Read and write
-3. Admin → Job Radar → **Setup** → paste it in **Job Radar access key** → **Save key**.
+3. Admin → Job Radar → **Setup** → paste it in **Job Radar access key** → **Save key**. You only do this once: the key is locked inside your username and password login, like the admin key.
 4. Click **Install radar**.
 5. Fill **Search profile**: job titles, skills, cities and countries, job types, and a free Adzuna key for India and city search.
 6. Set up **Telegram**: create a bot with @BotFather, paste the bot token, find your chat ID, then send a test message.

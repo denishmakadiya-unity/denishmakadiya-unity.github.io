@@ -19,7 +19,8 @@ let RADAR = null;
 const RS = { cfg: null, jobs: null, status: null, exists: { config: false, script: false }, error: '' };
 
 /* Job Radar can use its own access key (only for the private repo), or fall back to the admin key */
-const radarToken = () => store.get('pv_radar_token') || GH.token;
+const hasRadarKey = () => !!(SESSION && SESSION.secrets && SESSION.secrets.radar);
+const radarToken = () => (hasRadarKey() ? SESSION.secrets.radar : GH.token);
 async function radarClient() {
   const name = CFG.radarRepo || RADAR_REPO_DEFAULT, token = radarToken();
   if (RADAR && RADAR.repo === name && RADAR.token === token) return RADAR;
@@ -246,7 +247,7 @@ async function viewJobs(main, tab = 'list') {
   catch (err) {
     if (myId !== ROUTE_ID) return; // user already moved to another page
     RS.error = err.status === 404
-      ? `Private repo "${CFG.owner}/${CFG.radarRepo || RADAR_REPO_DEFAULT}" not found, or ${store.get('pv_radar_token') ? 'your Job Radar key' : 'your access key'} can't see it yet. ${store.get('pv_radar_token') ? '' : 'Paste your Job Radar key below (step 2).'}`
+      ? `Private repo "${CFG.owner}/${CFG.radarRepo || RADAR_REPO_DEFAULT}" not found, or ${hasRadarKey() ? 'your Job Radar key' : 'your access key'} can't see it yet. ${hasRadarKey() ? '' : 'Paste your Job Radar key below (step 2).'}`
       : err.message;
     markTab('setup'); return radarSetup(body);
   }
@@ -637,7 +638,7 @@ function radarSetup(body) {
         <li><b>Make a Job Radar access key</b> (separate from your admin key): <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener" style="color:var(--cyan)">GitHub → Fine-grained tokens</a> → open (or generate) the token → <b>Edit</b>.
           <i>Repository access</i>: <b>Only select repositories</b> → <code>${esc(repoName)}</code>. <i>Repository permissions</i>:
           <b>Contents</b>, <b>Workflows</b> and <b>Actions</b> → <b>Read and write</b> → <b>Update</b>. Then paste the key in <b>Job Radar access key</b> below.
-          ${store.get('pv_radar_token') ? '<span class="chip game">Key saved ✓</span>' : ''}</li>
+          ${hasRadarKey() ? '<span class="chip game">Key saved ✓</span>' : ''}</li>
         <li><b>Install the radar</b> with the button below. ${RS.exists.script ? '<span class="chip game">Installed ✓</span>' : ''}</li>
         <li>Fill <a href="#jobs/settings" style="color:var(--cyan)">Search profile</a> (add the free Adzuna key for India/city search) and <a href="#jobs/telegram" style="color:var(--cyan)">Telegram</a>, then click <b>Scan now</b>.</li>
       </ol>
@@ -648,12 +649,12 @@ function radarSetup(body) {
     </div>
     <div class="panel">
       <h2>Job Radar access key</h2>
-      <p class="hint" style="margin-top:0">Used only for the private <code>${esc(repoName)}</code> repo. Your admin key stays only for the portfolio. Stored in this browser only.
-        ${store.get('pv_radar_token') ? '<b style="color:var(--lime)">A separate key is saved.</b>' : 'No separate key yet — the admin key is used.'}</p>
+      <p class="hint" style="margin-top:0">Used only for the private <code>${esc(repoName)}</code> repo. Paste it once — it is locked inside your username/password login (like the admin key), so it works on any device after you log in.
+        ${hasRadarKey() ? '<b style="color:var(--lime)">A separate key is saved.</b>' : 'No separate key yet — the admin key is used.'}</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
-        <div class="field" style="margin:0;flex:1;min-width:240px"><label for="rtoken">Access key (github_pat_…)</label><input type="password" id="rtoken" autocomplete="off" spellcheck="false" placeholder="${store.get('pv_radar_token') ? '•••••••• saved — paste a new one to replace' : 'github_pat_…'}"></div>
+        <div class="field" style="margin:0;flex:1;min-width:240px"><label for="rtoken">Access key (github_pat_…)</label><input type="password" id="rtoken" autocomplete="off" spellcheck="false" placeholder="${hasRadarKey() ? '•••••••• saved — paste a new one to replace' : 'github_pat_…'}"></div>
         <button class="btn btn-primary" id="saveRToken">Save key</button>
-        ${store.get('pv_radar_token') ? '<button class="btn btn-danger" id="delRToken">Remove</button>' : ''}
+        ${hasRadarKey() ? '<button class="btn btn-danger" id="delRToken">Remove</button>' : ''}
       </div>
     </div>
     <div class="panel">
@@ -679,14 +680,20 @@ function radarSetup(body) {
     try {
       loading(true, 'Checking key', .5, repoName);
       await new GitHubRepo({ owner: CFG.owner, repo: repoName, token: t, api: CFG.api, branch: 'main' }).getRepo();
-      store.set('pv_radar_token', t); RADAR = null; RS.loadedAt = 0; loading(false);
+      loading(true, 'Saving key', .8, 'Locked in your login');
+      await updateSecrets(x => { x.radar = t; }, 'Admin: save Job Radar key (encrypted)');
+      RADAR = null; RS.loadedAt = 0; loading(false);
       toast('Job Radar key saved ✓'); viewJobs($('#main'), 'setup');
     } catch (err) {
       loading(false);
       toast(err.status === 404 || err.status === 403 ? `This key can't see "${repoName}". Edit the token → Repository access → select ${repoName}.` : err.message, 'err');
     }
   };
-  if ($('#delRToken')) $('#delRToken').onclick = () => { store.del('pv_radar_token'); RADAR = null; RS.loadedAt = 0; toast('Removed — the admin key is used again'); viewJobs($('#main'), 'setup'); };
+  if ($('#delRToken')) $('#delRToken').onclick = async () => {
+    try { loading(true, 'Removing key', .6, ''); await updateSecrets(x => { x.radar = ''; }, 'Admin: remove Job Radar key'); loading(false); }
+    catch (err) { loading(false); return toast(err.message, 'err'); }
+    RADAR = null; RS.loadedAt = 0; toast('Removed — the admin key is used again'); viewJobs($('#main'), 'setup');
+  };
   $('#saveRepo').onclick = () => { CFG.radarRepo = $('#rrepo').value.trim() || RADAR_REPO_DEFAULT; store.set('pv_cfg', JSON.stringify(CFG)); RADAR = null; RS.loadedAt = 0; viewJobs($('#main'), 'setup'); };
   $('#installBtn').onclick = async () => {
     try {

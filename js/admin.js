@@ -190,13 +190,35 @@ async function save(message, mutate, uploads = [], removes = []) {
   }
 }
 
-/* ---------- Auth ---------- */
-function showLogin(msg) {
+/* ---------- Auth: username + password (GitHub key is kept encrypted in admin-auth.json) ---------- */
+let SESSION = null;   // unlocked keys for this browser
+let VAULT = null;     // admin-auth.json (encrypted)
+
+async function showLogin(msg, mode) {
   $('#appView').hidden = true; $('#loginView').hidden = false;
+  $('#loginForm').hidden = $('#setupForm').hidden = true; $('#loginWait').hidden = false;
   $('#repoName').textContent = CFG.repo;
-  if (msg) $('#loginError').textContent = msg;
-  setTimeout(() => $('#token').focus(), 50);
+  VAULT = await vaultFetch(CFG);
+  setLoginMode(mode || (VAULT ? 'login' : 'setup'), msg);
 }
+function setLoginMode(mode, msg = '') {
+  $('#loginWait').hidden = true;
+  $('#loginForm').hidden = mode !== 'login';
+  $('#setupForm').hidden = mode !== 'setup';
+  $('#toLogin').hidden = !VAULT;
+  $('#loginError').textContent = mode === 'login' ? msg : '';
+  $('#setupError').textContent = mode === 'setup' ? msg : '';
+  $('#setupTitle').textContent = VAULT ? 'Reset login' : 'First-time setup';
+  $('#setupIntro').innerHTML = VAULT
+    ? 'Forgot your password? Paste a GitHub access key for this repo to prove it is you, then choose a new username and password. <i>A saved Job Radar key will need to be pasted again.</i>'
+    : 'Create your admin username and password. You need a GitHub access key <b>once</b> — it is locked with your password and you won\'t have to paste it again.';
+  const legacy = store.get('pv_token'); // people who logged in with a key before
+  if (mode === 'setup' && legacy && !$('#sToken').value) $('#sToken').value = legacy;
+  setTimeout(() => (mode === 'login' ? $('#lUser') : ($('#sToken').value ? $('#sUser') : $('#sToken'))).focus(), 50);
+}
+$('#toSetup').onclick = () => setLoginMode('setup');
+$('#toLogin').onclick = () => setLoginMode('login');
+
 async function connect(token) {
   GH = new GitHubRepo({ ...CFG, token, branch: CFG.branch || 'main' });
   const repo = await GH.getRepo();
@@ -206,29 +228,68 @@ async function connect(token) {
     throw e;
   });
 }
+const expiredMsg = 'The GitHub key saved in your login has expired or was deleted. Click "Forgot password? Set up login again" and paste a new key.';
+async function writeVault(file, message) {
+  await GH.commit(message, [{ path: VAULT_PATH, base64: textToBase64(JSON.stringify(file, null, 2) + '\n') }]);
+  VAULT = file;
+}
+/** Change the keys stored in the login (e.g. Job Radar key) without asking for the password again */
+async function updateSecrets(mutate, message) {
+  const next = { ...SESSION, secrets: { ...SESSION.secrets } };
+  mutate(next.secrets);
+  const file = await vaultReseal(next);
+  await writeVault(file, message);
+  SESSION = next; Session.set(SESSION, Session.keep());
+}
+
 $('#loginForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const token = $('#token').value.trim();
-  $('#loginError').textContent = '';
   const btn = e.target.querySelector('button[type=submit]');
-  btn.disabled = true; btn.textContent = 'Loading…';
+  $('#loginError').textContent = '';
+  btn.disabled = true; btn.textContent = 'Unlocking…';
   try {
-    await connect(token);
-    store.del('pv_token');
-    store.set('pv_token', token, $('#remember').checked);
-    $('#token').value = '';
+    const s = await vaultOpen(VAULT, $('#lUser').value, $('#lPass').value);
+    try { await connect(s.secrets.admin); }
+    catch (err) { throw err.status === 401 ? new Error(expiredMsg) : err; }
+    SESSION = s; Session.set(s, $('#remember').checked);
+    store.del('pv_token'); store.del('pv_radar_token');
+    $('#lPass').value = '';
     startApp();
-  } catch (err) { $('#loginError').textContent = err.message; }
+  } catch (err) { $('#loginError').textContent = err.message; $('#lPass').select(); }
   btn.disabled = false; btn.textContent = '▶ Press start';
 });
-$('#logoutBtn').addEventListener('click', () => { store.del('pv_token'); store.del('pv_radar_token'); GH = null; DATA = null; showLogin(); });
+
+$('#setupForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const token = $('#sToken').value.trim(), user = $('#sUser').value.trim(), pass = $('#sPass').value;
+  const err = t => { $('#setupError').textContent = t; };
+  err('');
+  if (normUser(user).length < 3) return err('Username must be at least 3 characters.');
+  const pp = passwordProblem(pass); if (pp) return err(pp);
+  if (pass !== $('#sPass2').value) return err('The two passwords are not the same.');
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    await connect(token);
+    const { file, session } = await vaultCreate(user, pass, { admin: token, radar: '' });
+    await writeVault(file, VAULT ? 'Admin: reset login' : 'Admin: set up username & password login');
+    SESSION = session; Session.set(session, false);
+    store.del('pv_token'); store.del('pv_radar_token');
+    ['sToken', 'sPass', 'sPass2'].forEach(id => ($('#' + id).value = ''));
+    toast('Login saved ✓ — next time just use your username and password');
+    startApp();
+  } catch (e2) { err(e2.status === 401 ? 'This GitHub key is wrong or expired.' : e2.message); }
+  btn.disabled = false; btn.textContent = 'Save login & start';
+});
+
+$('#logoutBtn').addEventListener('click', () => { Session.clear(); SESSION = null; GH = null; DATA = null; showLogin(); });
 
 async function boot() {
-  const token = store.get('pv_token');
-  if (!token) return showLogin();
+  const s = Session.get();
+  if (!s || !s.secrets) return showLogin();
   loading(true, 'Loading', .5, `${CFG.owner}/${CFG.repo}`);
-  try { await connect(token); loading(false); startApp(); }
-  catch (err) { loading(false); showLogin(err.message); }
+  try { await connect(s.secrets.admin); SESSION = s; VAULT = await vaultFetch(CFG); loading(false); startApp(); }
+  catch (err) { loading(false); Session.clear(); showLogin(err.status === 401 ? expiredMsg : err.message); }
 }
 
 function startApp() {
@@ -1045,7 +1106,7 @@ function viewSite(main) {
    Config
    ========================================================= */
 function viewConfig(main) {
-  main.innerHTML = header('// System', 'Config', 'Which GitHub repository stores your website') + `
+  main.innerHTML = header('// System', 'Config', 'Login, password and the GitHub repository of your website') + `
   <form class="panel" id="cf" style="max-width:640px">
     <h2>Repository</h2>
     <div class="grid-2">
@@ -1058,11 +1119,29 @@ function viewConfig(main) {
       <div class="field" style="margin-top:10px"><label>API URL</label><input type="text" name="api" value="${esc(CFG.api)}"></div></details>
     <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" type="submit">${ico('check')} Save &amp; reconnect</button><button class="btn" type="button" id="resetCfg">Reset to auto-detect</button></div>
   </form>
-  <div class="panel" style="max-width:640px">
-    <h2>Access key</h2>
-    <p class="hint" style="margin:0 0 12px">Your key is stored only in this browser. If it expires, create a new one (Settings → Developer settings → Fine-grained tokens, Contents: Read and write) and log in again.</p>
-    <button class="btn btn-danger" id="forget">${ico('logout')} Forget key on this device</button>
-  </div>
+  <form class="panel" id="pwForm" style="max-width:640px" autocomplete="on">
+    <h2>Login &amp; password</h2>
+    <p class="hint" style="margin:0 0 14px">You log in as <b>${esc(SESSION.user)}</b>. Change your username or password here.</p>
+    <input type="text" name="username" autocomplete="username" value="${esc(SESSION.user)}" hidden>
+    <div class="field"><label for="pwOld">Current password</label><input type="password" id="pwOld" autocomplete="current-password" required></div>
+    <div class="grid-2">
+      <div class="field"><label for="pwUser">Username</label><input type="text" id="pwUser" value="${esc(SESSION.user)}" autocapitalize="off" spellcheck="false" required></div>
+      <div class="field"><label for="pwNew">New password</label><input type="password" id="pwNew" autocomplete="new-password" required minlength="10"><small>At least 10 characters, letters and numbers</small></div>
+      <div class="field"><label for="pwNew2">Repeat new password</label><input type="password" id="pwNew2" autocomplete="new-password" required></div>
+    </div>
+    <button class="btn btn-primary" type="submit">${ico('save')} Change password</button>
+  </form>
+  <form class="panel" id="keyForm" style="max-width:640px">
+    <h2>GitHub access key</h2>
+    <p class="hint" style="margin:0 0 14px">Saving uses a GitHub key that is locked inside your login — you don't type it any more.
+      Only when it <b>expires</b> (GitHub → Settings → Developer settings → Fine-grained tokens shows the date), make a new one with <b>Contents: Read and write</b> for <code>${esc(CFG.repo)}</code> and paste it here.</p>
+    <div class="grid-2">
+      <div class="field"><label for="kNew">New GitHub key</label><input type="password" id="kNew" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></div>
+      <div class="field"><label for="kPass">Your password</label><input type="password" id="kPass" autocomplete="current-password" required></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">${ico('check')} Replace key</button>
+      <button class="btn btn-danger" type="button" id="forget">${ico('logout')} Log out on this device</button></div>
+  </form>
   <div class="panel" style="max-width:640px">
     <h2>Backup &amp; restore</h2>
     <p class="hint" style="margin:0 0 12px">Downloads all your texts, profile, career and project details as one file. Images and APKs stay safe in the repo (and in its history).</p>
@@ -1077,11 +1156,42 @@ function viewConfig(main) {
     CFG = { owner: f.owner.trim(), repo: f.repo.trim(), branch: f.branch.trim(), dir: f.dir.trim(), api: (f.api || 'https://api.github.com').trim() };
     store.set('pv_cfg', JSON.stringify(CFG));
     loading(true, 'Connecting', .5, `${CFG.owner}/${CFG.repo}`);
-    try { await connect(store.get('pv_token')); loading(false); toast('Connected ✓'); refreshChrome(); }
+    try { await connect(SESSION.secrets.admin); loading(false); toast('Connected ✓'); refreshChrome(); }
     catch (err) { loading(false); toast(err.message, 'err'); }
   });
   $('#resetCfg').onclick = () => { store.del('pv_cfg'); location.reload(); };
-  $('#forget').onclick = () => { store.del('pv_token'); location.reload(); };
+  $('#forget').onclick = () => { Session.clear(); location.reload(); };
+  const checkPassword = async pass => {
+    const file = await GH.readJson(VAULT_PATH).catch(() => VAULT);
+    return vaultOpen(file, SESSION.user, pass);
+  };
+  $('#pwForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const user = $('#pwUser').value.trim(), pass = $('#pwNew').value;
+    if (normUser(user).length < 3) return toast('Username must be at least 3 characters.', 'err');
+    const pp = passwordProblem(pass); if (pp) return toast(pp, 'err');
+    if (pass !== $('#pwNew2').value) return toast('The two new passwords are not the same.', 'err');
+    loading(true, 'Saving', .5, 'New password');
+    try {
+      const cur = await checkPassword($('#pwOld').value);
+      const { file, session } = await vaultCreate(user, pass, cur.secrets);
+      await writeVault(file, 'Admin: change password');
+      SESSION = session; Session.set(session, Session.keep());
+      loading(false); toast('Password changed ✓ — use it next time you log in');
+      viewConfig(main);
+    } catch (err) { loading(false); toast(err.message === 'Wrong username or password.' ? 'Current password is wrong.' : err.message, 'err'); }
+  });
+  $('#keyForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const token = $('#kNew').value.trim();
+    loading(true, 'Checking key', .4, `${CFG.owner}/${CFG.repo}`);
+    try {
+      await checkPassword($('#kPass').value).catch(() => { throw new Error('Password is wrong.'); });
+      await connect(token);
+      await updateSecrets(s => { s.admin = token; }, 'Admin: replace GitHub key');
+      loading(false); toast('GitHub key replaced ✓'); viewConfig(main);
+    } catch (err) { loading(false); toast(err.status === 401 ? 'This GitHub key is wrong or expired.' : err.message, 'err'); }
+  });
   $('#backupBtn').onclick = async () => {
     try {
       const d = await GH.readJson('data.json');
