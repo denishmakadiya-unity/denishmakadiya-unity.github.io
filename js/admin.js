@@ -61,7 +61,8 @@ function detectRepo() {
   const m = host.match(/^([\w-]+)\.github\.io$/i);
   if (m) {
     const seg = location.pathname.split('/').filter(Boolean)[0];
-    const isPage = seg && !/\.html?$/i.test(seg);
+    // /admin, /admin.html, /index … are pages of the main site, not a separate project repo
+    const isPage = seg && !/\.html?$/i.test(seg) && !/^(admin|index|profile|project|contact|404)$/i.test(seg);
     return { owner: m[1], repo: isPage ? seg : `${m[1]}.github.io` };
   }
   return { owner: 'denishmakadiya-unity', repo: 'denishmakadiya-unity.github.io' };
