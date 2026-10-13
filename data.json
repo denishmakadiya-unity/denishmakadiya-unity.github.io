@@ -34,7 +34,7 @@
     ],
     "replyTime": "Usually replies within 24 hours",
     "timezone": "Asia/Kolkata",
-    "showRepos": true,
+    "showRepos": false,
     "githubUser": "denishmakadiya-unity",
     "hideRepos": [],
     "web3formsKey": "",
@@ -290,5 +290,5 @@
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
     }
   ],
-  "updatedAt": "2026-10-13T07:51:55.518Z"
+  "updatedAt": "2026-10-13T07:52:26.620Z"
 }
