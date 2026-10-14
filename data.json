@@ -411,7 +411,69 @@
       "slug": "corona-fight-game",
       "cover": "uploads/images/1791954174271-xraww-gemini-generated-image-erapj3erapj3erap.webp",
       "icon": "uploads/images/1791954174271-efy4k-gemini-generated-image-q8l4crq8l4crq8l4.webp"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "String Flick",
+        "Sling Puck Game",
+        "Fast Sling Puck",
+        "Board Game",
+        "2 Player Games",
+        "Offline Multiplayer",
+        "Casual Game",
+        "Tabletop Game",
+        "Flick Board Game",
+        "Puck Shooter",
+        "Physics Game",
+        "Action Board Game",
+        "Play vs Bot",
+        "Board Battle",
+        "Finger Sling Game"
+      ],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1791958849706-fehb2-1.jpeg",
+        "uploads/images/1791958849706-633so-2.jpeg",
+        "uploads/images/1791958849706-jb90t-3.jpeg",
+        "uploads/images/1791958849706-dv61w-4.jpeg",
+        "uploads/images/1791958849706-mv9r3-5.jpeg",
+        "uploads/images/1791958849706-znyfu-6.jpeg",
+        "uploads/images/1791958849706-wi4px-7.jpeg"
+      ],
+      "icon": "uploads/images/1791958849706-wumzv-splash.jpg",
+      "videoFile": "uploads/videos/1791958849706-rue5q-whatsapp-video-2026-10-14-at-113648-am.mp4",
+      "id": "2c4f5d4e-1e3d-4460-92be-92e872109acd",
+      "title": "String Flick",
+      "shortDescription": "Get ready for fast-paced flicking action with String Flick! 🎯 Challenge your friends in Player vs Player mode or test your skills against the Bot 🤖. Set fun custom stakes for the loser, flick your pucks across the wood",
+      "description": "🎮 **Game Modes**\n- 👤 **Player vs Player:** Play locally with a friend on the same device and enter custom names for both players.\n- 🤖 **Player vs Bot:** Challenge the computer AI and enjoy solo gameplay.\n\n⚙️ **Customization & Challenges**\n- 🔥 **Difficulty Levels:** Adjust the bot's difficulty using a slider, from easy to hard.\n- 🎲 **Custom Challenges:** Set fun penalties or conditions before multiplayer matches.\n\n🪵 **Gameplay Mechanics**\n- 🏑 **Realistic Wooden Board:** Enjoy a wooden board design with two playing areas separated by a center barrier and a small gap.\n- 🎯 **Flick Controls:** Flick your circular pucks through the center gap into your opponent's area.\n- 🏆 **Win Condition:** Be the first to reach 5 points to win the match.\n- ⭐ **Victory Screen:** Celebrate with a 3-star trophy screen and options to rematch or return home.\n\n🛠️ **Controls & Settings**\n- ⏸️ **Pause Menu:** Resume, return to the main menu, open settings, or quit the game.\n- 🎵 **Audio & Haptics:** Adjust background music and sound volume, and toggle vibration on or off.\n- 🔗 **Extra Features:** Share the app, rate the game, and access Terms & Conditions.",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.2",
+          "date": "May 2025",
+          "notes": "**What's New in This Update** 🎮\n\n1. 🤖 **Improved Bot AI:** Fine-tuned difficulty levels for a more balanced and challenging single-player experience.\n2. 🏑 **Smoother Physics:** Improved puck collisions and sliding mechanics for more precise and satisfying flicks.\n3. ⚙️ **UI/UX Improvements:** Fixed text formatting in the \"Set the Stakes!\" input field and enhanced settings slider responsiveness.\n4. 🐛 **Bug Fixes & Performance:** Fixed minor bugs and improved overall stability for a smoother multiplayer experience.\n\n"
+        }
+      ],
+      "version": "1.0.2",
+      "unityVersion": "6000.0.59.f2",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-14T06:20:49.706Z",
+      "updatedAt": "2026-10-14T06:20:49.706Z",
+      "slug": "string-flick"
     }
   ],
-  "updatedAt": "2026-10-14T05:06:00.287Z"
+  "updatedAt": "2026-10-14T06:20:50.662Z"
 }
