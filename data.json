@@ -352,7 +352,7 @@
     },
     {
       "type": "game",
-      "published": false,
+      "published": true,
       "featured": false,
       "tags": [
         "2D Platformer",
@@ -407,11 +407,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-14T04:52:34.487Z",
-      "updatedAt": "2026-10-14T05:03:25.446Z",
+      "updatedAt": "2026-10-14T05:05:59.530Z",
       "slug": "corona-fight-game",
       "cover": "uploads/images/1791954174271-xraww-gemini-generated-image-erapj3erapj3erap.webp",
       "icon": "uploads/images/1791954174271-efy4k-gemini-generated-image-q8l4crq8l4crq8l4.webp"
     }
   ],
-  "updatedAt": "2026-10-14T05:05:15.655Z"
+  "updatedAt": "2026-10-14T05:06:00.287Z"
 }
