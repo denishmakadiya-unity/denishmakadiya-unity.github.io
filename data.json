@@ -315,7 +315,7 @@
       "changelog": [
         {
           "version": "0.9.0",
-          "date": "13/10/2026",
+          "date": "Oct 20226",
           "notes": "🚀 0.9.0 – Initial Release\n\n💬 AI Chat with project context and build-from-prompt Development Plans (Approve & Build)\n\n💻 Code Agent with diff review, compile check, AI error fixing and rollback\n\n🎨 Scene, GameObject, Prefab, UI/UX and Animation assistants with Undo\n\n🤖 Agent Orchestrator with final build report\n\n🔍 Project Analyzer, Asset Tools, Shader & Material tools, Optimization, Console Fixer, Build Tools\n\n🧪 Testing & QA with Verify Project\n\n📚 Project documentation generator (Game Systems, API, README, Architecture)\n\n🔌 AI Providers: Claude Code, OpenAI Codex CLI, Google Antigravity CLI, Cursor CLI, Local Model Servers – No API Keys\n\n🔐 Privacy & Data settings\n\n📖 In-Editor Product Guide and PDF Documentation"
         }
       ],
@@ -330,7 +330,7 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T06:59:33.454Z",
-      "updatedAt": "2026-10-14T06:53:14.864Z",
+      "updatedAt": "2026-10-14T06:53:38.635Z",
       "slug": "devforge-ai-ai-game-development-toolkit",
       "cover": "uploads/images/1791874898125-cvh5o-cover-1950x1300.webp",
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
@@ -618,5 +618,5 @@
       "slug": "getsolveit"
     }
   ],
-  "updatedAt": "2026-10-14T06:53:15.650Z"
+  "updatedAt": "2026-10-14T06:53:39.486Z"
 }
