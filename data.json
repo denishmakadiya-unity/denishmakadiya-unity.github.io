@@ -298,7 +298,15 @@
       "published": true,
       "featured": false,
       "tags": [
-        "#NineMensMorris #StrategyGame #BoardGames #ClassicGames #Multiplayer #PuzzleGame #BrainTeaser #OfflineGame #BoardGameGeek"
+        "NineMensMorris",
+        "StrategyGame",
+        "BoardGames",
+        "ClassicGames",
+        "Multiplayer",
+        "PuzzleGame",
+        "BrainTeaser",
+        "OfflineGame",
+        "BoardGameGeek"
       ],
       "platforms": [
         "Android",
@@ -336,7 +344,7 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T08:13:14.813Z",
-      "updatedAt": "2026-10-14T04:39:44.722Z",
+      "updatedAt": "2026-10-14T05:05:14.893Z",
       "slug": "nine-mens-morris-board-game",
       "icon": "uploads/images/1791894800939-d40rj-playstore.webp",
       "videoFile": "uploads/videos/1791896461460-jv8de-whatsapp-video-2026-10-13-at-6-1.mp4",
@@ -405,5 +413,5 @@
       "icon": "uploads/images/1791954174271-efy4k-gemini-generated-image-q8l4crq8l4crq8l4.webp"
     }
   ],
-  "updatedAt": "2026-10-14T05:03:26.022Z"
+  "updatedAt": "2026-10-14T05:05:15.655Z"
 }
