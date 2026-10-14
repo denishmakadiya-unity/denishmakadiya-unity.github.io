@@ -341,7 +341,45 @@
       "icon": "uploads/images/1791894800939-d40rj-playstore.webp",
       "videoFile": "uploads/videos/1791896461460-jv8de-whatsapp-video-2026-10-13-at-6-1.mp4",
       "cover": "uploads/images/1791897021465-9lta5-gemini-generated-image-iynqlkiynqlkiynq.webp"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1791953554487-95dxq-1.jpeg",
+        "uploads/images/1791953554487-mwqad-2.jpeg",
+        "uploads/images/1791953554487-rubmu-3.jpeg",
+        "uploads/images/1791953554487-bur78-4.jpeg",
+        "uploads/images/1791953554487-8wyuu-5.jpeg",
+        "uploads/images/1791953554487-rzz57-6.jpeg",
+        "uploads/images/1791953554487-jh9qv-7.jpeg"
+      ],
+      "id": "a518ac92-c4db-41e0-8344-a7d23439e7fd",
+      "title": "Corona Fight Game",
+      "shortDescription": "",
+      "description": "",
+      "docs": "",
+      "changelog": [],
+      "version": "",
+      "unityVersion": "",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-14T04:52:34.487Z",
+      "updatedAt": "2026-10-14T04:52:34.487Z",
+      "slug": "corona-fight-game"
     }
   ],
-  "updatedAt": "2026-10-14T04:39:45.663Z"
+  "updatedAt": "2026-10-14T04:52:35.290Z"
 }
