@@ -349,14 +349,19 @@
       "tags": [
         "2D Platformer",
         "Action Game",
-        "Corona Warriors",
-        "Virus Game",
-        "Monkey Warrior",
         "Adventure Game",
-        "Casual Arcade",
-        "Offline Platformer",
+        "Arcade Game",
         "Jump and Run",
-        "Hero Game 🕹️🔥"
+        "Offline Game",
+        "Monkey Warrior",
+        "Virus Fighting",
+        "Casual Game",
+        "Hero Adventure",
+        "Coin Collection",
+        "Family Friendly",
+        "Platformer Game",
+        "2D Action",
+        "Corona Warriors"
       ],
       "platforms": [
         "Android",
@@ -374,17 +379,17 @@
       "id": "a518ac92-c4db-41e0-8344-a7d23439e7fd",
       "title": "Corona Fight Game",
       "shortDescription": "Join the Corona Warriors! 🐒 Defeat virus monsters 🦠, collect coins 🪙, and save the world in this fun and action-packed 2D platformer game! 🌍✨",
-      "description": "Get ready for an action-packed adventure in Corona Warriors! 🛡️ Step up to defend the world from dangerous viruses. Start your journey as the agile Monkey Warrior armed with a staff, or collect coins to unlock the powerful gun-wielding Hero 🐒🔫.   Jump, run, and fight your way through beautifully designed 2D platformer levels 🏃‍♂️💨. Explore 4 exciting and unique worlds: lush Mountains, dark Underground caves, floating Sky islands, and freezing Winter landscapes ⛰️🌌❄️.   ✨ Game Features:🎮 Classic Platforming: Enjoy smooth 2D run-and-jump gameplay with easy controls (Left, Right, Jump, and Attack).   🌍 4 Exciting Worlds: Conquer 10 challenging levels in each world to progress further.   🦸‍♂️ Character Selection: Play as the Monkey Warrior or collect 2,000 coins to unlock the new Hero.   🪙 Power-ups & Collectibles: Collect Coins 🪙, Extra Lives ❤️, Bullets 🔫, and Health/Sanitizer potions 🧴 as you cross levels.   🎵 Family Friendly Fun: Features colorful graphics, relaxing background music, and a positive message of defeating viruses.   Can you clear all the levels and become the ultimate Corona Warrior? 🤔 Download today and start the battle! 🚀",
+      "description": "🛡️ **Welcome to Corona Warriors – The Ultimate Virus-Fighting Adventure!** 🌍\n\nGet ready for an action-packed adventure in **Corona Warriors**, an exciting 2D platformer where you defend the world against dangerous viruses!\n\n🐒 Start your journey as the agile **Monkey Warrior**, armed with a powerful staff, or collect coins to unlock the mighty **Hero**, equipped with a gun! 🔫\n\n🏃‍♂️ Jump, run, and fight your way through beautifully designed levels as you explore four unique worlds: lush Mountains, mysterious Underground caves, floating Sky islands, and freezing Winter landscapes. ⛰️🌌❄️\n\n✨ **GAME FEATURES**\n\n🎮 **Classic 2D Platforming** – Enjoy smooth run-and-jump gameplay with easy-to-use controls for moving, jumping, and attacking.\n\n🌍 **4 Unique Worlds** – Explore Mountain, Underground, Sky, and Winter environments, each offering exciting challenges.\n\n⚔️ **40 Challenging Levels** – Battle through 10 levels in each world and prove your skills.\n\n🦸‍♂️ **Two Playable Characters** – Play as the Monkey Warrior or collect **2,000 coins** to unlock the powerful Hero!\n\n🪙 **Collectibles & Power-Ups** – Collect coins, extra lives, bullets, and health/sanitizer potions to help you on your journey.\n\n🎵 **Colorful Graphics & Sound** – Enjoy vibrant visuals, engaging gameplay, and relaxing background music suitable for the whole family.\n\n🌟 **A Mission to Save the World** – Take on dangerous viruses, overcome obstacles, and become a true Corona Warrior!\n\n🏆 **Are you ready to conquer all 40 levels and become the ultimate Corona Warrior?**\n\n🚀 **Start your adventure today and join the battle against viruses!**",
       "docs": "",
       "changelog": [
         {
           "version": "1.0.0",
           "date": "Aug 2020",
-          "notes": "🎉 Initial Release: Welcome to Corona Warriors v1.0!🌍 Added 4 unique worlds: Mountain, Underground, Sky, and Winter.   🐒 2 Playable characters included: Warrior and Hero.   ⚔️ 10 action-packed levels per world (Total 40 levels).   ⚙️ Integrated smooth controls, coin collection, and audio settings.  "
+          "notes": "🎉 Initial Release – Welcome to Corona Warriors v1.0! 🌍\n\n🌎 4 Unique Worlds: Mountain, Underground, Sky, and Winter\n🐒 2 Playable Characters: Warrior and Hero\n⚔️ 40 Action-Packed Levels: 10 exciting levels in each world\n🎮 Smooth Gameplay: Responsive and intuitive controls\n🪙 Coin Collection: Collect coins throughout your adventure\n🔊 Audio Settings: Customize your gaming experience\n\n🚀 Get ready for an epic adventure with Corona Warriors v1.0!"
         }
       ],
-      "version": "",
-      "unityVersion": "",
+      "version": "1.0.0",
+      "unityVersion": "2020.1.1f1",
       "price": "",
       "youtubeUrl": "",
       "downloadUrl": "",
@@ -394,9 +399,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-14T04:52:34.487Z",
-      "updatedAt": "2026-10-14T04:58:31.497Z",
-      "slug": "corona-fight-game"
+      "updatedAt": "2026-10-14T05:02:54.271Z",
+      "slug": "corona-fight-game",
+      "cover": "uploads/images/1791954174271-xraww-gemini-generated-image-erapj3erapj3erap.webp",
+      "icon": "uploads/images/1791954174271-efy4k-gemini-generated-image-q8l4crq8l4crq8l4.webp"
     }
   ],
-  "updatedAt": "2026-10-14T04:58:32.255Z"
+  "updatedAt": "2026-10-14T05:02:55.071Z"
 }
