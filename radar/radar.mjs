@@ -167,23 +167,42 @@ async function arbeitnow() {
 
 /* ---------------- scoring ---------------- */
 const userCountries = locations.map(l => (l.country || '').toLowerCase()).filter(Boolean);
+/* Focus: only game jobs and Unity asset / tools jobs count (no plain app or web jobs) */
+const focus = cfg.focus || ['game', 'asset'];
+const GAME_RE = /\b(games?|gaming|gameplay|game ?dev|unity ?3d|unity|unreal|level design|esports|casual|hyper-?casual|puzzle|rpg|mmo|slots?|metaverse)\b/gi;
+const ASSET_RE = /\b(unity (tools?|editor|assets?|plugins?|sdk|packages?)|editor (tools?|extensions?|scripting)|asset store|tools? (engineer|programmer|developer)|technical artist|plugin developer|custom inspectors?)\b/gi;
+const NOT_GAME_TITLE = /\b(flutter|react|angular|vue|node\.?js|php|laravel|wordpress|django|\.net|asp|full ?stack|front ?end|back ?end|web developer|android app|ios app|mobile app developer|salesforce|sap|data (engineer|scientist)|devops|qa tester)\b/i;
+const hits = (re, t) => (String(t).match(re) || []).length;
+function category(title, text) {
+  const t = String(title || ''), all = t + ' ' + String(text || '');
+  const asset = focus.includes('asset') && (hits(ASSET_RE, t) > 0 || hits(ASSET_RE, all) >= 1 && /unity/i.test(t));
+  const gameTitle = hits(GAME_RE, t) > 0, gameText = hits(GAME_RE, all);
+  const game = focus.includes('game') && (gameTitle || (gameText >= 3 && !NOT_GAME_TITLE.test(t)));
+  if (asset) return 'asset';
+  if (game) return 'game';
+  return '';
+}
+const IGNORE_SKILL = /^(mobile applications?|applications?|apps?|websites?|web|php|phpmyadmin|windows|macos|mac ?os|xcode|c)$/i;
 function score(j) {
   const title = (j.title || '').toLowerCase();
   const text = `${title} ${(j.text || '').toLowerCase()} ${(j.tags || []).join(' ').toLowerCase()}`;
   if (exclude.some(x => has(title, x))) return null;
+  const cat = category(j.title, j.text + ' ' + (j.tags || []).join(' '));
+  if (!cat) return null;
   let s = 0;
   const fullTitle = keywords.some(k => k.toLowerCase().split(/\s+/).every(w => has(title, w)));
   const termInTitle = keywords.some(k => k.toLowerCase().split(/\s+/).some(w => w.length > 3 && has(title, w)));
   const termAnywhere = keywords.some(k => k.toLowerCase().split(/\s+/).some(w => w.length > 3 && has(text, w)));
   if (!termAnywhere && !skills.some(sk => has(title, sk))) return null;
   s += fullTitle ? 50 : termInTitle ? 32 : 12;
-  const matched = skills.filter(sk => has(text, sk));
+  const matched = skills.filter(sk => !IGNORE_SKILL.test(sk) && has(text, sk));
   s += Math.min(36, matched.length * 9);
   const age = j.posted ? daysAgo(j.posted) : 99;
   if (age <= 2) s += 10; else if (age <= 7) s += 5;
   if (j.remote && !/worldwide|anywhere|global/i.test(j.location || '') && userCountries.length &&
       /only|usa|united states|europe|uk|canada/i.test(j.location || '') && !userCountries.some(c => (j.location || '').toLowerCase().includes(c))) s -= 15;
-  return { score: Math.max(0, Math.min(100, Math.round(s))), matched: matched.slice(0, 8) };
+  if (hits(GAME_RE, j.title) || hits(ASSET_RE, j.title)) s += 6;
+  return { score: Math.max(0, Math.min(100, Math.round(s))), matched: matched.slice(0, 8), cat };
 }
 function allowedType(j) {
   if (j.type === 'contract' || j.type === 'freelance') return types.includes('contract');
@@ -360,14 +379,15 @@ for (const j of raw) {
   found.push({
     id: j.id, source: j.source, title: j.title.trim(), company: (j.company || '').trim(), location: (j.location || '').trim(), country: j.country || '',
     remote: !!j.remote, type: j.type, salary: j.salary || '', url: j.url, posted: j.posted || now,
-    summary: strip(j.text).slice(0, 320), score: sc.score, matched: sc.matched, firstSeen: old ? old.firstSeen : now,
+    summary: strip(j.text).slice(0, 320), score: sc.score, matched: sc.matched, cat: sc.cat, firstSeen: old ? old.firstSeen : now,
     email: findEmail(strip(j.text)) || (old && old.email) || ''
   });
 }
 const newJobs = found.filter(j => !prevById.has(j.id));
 
 // keep older jobs we found before (until they are 3× maxDays old) so saved/applied ones don't vanish
-const keepOld = (prev.jobs || []).filter(j => !found.some(f => f.id === j.id) && daysAgo(j.firstSeen || j.posted) <= maxDays * 3);
+const keepOld = (prev.jobs || []).filter(j => !found.some(f => f.id === j.id) && daysAgo(j.firstSeen || j.posted) <= maxDays * 3)
+  .map(j => ({ ...j, cat: category(j.title, j.summary) })).filter(j => j.cat); // older jobs must also be game / Unity asset jobs
 const jobs = [...found, ...keepOld].sort((a, b) => String(b.posted).localeCompare(String(a.posted))).slice(0, 500);
 
 let notified = 0;

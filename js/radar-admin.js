@@ -42,7 +42,7 @@ function defaultRadarConfig() {
     skills: (p.skills || ['Unity', 'C#']).filter(s => s.length < 30).slice(0, 14).concat(['Unity']).filter((v, i, a) => a.indexOf(v) === i),
     exclude: ['intern', 'internship', 'trainee', 'fresher'],
     locations: [{ city: (p.location || 'Ahmedabad').split(',')[0].trim(), country: 'India' }],
-    types: ['fulltime', 'remote', 'contract'],
+    types: ['fulltime', 'remote', 'contract'], focus: ['game', 'asset'],
     maxDays: 14, minScore: 35,
     adzuna: { appId: '', appKey: '' },
     telegram: { enabled: false, botToken: '', chatId: '', minScore: 55, maxPerRun: 8, adminUrl: '' },
@@ -191,6 +191,17 @@ function resumeInfo() {
   const name = ((DATA.profile.name || 'Resume').replace(/[^\w]+/g, '_') + '_Resume.' + ext);
   const url = /^https?:/i.test(path) ? path : `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${GH.branch}/${CFG.dir ? CFG.dir.replace(/^\/+|\/+$/g, '') + '/' : ''}${path.replace(/^\/+/, '')}`;
   return { url, name };
+}
+/* Same rules as radar.mjs: only game jobs and Unity asset / tools jobs */
+const GAME_RE = /\b(games?|gaming|gameplay|game ?dev|unity ?3d|unity|unreal|level design|esports|casual|hyper-?casual|puzzle|rpg|mmo|slots?|metaverse)\b/gi;
+const ASSET_RE = /\b(unity (tools?|editor|assets?|plugins?|sdk|packages?)|editor (tools?|extensions?|scripting)|asset store|tools? (engineer|programmer|developer)|technical artist|plugin developer|custom inspectors?)\b/gi;
+const NOT_GAME_TITLE = /\b(flutter|react|angular|vue|node\.?js|php|laravel|wordpress|django|\.net|asp|full ?stack|front ?end|back ?end|web developer|android app|ios app|mobile app developer|salesforce|sap|data (engineer|scientist)|devops|qa tester)\b/i;
+const reHits = (re, t) => (String(t || '').match(re) || []).length;
+function jobCategory(j, focus) {
+  const t = j.title || '', all = t + ' ' + (j.summary || '');
+  if (focus.includes('asset') && (reHits(ASSET_RE, t) > 0 || (reHits(ASSET_RE, all) >= 1 && /unity/i.test(t)))) return 'asset';
+  if (focus.includes('game') && (reHits(GAME_RE, t) > 0 || (reHits(GAME_RE, all) >= 3 && !NOT_GAME_TITLE.test(t)))) return 'game';
+  return '';
 }
 const companySite = co => `https://duckduckgo.com/?q=${encodeURIComponent('!ducky ' + co + ' official website')}`;
 const EMAIL_RE = /^[^@\s,;]+@[^@\s,;]+\.[^@\s,;]+$/;
@@ -367,7 +378,9 @@ function radarList(body) {
   const run = data.lastRun;
   const errs = run && run.errors ? Object.entries(run.errors) : [];
   const countries = [...new Set((data.jobs || []).map(j => j.country).filter(Boolean))].sort();
-  const f = { q: '', view: 'all', type: 'any', country: 'any', sort: 'score' };
+  const f = { q: '', view: 'all', type: 'any', country: 'any', sort: 'score', cat: 'any' };
+  const focus = (cfg.focus && cfg.focus.length) ? cfg.focus : ['game', 'asset'];
+  (data.jobs || []).forEach(j => { j.cat = jobCategory(j, focus); });
 
   body.innerHTML = `
     <div class="panel radar-status">
@@ -387,6 +400,7 @@ function radarList(body) {
       <div class="seg" id="jview">
         <button class="active" data-v="all">All</button><button data-v="new">New</button><button data-v="saved">⭐ Saved</button><button data-v="applied">✓ Applied</button><button data-v="hidden">Hidden</button>
       </div>
+      <select id="jcat"><option value="any">Games + Unity assets</option><option value="game">🎮 Game jobs</option><option value="asset">📦 Unity asset / tools</option></select>
       <select id="jtype"><option value="any">Any type</option><option value="full-time">Full-time</option><option value="remote">Remote</option><option value="contract">Contract / freelance</option></select>
       <select id="jcountry"><option value="any">Any country</option>${countries.map(c => `<option>${esc(c)}</option>`).join('')}<option value="__remote">Remote only</option></select>
       <select id="jsort"><option value="score">Best match</option><option value="date">Newest</option></select>
@@ -406,6 +420,8 @@ function radarList(body) {
       const hidden = st.hidden.includes(j.id);
       if (f.view === 'hidden') return hidden;
       if (hidden) return false;
+      if (!j.cat) return false; // not a game / Unity asset job
+      if (f.cat !== 'any' && j.cat !== f.cat) return false;
       if (f.view === 'saved' && !st.saved.includes(j.id)) return false;
       if (f.view === 'applied' && !findApp(j.id)) return false;
       if (f.view === 'new' && !isNew(j)) return false;
@@ -426,7 +442,7 @@ function radarList(body) {
           <div class="job-top"><h3>${esc(j.title)}</h3>${isNew(j) ? '<span class="chip star">NEW</span>' : ''}${app ? `<span class="chip ${statusChip(app.status)}">${esc(statusLabel(app.status))} · ${esc(new Date(app.appliedOn).toLocaleDateString())}</span>` : ''}</div>
           <div class="job-co"><b>${esc(j.company || 'Company')}</b> · ${esc(j.location || '')} · ${esc(ago(j.posted))}</div>
           <div class="job-tags">
-            <span class="chip ${j.type === 'full-time' ? 'app' : 'asset'}">${esc(j.type)}</span>${j.remote ? '<span class="chip website">Remote</span>' : ''}
+            <span class="chip ${j.cat === 'asset' ? 'asset' : 'game'}">${j.cat === 'asset' ? '📦 Unity asset' : '🎮 Game'}</span><span class="chip ${j.type === 'full-time' ? 'app' : 'asset'}">${esc(j.type)}</span>${j.remote ? '<span class="chip website">Remote</span>' : ''}
             ${j.salary ? `<span class="chip draft">💰 ${esc(j.salary)}</span>` : ''}<span class="src">via ${esc(j.source)}</span>
           </div>
           ${j.summary ? `<p class="job-sum">${esc(j.summary)}</p>` : ''}
@@ -447,6 +463,7 @@ function radarList(body) {
   $('#jq').oninput = e => { f.q = e.target.value.trim(); render(); };
   $('#jview').onclick = e => { const b = e.target.closest('button'); if (!b) return; f.view = b.dataset.v; $$('#jview button').forEach(x => x.classList.toggle('active', x === b)); render(); };
   $('#jtype').onchange = e => { f.type = e.target.value; render(); };
+  $('#jcat').onchange = e => { f.cat = e.target.value; render(); };
   $('#jcountry').onchange = e => { f.country = e.target.value; render(); };
   $('#jsort').onchange = e => { f.sort = e.target.value; render(); };
   $('#jlist').onclick = e => {
@@ -609,6 +626,11 @@ function radarSettings(body) {
           <label><input type="checkbox" name="types" value="remote" ${c.types.includes('remote') ? 'checked' : ''}> Remote</label>
           <label><input type="checkbox" name="types" value="contract" ${c.types.includes('contract') ? 'checked' : ''}> Freelance / contract</label>
         </div></div>
+      <div class="field" style="margin:14px 0 0"><span class="label">Count only these jobs</span>
+        <div class="checks">
+          <label><input type="checkbox" name="focus" value="game" ${(c.focus || ['game', 'asset']).includes('game') ? 'checked' : ''}> 🎮 Game jobs</label>
+          <label><input type="checkbox" name="focus" value="asset" ${(c.focus || ['game', 'asset']).includes('asset') ? 'checked' : ''}> 📦 Unity asset / tools jobs</label>
+        </div><small>App, web and other jobs are skipped.</small></div>
     </div>
     <div class="panel">
       <h2>Where <button type="button" class="btn btn-sm" id="addLoc">${ico('plus', 14)} Add city / country</button></h2>
@@ -644,12 +666,13 @@ function radarSettings(body) {
     const next = {
       ...RS.cfg,
       keywords: list(fd.get('keywords')), skills: list(fd.get('skills')), exclude: list(fd.get('exclude')).map(x => x.toLowerCase()),
-      types: fd.getAll('types'), locations: locs.filter(l => l.country).map(l => ({ city: (l.city || '').trim(), country: l.country })),
+      types: fd.getAll('types'), focus: fd.getAll('focus'), locations: locs.filter(l => l.country).map(l => ({ city: (l.city || '').trim(), country: l.country })),
       maxDays: Number(fd.get('maxDays')) || 14, minScore: Number(fd.get('minScore')) || 35,
       adzuna: { appId: String(fd.get('appId') || '').trim(), appKey: String(fd.get('appKey') || '').trim() }, version: RADAR_VERSION
     };
     if (!next.keywords.length) return toast('Add at least one job title / keyword', 'err');
     if (!next.types.length) return toast('Choose at least one job type', 'err');
+    if (!next.focus.length) return toast('Choose Game jobs and/or Unity asset jobs', 'err');
     try { await radarCommit('Job radar: update search profile', [{ path: 'config.json', content: next }]); RS.cfg = next; dirty = false; toast('Next scan will use these settings — or click Scan now'); } catch (_) {}
   });
 }
@@ -897,7 +920,7 @@ async function radarPeek() {
     const jobs = await readOr('jobs.json', null);
     const status = await readOr('status.json', { hidden: [] });
     const seen = Number(store.get('pv_jobs_seen') || 0);
-    const n = jobs && seen ? jobs.jobs.filter(j => new Date(j.firstSeen || j.posted).getTime() > seen && !(status.hidden || []).includes(j.id)).length : 0;
+    const n = jobs && seen ? jobs.jobs.filter(j => new Date(j.firstSeen || j.posted).getTime() > seen && !(status.hidden || []).includes(j.id) && jobCategory(j, ['game', 'asset'])).length : 0;
     const pill = $('#jobsPill'); if (pill) { pill.hidden = !n; pill.textContent = n; }
   } catch (_) {}
 }
