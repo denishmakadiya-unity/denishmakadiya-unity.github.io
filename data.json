@@ -407,10 +407,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-14T04:52:34.487Z",
-      "updatedAt": "2026-10-14T05:05:59.530Z",
+      "updatedAt": "2026-10-14T06:27:17.561Z",
       "slug": "corona-fight-game",
       "cover": "uploads/images/1791954174271-xraww-gemini-generated-image-erapj3erapj3erap.webp",
-      "icon": "uploads/images/1791954174271-efy4k-gemini-generated-image-q8l4crq8l4crq8l4.webp"
+      "icon": "uploads/images/1791954174271-efy4k-gemini-generated-image-q8l4crq8l4crq8l4.webp",
+      "videoFile": "uploads/videos/1791959237561-bg2bb-whatsapp-video-2026-10-14-at-115406-am.mp4"
     },
     {
       "type": "game",
@@ -476,5 +477,5 @@
       "cover": "uploads/images/1791959078146-pjn46-gemini-generated-image-uv3x64uv3x64uv3x.webp"
     }
   ],
-  "updatedAt": "2026-10-14T06:26:51.687Z"
+  "updatedAt": "2026-10-14T06:27:18.163Z"
 }
