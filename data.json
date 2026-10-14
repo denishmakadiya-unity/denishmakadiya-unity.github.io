@@ -585,7 +585,39 @@
       "published": true,
       "featured": false,
       "tags": [
-        "tags dena he"
+        "SolveIt icon",
+        "SolveIt logo",
+        "SolveIt favicon",
+        "SolveIt app icon",
+        "SolveIt branding",
+        "getsolveit icon",
+        "getsolveit logo",
+        "free online tools icon",
+        "browser tools icon",
+        "web tools logo",
+        "privacy-first tools icon",
+        "no signup tools logo",
+        "multilingual tools icon",
+        "PDF tools icon",
+        "image tools icon",
+        "workflow automation icon",
+        "productivity tools logo",
+        "utility tools icon",
+        "modern app icon",
+        "gradient app icon",
+        "checkmark icon",
+        "letter S icon",
+        "SolveIt S icon",
+        "SolveIt checkmark",
+        "SolveIt 512x512",
+        "SolveIt 128x128",
+        "favicon generator",
+        "app icon design",
+        "web app icon",
+        "PWA icon",
+        "Android icon",
+        "Apple touch icon",
+        "Chrome extension icon"
       ],
       "platforms": [
         "Web"
@@ -614,11 +646,11 @@
       "otherUrl": "https://getsolveit.com/",
       "order": 0,
       "createdAt": "2026-10-14T06:51:42.354Z",
-      "updatedAt": "2026-10-14T07:00:53.573Z",
+      "updatedAt": "2026-10-14T07:03:11.396Z",
       "slug": "getsolveit",
       "cover": "uploads/images/1791961253573-ukurx-solveit-your-problem-our-tools.webp",
       "icon": "uploads/images/1791961253573-w4qc1-glossy-gradient-productivity-suite-icon.webp"
     }
   ],
-  "updatedAt": "2026-10-14T07:00:54.403Z"
+  "updatedAt": "2026-10-14T07:03:12.401Z"
 }
