@@ -537,7 +537,44 @@
       "slug": "arrow-escape-ultimate-logic-puzzle",
       "cover": "uploads/images/1791960158641-gc12r-gemini-generated-image-ezovizezovizezov.webp",
       "icon": "uploads/images/1791960158641-5occq-gemini-generated-image-m8x0jxm8x0jxm8x0.webp"
+    },
+    {
+      "type": "website",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "tags dena he"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "gallery": [],
+      "id": "de38a9ef-bdb3-4d78-9d21-31c546b198ff",
+      "title": "GetSolveit",
+      "shortDescription": "SolveIt 🛠️ — Free browser-based tools ka platform. Apni problem likho, 4 easy steps mein ready file pao ✅. No sign-up 🔓, files device par hi safe 🔒, 38+ tools & 59+ workflows ⚡",
+      "description": "🎯 What is SolveIt?\nSolveIt is a free, browser-based problem-solving platform. You describe your problem in plain language, and it guides you to the right tools and workflow. In the end, you get a ready-to-use file. No software installation needed. 🚀\n\n✨ Key Features:\n🔓 No Sign-up Required — Start instantly without creating an account.\n🔒 Privacy First — Files are processed on your device and are not uploaded to a server.\n🌍 Multi-language Support — Write your problem in English, Hindi, Hinglish, or Gujarati.\n🧠 Smart Workflows — Chain multiple tools together and complete everything in one run.\n🧰 38+ Tools — For tasks like PDF handling, image conversion, compression, resizing, and more.\n🔗 59+ Workflows — Ready-made combinations so you don’t have to run each tool manually.\n💸 Completely Free — Supported by unobtrusive ads that do not block tool controls.\n📱 Browser-based — Works on mobile, laptop, and desktop.\n\n⚙️ How It Works (4 Easy Steps):\n1️⃣ Describe your problem in normal language.\n2️⃣ Choose a suitable workflow or tool.\n3️⃣ Upload your file or adjust the settings.\n4️⃣ Download your ready file. ✅\n\n🧰 Popular Use Cases:\n📄 PDF shrink, compress, merge, split\n🖼️ Image convert, resize, compress\n🔄 File format conversion\n📦 File optimization and quick editing\n🔗 Multi-step workflows — e.g., resize → convert → compress → download\n\n🔐 Privacy & Safety:\nYour files are processed locally on your device. Because processing happens in the browser, privacy stays strong. 🔒\n\n👥 Who Is It Best For?\n🎓 Students\n💼 Professionals\n🧑‍💻 Freelancers\n🏪 Small businesses\n🎨 Creators\nAnd anyone who needs fast file-related tasks.\n\n✅ Why Choose SolveIt?\nNo install 📥, no signup 🔓, fast ⚡, private 🔒, free 💸, multilingual 🌍, and workflow automation 🧠.\n\n⚠️ Note: For the latest list of tools and workflows, check the website directly. Ads are present, but the platform still provides free access.\n\n🏁 Bottom Line:\nSolveIt = a fast, free, private, and smart solution for your files and problems — all in one place. 🛠️✨\n\n",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "Sep 2026",
+          "notes": "🌐 Launched SolveIt, a free browser-based problem-solving platform.\n\n🧭 Introduced the 4-step workflow:\n1️⃣ Describe your problem\n2️⃣ Choose a tool/workflow\n3️⃣ Upload file or adjust settings\n4️⃣ Download ready file\n\n🧰 Added 38+ tools for PDF, image, file conversion, compression, resizing, and more.\n\n🔗 Added 59+ pre-built workflows for multi-step file tasks.\n\n🧠 Smart Workflow Engine — chain multiple tools and complete everything in one run.\n\n🌍 Multilingual input support: English, Hindi, Hinglish, Gujarati.\n\n🔓 No sign-up required — instant access.\n\n🔒 Privacy-first local processing — files stay on your device.\n\n📱 Browser-based support for mobile, laptop, and desktop.\n\n💸 Free access supported by unobtrusive ads.\n\n🛠️ Tools & Workflows\n📄 PDF Tools: Compress, merge, split, shrink.\n\n🖼️ Image Tools: Convert, resize, compress.\n\n🔄 File Conversion: Convert between supported formats.\n\n📦 Optimization: Reduce file size and improve usability.\n\n🔗 Multi-Step Workflows: Example — resize → convert → compress → download.\n\n🔐 Privacy & Security\n🔒 Local in-browser processing.\n\n🚫 No account creation or file storage.\n\n📢 Ad-supported, but ads do not block tool controls.\n\n🌍 Language Support\nEnglish 🇬🇧\n\nHindi 🇮🇳\n\nHinglish 🗣️\n\nGujarati 🇮🇳\n\n⚡ Performance & UX\nFast, lightweight browser experience.\n\nClean and simple interface.\n\nStep-by-step guidance for problem solving.\n\nNo installation required.\n\n📝 Notes\nThis is the first public release of SolveIt.\n\nMore tools and workflows are planned for future versions.\n\nExact tool and workflow counts may update over time.\n\n🔮 Planned / Coming Soon\nMore PDF and image tools.\n\nMore ready-made workflows.\n\nAdditional language support.\n\nUI and performance improvements.\n\n🏁 Summary\nv1.0.0 is the initial release of SolveIt — a free, private, multilingual, workflow-driven platform that helps users solve file problems directly in the browser. 🛠️✨\n\n"
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-14T06:51:42.354Z",
+      "updatedAt": "2026-10-14T06:51:42.354Z",
+      "slug": "getsolveit"
     }
   ],
-  "updatedAt": "2026-10-14T06:42:39.505Z"
+  "updatedAt": "2026-10-14T06:51:43.194Z"
 }
