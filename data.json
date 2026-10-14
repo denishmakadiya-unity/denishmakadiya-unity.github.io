@@ -614,9 +614,11 @@
       "otherUrl": "https://getsolveit.com/",
       "order": 0,
       "createdAt": "2026-10-14T06:51:42.354Z",
-      "updatedAt": "2026-10-14T06:57:16.254Z",
-      "slug": "getsolveit"
+      "updatedAt": "2026-10-14T07:00:53.573Z",
+      "slug": "getsolveit",
+      "cover": "uploads/images/1791961253573-ukurx-solveit-your-problem-our-tools.webp",
+      "icon": "uploads/images/1791961253573-w4qc1-glossy-gradient-productivity-suite-icon.webp"
     }
   ],
-  "updatedAt": "2026-10-14T06:57:17.238Z"
+  "updatedAt": "2026-10-14T07:00:54.403Z"
 }
