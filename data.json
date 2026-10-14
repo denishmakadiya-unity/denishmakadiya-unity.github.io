@@ -304,7 +304,15 @@
         "Android",
         "iOS"
       ],
-      "gallery": [],
+      "gallery": [
+        "uploads/images/1791952784722-5oozc-1.jpeg",
+        "uploads/images/1791952784722-14edy-2.jpeg",
+        "uploads/images/1791952784722-lsz9t-3.jpeg",
+        "uploads/images/1791952784722-2ljzi-4.jpeg",
+        "uploads/images/1791952784722-dl8at-5.jpeg",
+        "uploads/images/1791952784722-9xw85-6.jpeg",
+        "uploads/images/1791952784722-g285j-7.jpeg"
+      ],
       "id": "8456c490-2a43-4d29-aedd-76d112e0a77a",
       "title": "Nine Men’s Morris (board game)",
       "shortDescription": "Experience the classic Nine Men's Morris! Form a mill, capture opponent pieces, and claim victory! 🧠🎲",
@@ -328,12 +336,12 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T08:13:14.813Z",
-      "updatedAt": "2026-10-13T13:19:22.384Z",
+      "updatedAt": "2026-10-14T04:39:44.722Z",
       "slug": "nine-mens-morris-board-game",
       "icon": "uploads/images/1791894800939-d40rj-playstore.webp",
       "videoFile": "uploads/videos/1791896461460-jv8de-whatsapp-video-2026-10-13-at-6-1.mp4",
       "cover": "uploads/images/1791897021465-9lta5-gemini-generated-image-iynqlkiynqlkiynq.webp"
     }
   ],
-  "updatedAt": "2026-10-13T17:38:26.300Z"
+  "updatedAt": "2026-10-14T04:39:45.663Z"
 }
