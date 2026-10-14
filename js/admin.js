@@ -444,11 +444,11 @@ function viewProjects(main) {
   let type = 'all', q = '';
   const render = () => {
     const items = (DATA.projects || []).filter(p => (type === 'all' || typeOf(p) === type) && (!q || p.title.toLowerCase().includes(q)))
-      .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+      .sort((a, b) => (Number(b.order) || 0) - (Number(a.order) || 0) || (!!b.featured - !!a.featured) || String(b.createdAt).localeCompare(String(a.createdAt))); // same order as the website
     $('#rows').innerHTML = items.length ? items.map(p => `
       <div class="slot" data-id="${esc(p.id)}" data-type="${typeOf(p)}">
         <div class="thumb">${p.cover ? `<img src="${esc(media(p.cover))}" alt="" loading="lazy">` : esc(p.title.charAt(0))}
-          <div class="chips"><span class="chip ${typeOf(p)}">${TYPE_LABEL[typeOf(p)]}</span>${p.published === false ? '<span class="chip draft">Hidden</span>' : ''}${p.featured ? '<span class="chip star">★ Featured</span>' : ''}</div></div>
+          <div class="chips"><span class="chip ${typeOf(p)}">${TYPE_LABEL[typeOf(p)]}</span>${p.published === false ? '<span class="chip draft">Hidden</span>' : ''}${p.featured ? '<span class="chip star">★ Featured</span>' : ''}${Number(p.order) ? `<span class="chip draft" title="Sort priority">↑ ${Number(p.order)}</span>` : ''}</div></div>
         <div class="body">
           <h3>${esc(p.title)}</h3>
           <div class="sub">${p.version ? `<span>v${esc(p.version)}</span>` : ''}${p.download ? `<span>${esc(p.download.path.split('.').pop().toUpperCase())} · ${fmtSize(p.download.size)}</span>` : ''}${p.downloadUrl ? '<span>External download</span>' : ''}${p.playStoreUrl ? '<span>Play Store ✓</span>' : ''}</div>

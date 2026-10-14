@@ -86,7 +86,7 @@ async function loadData() {
   DATA.projects = (DATA.projects || [])
     .map(p => (p.type === 'plugin' || !TYPE_LABEL[p.type] ? { ...p, type: p.type === 'plugin' ? 'asset' : 'game' } : p)) // old "plugin" items show as Unity Assets
     .filter(p => p.published !== false)
-    .sort((a, b) => (!!b.featured - !!a.featured) || (b.order || 0) - (a.order || 0) || String(b.createdAt).localeCompare(String(a.createdAt)));
+    .sort((a, b) => (Number(b.order) || 0) - (Number(a.order) || 0) || (!!b.featured - !!a.featured) || String(b.createdAt).localeCompare(String(a.createdAt))); // Sort priority first (higher = first)
   return DATA;
 }
 
