@@ -475,7 +475,67 @@
       "updatedAt": "2026-10-14T06:30:18.956Z",
       "slug": "string-flick",
       "cover": "uploads/images/1791959418956-6opoq-gemini-generated-image-f5f721f5f721f5f7.webp"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "Puzzle Game",
+        "Brain Teaser",
+        "Arrow Jam",
+        "Untangle Puzzle",
+        "Logic Game",
+        "Neon Puzzle",
+        "Casual Game",
+        "Offline Puzzle",
+        "Arrow Escape",
+        "Swipe Puzzle."
+      ],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1791959921365-390mj-1.jpeg",
+        "uploads/images/1791959921365-6m3xo-2.jpeg",
+        "uploads/images/1791959921365-x6tht-3.jpeg",
+        "uploads/images/1791959921365-g98ig-4.jpeg",
+        "uploads/images/1791959921365-o6byl-5.jpeg",
+        "uploads/images/1791959921365-i4v9e-6.jpeg",
+        "uploads/images/1791959921365-ulmax-7.jpeg",
+        "uploads/images/1791959921365-mhy1t-8.jpeg",
+        "uploads/images/1791959921365-isnj7-9.jpeg",
+        "uploads/images/1791959921365-bqt15-10.jpeg",
+        "uploads/images/1791959921365-lrhxf-11.jpeg"
+      ],
+      "videoFile": "uploads/videos/1791959921365-wpafv-whatsapp-video-2026-10-14-at-115958-am.mp4",
+      "id": "04f3528d-d45b-447e-866c-ba4ae6562f17",
+      "title": "Arrow Escape: Ultimate Logic Puzzle",
+      "shortDescription": "Untangle the mess! ➡️ Swipe arrows to free them, unlock cool themes 🐍, and solve tricky logic puzzles in this glowing neon brain-teaser! 🧠💡",
+      "description": "🧩 **Arrow Escape: Ultimate Logic Puzzle**\n\nGet ready to challenge your brain with an addictive arrow-unblocking puzzle game! Swipe arrows in the direction they point to clear the board. Be careful—if an arrow's path is blocked, you'll lose a heart! ❤️ Plan your moves strategically, untangle tricky puzzles, and clear every grid without losing all 3 hearts.\n\nFrom simple beginner puzzles to complex, tangled challenges, every level tests your logic, patience, and problem-solving skills!\n\n**✨ Game Features**\n\n- 🧠 **Challenging Logic Puzzles:** Progress from easy levels to mind-bending challenges with increasingly complex arrow patterns.\n- 🎨 **Unlockable Themes:** Customize your board with exciting themes, including Neon, Ropes, Iron Chains, Dragons, and Snakes. 🐍⛓️\n- 🪄 **Helpful Power-Ups:** Overcome tricky levels with powerful boosters:\n  - 💡 **Hint:** Find an arrow that can be safely removed.\n  - 🧽 **Eraser:** Instantly remove a selected arrow.\n  - 🌟 **Magic:** Use a magical boost to help arrows escape the grid.\n- ❤️ **Lives & Continues:** Start each level with 3 hearts. Retry after mistakes or watch an ad to continue playing.\n- ⚙️ **Personalized Settings:** Adjust sound, music, vibration, and language to suit your preferences.\n- 🚫 **Remove Ads:** Enjoy uninterrupted gameplay with the Remove Ads option.\n- ⏸️ **Pause Anytime:** Pause your game to change themes, adjust settings, or restart the current level.\n\n**🎯 Can you untangle every arrow and master all the levels?** Download now and put your brain to the test!",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "Aug 2025",
+          "notes": "🎉 **What's New – Initial Release**\n\n1. 🧩 **Hundreds of Puzzle Levels:** Enjoy hundreds of logic-based arrow puzzles, from easy challenges to expert-level brain teasers.\n2. 🛍️ **Theme Store:** Customize your gameplay with 6 unique arrow styles, including Neon, Dragon, Snake, Rope, and Chain.\n3. ✨ **Powerful Boosters:** Use Hint, Eraser, and Magic Wand to overcome tricky puzzles.\n4. ⚙️ **Multi-Language Support:** Play in your preferred language with customizable settings.\n5. 🎵 **Audio & Customization:** Adjust music, sound, and vibration settings for your ideal gaming experience.\n6. 🚫 **Remove Ads Option:** Choose uninterrupted gameplay with the Remove Ads option.\n\n🚀 **Start your arrow puzzle adventure and see how many levels you can conquer!**"
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "6000.0.59.f2",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-14T06:38:41.365Z",
+      "updatedAt": "2026-10-14T06:38:41.365Z",
+      "slug": "arrow-escape-ultimate-logic-puzzle"
     }
   ],
-  "updatedAt": "2026-10-14T06:30:19.875Z"
+  "updatedAt": "2026-10-14T06:38:42.313Z"
 }
