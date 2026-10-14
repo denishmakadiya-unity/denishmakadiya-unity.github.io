@@ -249,7 +249,49 @@
       "type": "asset",
       "published": true,
       "featured": true,
-      "tags": [],
+      "tags": [
+        "DevForge AI",
+        "Unity AI Tool",
+        "Unity AI Assistant",
+        "Unity Editor Extension",
+        "Unity 6 Tools",
+        "AI Game Development",
+        "Unity Automation",
+        "AI Code Assistant",
+        "C Sharp Code Generator",
+        "Unity Code Fixer",
+        "Unity Project Analyzer",
+        "AI Coding Agent",
+        "Claude Code",
+        "OpenAI Codex",
+        "Google Gemini",
+        "Antigravity CLI",
+        "Cursor AI",
+        "Local AI Models",
+        "Ollama",
+        "LM Studio",
+        "Unity Scene Builder",
+        "Unity GameObject Assistant",
+        "Unity Prefab Tools",
+        "Unity UI Automation",
+        "Unity Shader Tools",
+        "Unity URP Tools",
+        "Unity Performance Optimization",
+        "Unity WebGL Optimization",
+        "Unity Build Tools",
+        "Unity Debugging",
+        "Unity Console Fixer",
+        "Unity Testing Tools",
+        "AI Documentation Generator",
+        "Game Development Tools",
+        "Unity Developer Tools",
+        "Unity Asset Store",
+        "No API Key Required",
+        "AI Workflow Automation",
+        "Code Review",
+        "Safe Code Changes",
+        "Unity Productivity Tools"
+      ],
       "platforms": [
         "Android",
         "iOS"
@@ -277,9 +319,9 @@
           "notes": "🚀 0.9.0 – Initial Release\n\n💬 AI Chat with project context and build-from-prompt Development Plans (Approve & Build)\n\n💻 Code Agent with diff review, compile check, AI error fixing and rollback\n\n🎨 Scene, GameObject, Prefab, UI/UX and Animation assistants with Undo\n\n🤖 Agent Orchestrator with final build report\n\n🔍 Project Analyzer, Asset Tools, Shader & Material tools, Optimization, Console Fixer, Build Tools\n\n🧪 Testing & QA with Verify Project\n\n📚 Project documentation generator (Game Systems, API, README, Architecture)\n\n🔌 AI Providers: Claude Code, OpenAI Codex CLI, Google Antigravity CLI, Cursor CLI, Local Model Servers – No API Keys\n\n🔐 Privacy & Data settings\n\n📖 In-Editor Product Guide and PDF Documentation"
         }
       ],
-      "version": "",
-      "unityVersion": "",
-      "price": "",
+      "version": "0.9.0",
+      "unityVersion": "6000.0.59.f2",
+      "price": "39.99",
       "youtubeUrl": "",
       "downloadUrl": "",
       "playStoreUrl": "",
@@ -288,7 +330,7 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T06:59:33.454Z",
-      "updatedAt": "2026-10-13T07:01:38.126Z",
+      "updatedAt": "2026-10-14T06:53:14.864Z",
       "slug": "devforge-ai-ai-game-development-toolkit",
       "cover": "uploads/images/1791874898125-cvh5o-cover-1950x1300.webp",
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
@@ -576,5 +618,5 @@
       "slug": "getsolveit"
     }
   ],
-  "updatedAt": "2026-10-14T06:51:43.194Z"
+  "updatedAt": "2026-10-14T06:53:15.650Z"
 }
