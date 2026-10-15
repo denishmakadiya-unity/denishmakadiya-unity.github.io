@@ -708,11 +708,173 @@
       "assetStoreUrl": "",
       "githubUrl": "",
       "otherUrl": "",
-      "order": 5,
+      "order": 1,
       "createdAt": "2026-10-14T14:18:09.211Z",
-      "updatedAt": "2026-10-14T14:27:01.674Z",
+      "updatedAt": "2026-10-14T15:36:18.097Z",
       "slug": "skyball-rush"
+    },
+    {
+      "type": "asset",
+      "published": true,
+      "featured": false,
+      "tags": [],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1792047306217-za6rj-chronoscene-screenshot-1-timeline-change.webp",
+        "uploads/images/1792047306217-jzmrc-chronoscene-screenshot-2-play-mode-keepe.webp",
+        "uploads/images/1792047306217-aiyil-chronoscene-screenshot-3-scene-view-ghos.webp",
+        "uploads/images/1792047306217-3aqsf-chronoscene-screenshot-4-selective-resto.webp",
+        "uploads/images/1792047306217-l7zf1-chronoscene-screenshot-5-object-history.webp",
+        "uploads/images/1792047306217-cikip-chronoscene-screenshot-6-keep-values-aft.webp"
+      ],
+      "cover": "uploads/images/1792047306201-tzdjg-chronoscene-cover-1950x1300.png",
+      "icon": "uploads/images/1792047306217-9az83-chronoscene-icon-160x160.png",
+      "id": "e0535ce5-28c4-4961-b2e5-c4e07571fe7a",
+      "title": "ChronoScene - Scene History & Play Mode Keeper",
+      "shortDescription": "⏪ Pressed Stop and lost the perfect jump height you tuned in Play Mode? 🗑️ Deleted an object yesterday and only noticed today?",
+      "description": "⏪ Pressed Stop and lost the perfect jump height you tuned in Play Mode?\n🗑️ Deleted an object yesterday and only noticed today?\n\nChronoScene keeps a timeline of your scenes, so you can see exactly what changed and when, and bring it back with one click.\n\n🎮 Play Mode Keeper\nWhen you stop Play Mode, ChronoScene lists every value that changed. Values you edited by hand in the Inspector are detected automatically and pre-selected. Click Keep Selected and they stay in your scene. Changes made by physics or scripts are listed separately, so they never sneak in.\n\n📌 Keep Values After Play\nChanged values with a script or an in-game debug menu? During Play, right-click any component and choose \"ChronoScene: Keep Values After Play\". When you stop, all its changed values are pre-selected.\n\n🕒 Scene Timeline\nSnapshots are taken automatically when you save, before Play and when Play ends. Take named checkpoints before risky changes and pin the ones that matter ⭐.\n\n🔍 Changes View\nCompare any snapshot with the current scene or with another snapshot:\n✏️ Changed values, with before → after\n➕ Added and ❌ deleted objects\n🧩 Added and removed components\n🔀 Renamed and moved objects\n🔎 Search and filter by object or property\n\n👻 Scene View Ghosts\nSee the snapshot right in the Scene view: an orange marker shows where a moved object used to be, with a dotted line to its current position. Deleted objects are marked with a red ✕ and new objects with a green +.\n\n↩️ Selective Restore\nRestore one value, a few rows, one object or the whole scene. Deleted objects come back, and prefab instances keep their prefab link. Every restore is a single Undo step, and a backup snapshot is taken first 🛡️.\n\n📜 Object History\nRight-click any GameObject to see every change it went through, and restore it to any point.\n\n📋 Copy Report\nCopy all visible changes as text with one click, ready for a teammate, a task or a commit message.\n\n⚙️ Requirements & Details\n✅ Unity 6000.0 or newer\n🎨 Works with Built-in, URP and HDRP\n🧰 Editor-only: no runtime code, nothing is added to your builds\n📦 No dependencies, no internet connection, no data collection\n💾 Snapshots are stored as compressed files in your project's UserSettings folder, which is not committed to version control by default\n📖 Full C# source code and offline PDF documentation included\n\n⚠️ Limitations\n- References to objects that existed only in Play Mode (spawned clones, runtime material instances) cannot be restored.\n- Arrays larger than 256 elements track only their size (configurable).\n- Scenes only: prefabs edited in Prefab Mode are not snapshotted.\n- Scene View Ghosts are not drawn for UI objects (RectTransform).\n\n📩 Support: denish.makadiya@zohomail.com",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🚀 1.0.0 – Initial release\n📸 Scene snapshots: automatic on save, before Play and when Play ends, plus manual and named snapshots\n🕒 Timeline with names, notes, pinning and automatic clean-up\n🔍 Changes view: compare a snapshot with the current scene or another snapshot\n↩️ Restore selected changes, one object or the whole scene in a single Undo step\n🎮 Play Mode Keeper: keep values changed during Play Mode; values edited by hand are detected and pre-selected\n📌 Keep Values After Play: mark a whole component during Play from its right-click menu\n📜 Object History with restore to any point\n👻 Scene View Ghosts: old positions, deleted and new objects shown in the Scene view\n📋 Copy Report: copy the visible changes as text\n🗜️ Compressed snapshot storage (gzip) to save disk space"
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "6000.0.59.f2",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-15T06:55:06.218Z",
+      "updatedAt": "2026-10-15T06:55:06.245Z",
+      "slug": "chronoscene-scene-history-play-mode-keeper"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "AR game",
+        "augmented reality",
+        "shield",
+        "defense",
+        "arcade",
+        "reflex",
+        "action",
+        "casual",
+        "tower defense",
+        "bounce"
+      ],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1792055699859-6o9c0-bounceguardar-screenshot-1.webp",
+        "uploads/images/1792055699859-dxtsc-bounceguardar-screenshot-2.webp",
+        "uploads/images/1792055699859-8hczk-bounceguardar-screenshot-3.webp",
+        "uploads/images/1792055699859-tg9q2-bounceguardar-screenshot-4.webp",
+        "uploads/images/1792055699859-qcpug-bounceguardar-screenshot-5.webp"
+      ],
+      "cover": "uploads/images/1792055699859-2qams-bounceguardar-cover-1280x720.webp",
+      "icon": "uploads/images/1792055699859-xngpa-bounceguardar-icon-512.webp",
+      "id": "06ff01e0-a5bf-485a-99e1-a1560c7f7455",
+      "title": "Bounce Guard AR",
+      "shortDescription": "Your phone is the shield! Bounce orbs back & save your AR village.",
+      "description": "🛡️ **YOUR PHONE IS THE SHIELD!** 📱⚡\n\n🏰 **Bounce Guard AR** turns your table or floor into a battlefield! A tiny glowing village appears in your room, while enemy towers rise all around it, firing energy orbs at your precious crystal. 💎🔥\n\n🛡️ **How do you defend it?** Move your PHONE into the orb's path! 📱💥 Block the shot, and it bounces straight back to destroy the tower that fired it. 🏹🏰💣\n\n🚫 No buttons. 🎮 No joystick. Just YOU, your phone 📱, and lightning-fast reflexes! ⚡🤸\n\n## 🎮 HOW TO PLAY\n\n🔍 Scan a table or floor and tap to place your village 🏡  \n🎯 Watch the glowing arc showing where each orb will fly ✨  \n📱 Move your phone into the path to block the incoming orb 🛡️  \n💥 Reflected orbs fly back and smash the enemy towers 🏰🔥  \n🏆 Clear every tower to beat the wave and survive! 🌊⚔️\n\n## 🚀 FEATURES\n\n📱 **Real AR Gameplay:** The battlefield comes alive right inside your room! 🌎✨  \n🤸 **Body-Movement Action:** Lean, reach, and dodge to defend your crystal! 🛡️⚡  \n🔥 **Combo System:** Chain perfect blocks for up to **x10 points!** 💯  \n🔮 **4 Orb Types:** Normal ⚪, Fast Darts ⚡, Splitters 💫, and Golden Orbs 🟡  \n🛡️ **MEGA SHIELD Power-Up:** Catch a Golden Orb to activate a giant shield! 🌟  \n🏰 **Armoured Towers:** Some enemies need two hits to go down! 💥💥  \n♾️ **Endless Waves:** Enemies get faster, tougher, and more dangerous! 👾🔥  \n🔊 **Immersive Feedback:** Satisfying sound effects and haptic vibrations! 🎵📳  \n🏡 **Play Anywhere:** Defend your village on a table or directly on the floor! 🪑🌍\n\n👥 Perfect for quick gaming sessions, challenging your friends 🏆, and recording epic blocks to share with the world! 📹🔥\n\n💎 **HOW LONG CAN YOU GUARD THE CRYSTAL?** 🛡️⚔️\n\n📲 **Device Requirements:** Requires a device that supports **ARCore (Android)** or **ARKit (iOS)**. 📱✅",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🎮 [1.0.0] – Initial Release 🎉\n\n✨ Added\n\n🏡 AR Placement: Scan any table or floor and tap to build your village using ARCore / ARKit.\n\n📱 Phone as a Shield: Move your phone into an incoming orb's path to block the attack!\n\n💥 Orb Reflection: Send blocked orbs flying back to destroy the towers that fired them.\n\n🎯 Shot Preview: Follow the glowing arc to predict each orb's trajectory before it fires.\n\n🔮 4 Orb Types: Normal ⚪, Fast Dart ⚡, Splitter 💫 (splits into 3), and Golden Orb 🟡 (MEGA SHIELD power-up).\n\n🏰 Armoured Towers: Tough enemies require 2 hits to destroy, appearing from Wave 4.\n\n♾️ Endless Waves: Face increasingly challenging enemies and earn +1 crystal health every 3 waves.\n\n🔥 Combo System: Chain successful blocks for up to x10 points and save your best score 🏆.\n\n🚫 Crystal Force Field: A no-block zone prevents you from simply parking your phone over the crystal.\n\n📐 Adaptive Orb Arcs: Trajectories adjust to your phone's height for tabletop and floor gameplay.\n\n🔊 Immersive Feedback: Synthesised sound effects and haptic vibrations.\n\n📊 Complete HUD: Score, best score, combo, wave, crystal health, power-up bar, pause, sound toggle, and Move Village controls.\n\n🖥️ Desktop Test Mode: Test gameplay directly in the Unity Editor without an AR device.\n\n⚙️ Technical\n\n🛠️ Engine: Unity 6000.3 LTS with URP.\n\n📱 AR Support: AR Foundation, ARCore, and ARKit 6.3.5.\n\n🎮 Input: Unity's New Input System.\n\n⚡ Quick Setup: One-click editor setup via Tools > Pocket Guardian > Setup Project and Scene.\n\n🤖 Android Build: IL2CPP, ARM64, and OpenGL ES 3.\n\n📲 Minimum Android API: Level 24 (Android 7.0).\n\n🛡️ Protect your crystal. Reflect every attack. Survive endless waves! 💎🔥"
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "6000.3.9f1",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-15T09:14:59.859Z",
+      "updatedAt": "2026-10-15T09:22:22.210Z",
+      "slug": "bounce-guard-ar"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "AR game",
+        "augmented reality",
+        "AR shooter",
+        "360 shooter",
+        "tower defense",
+        "core defense",
+        "alien invasion",
+        "space shooter",
+        "wave survival",
+        "arcade shooter",
+        "boss battle",
+        "real world game",
+        "ARCore",
+        "offline game",
+        "mobile AR",
+        "action game",
+        "endless waves",
+        "high score"
+      ],
+      "platforms": [
+        "Android"
+      ],
+      "gallery": [
+        "uploads/images/1792060476434-jhbp2-corerushar-screenshot-1.webp",
+        "uploads/images/1792060476434-8qpqe-corerushar-screenshot-2.webp",
+        "uploads/images/1792060476434-j0mr3-corerushar-screenshot-3.webp",
+        "uploads/images/1792060476434-lde8m-corerushar-screenshot-4.webp",
+        "uploads/images/1792060476434-87dt3-corerushar-screenshot-5.webp"
+      ],
+      "cover": "uploads/images/1792059826538-ocwao-corerushar-cover-1280x720.webp",
+      "icon": "uploads/images/1792059826538-hll2o-corerushar-icon-512.webp",
+      "id": "4630ffa7-d1eb-4157-a239-cfd994dfaa17",
+      "title": "Core Rush AR",
+      "shortDescription": "🛡️ Defend your core in real-world AR! Enemies attack from all sides 🔥",
+      "description": "🛡️ CORE RUSH AR – Defend Your Room From Every Direction! 🛡️\n\nYour room is the battlefield! 🏠 Place a glowing Energy Core on your floor or table, and get ready – alien enemies spiral in from ALL around you. In front, behind, above… you have to physically turn, move and fight to survive! 🔄\n\n━━━━━━━━━━━━━━━━━━\n🎮 HOW TO PLAY\n━━━━━━━━━━━━━━━━━━\n📱 Scan your floor or table with the camera\n💎 Tap to place the Energy Core\n🔫 Tap or hold anywhere to fire twin plasma blasts\n🔄 Turn around – enemies attack from every side!\n🟡 Walk your phone INTO golden Energy Orbs to repair the core\n💥 Fill the NOVA meter and wipe out every enemy with one shockwave!\n\n━━━━━━━━━━━━━━━━━━\n🔥 GAME FEATURES\n━━━━━━━━━━━━━━━━━━\n🌍 True 360° AR action – the whole room is your arena\n🚶 Move to win – walk around to collect power-ups\n👾 5 unique enemy types:\n   • 💗 Drones – fast and sneaky\n   • 🟧 Brutes – tough, take 4 hits\n   • 🟩 Splitters – burst into tiny swarms\n   • 🟪 Blinkers – teleport around you\n   • 🔴 MOTHERSHIP BOSS – arrives every 5th wave!\n⚡ Combo system – chain hits for up to x8 score multiplier\n🌡️ Heat system – shoot smart or overheat!\n🎯 Smart aim assist for smooth, satisfying shooting\n➡️ Edge arrows show threats you can't see\n🔊 3D sound – hear where enemies are coming from\n🏆 Endless waves – beat your high score!\n\n━━━━━━━━━━━━━━━━━━\n💡 PRO TIPS\n━━━━━━━━━━━━━━━━━━\n✅ Play in a well-lit room with open space\n✅ Use a textured floor or table for fast scanning\n✅ Save NOVA for boss waves and big swarms\n✅ Watch out for the \"LOOK BEHIND YOU!\" alert 👀\n\n━━━━━━━━━━━━━━━━━━\n📲 REQUIREMENTS\n━━━━━━━━━━━━━━━━━━\nRequires an ARCore-supported Android device (Google Play Services for AR).\n\n⚠️ Please be aware of your surroundings while playing. Clear the area of obstacles and play safely!\n\nCan you keep the core alive? 💪\nDownload CORE RUSH AR now and defend your room! 🚀",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🚀 Core Rush AR v1.0 – First Release!\n\n🛡️ Defend your Energy Core in real-world AR\n🔄 360° action – enemies attack from every side\n👾 5 enemy types + Mothership boss every 5th wave\n💥 NOVA blast to wipe out swarms\n🟡 Walk into golden orbs to repair your core\n⚡ Combo multiplier up to x8\n🔊 3D sound & edge arrows to track threats\n🏆 Endless waves – beat your high score!\n\nThanks for playing! 💙"
+        }
+      ],
+      "version": "",
+      "unityVersion": "",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-15T10:23:46.541Z",
+      "updatedAt": "2026-10-15T10:34:36.434Z",
+      "slug": "core-rush-ar"
     }
   ],
-  "updatedAt": "2026-10-14T14:27:02.389Z"
+  "updatedAt": "2026-10-15T10:34:37.383Z"
 }
