@@ -757,7 +757,62 @@
       "createdAt": "2026-10-15T06:55:06.218Z",
       "updatedAt": "2026-10-15T06:55:06.245Z",
       "slug": "chronoscene-scene-history-play-mode-keeper"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "AR game",
+        "augmented reality",
+        "shield",
+        "defense",
+        "arcade",
+        "reflex",
+        "action",
+        "casual",
+        "tower defense",
+        "bounce"
+      ],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1792055699859-6o9c0-bounceguardar-screenshot-1.webp",
+        "uploads/images/1792055699859-dxtsc-bounceguardar-screenshot-2.webp",
+        "uploads/images/1792055699859-8hczk-bounceguardar-screenshot-3.webp",
+        "uploads/images/1792055699859-tg9q2-bounceguardar-screenshot-4.webp",
+        "uploads/images/1792055699859-qcpug-bounceguardar-screenshot-5.webp"
+      ],
+      "cover": "uploads/images/1792055699859-2qams-bounceguardar-cover-1280x720.webp",
+      "icon": "uploads/images/1792055699859-xngpa-bounceguardar-icon-512.webp",
+      "id": "06ff01e0-a5bf-485a-99e1-a1560c7f7455",
+      "title": "Bounce Guard AR",
+      "shortDescription": "Your phone is the shield! Bounce orbs back & save your AR village.",
+      "description": "🛡️ **YOUR PHONE IS THE SHIELD!** 📱⚡\n\n🏰 **Bounce Guard AR** turns your table or floor into a battlefield! A tiny glowing village appears in your room, while enemy towers rise all around it, firing energy orbs at your precious crystal. 💎🔥\n\n🛡️ **How do you defend it?** Move your PHONE into the orb's path! 📱💥 Block the shot, and it bounces straight back to destroy the tower that fired it. 🏹🏰💣\n\n🚫 No buttons. 🎮 No joystick. Just YOU, your phone 📱, and lightning-fast reflexes! ⚡🤸\n\n## 🎮 HOW TO PLAY\n\n🔍 Scan a table or floor and tap to place your village 🏡  \n🎯 Watch the glowing arc showing where each orb will fly ✨  \n📱 Move your phone into the path to block the incoming orb 🛡️  \n💥 Reflected orbs fly back and smash the enemy towers 🏰🔥  \n🏆 Clear every tower to beat the wave and survive! 🌊⚔️\n\n## 🚀 FEATURES\n\n📱 **Real AR Gameplay:** The battlefield comes alive right inside your room! 🌎✨  \n🤸 **Body-Movement Action:** Lean, reach, and dodge to defend your crystal! 🛡️⚡  \n🔥 **Combo System:** Chain perfect blocks for up to **x10 points!** 💯  \n🔮 **4 Orb Types:** Normal ⚪, Fast Darts ⚡, Splitters 💫, and Golden Orbs 🟡  \n🛡️ **MEGA SHIELD Power-Up:** Catch a Golden Orb to activate a giant shield! 🌟  \n🏰 **Armoured Towers:** Some enemies need two hits to go down! 💥💥  \n♾️ **Endless Waves:** Enemies get faster, tougher, and more dangerous! 👾🔥  \n🔊 **Immersive Feedback:** Satisfying sound effects and haptic vibrations! 🎵📳  \n🏡 **Play Anywhere:** Defend your village on a table or directly on the floor! 🪑🌍\n\n👥 Perfect for quick gaming sessions, challenging your friends 🏆, and recording epic blocks to share with the world! 📹🔥\n\n💎 **HOW LONG CAN YOU GUARD THE CRYSTAL?** 🛡️⚔️\n\n📲 **Device Requirements:** Requires a device that supports **ARCore (Android)** or **ARKit (iOS)**. 📱✅",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🎮 [1.0.0] – Initial Release 🎉\n\n✨ Added\n\n🏡 AR Placement: Scan any table or floor and tap to build your village using ARCore / ARKit.\n\n📱 Phone as a Shield: Move your phone into an incoming orb's path to block the attack!\n\n💥 Orb Reflection: Send blocked orbs flying back to destroy the towers that fired them.\n\n🎯 Shot Preview: Follow the glowing arc to predict each orb's trajectory before it fires.\n\n🔮 4 Orb Types: Normal ⚪, Fast Dart ⚡, Splitter 💫 (splits into 3), and Golden Orb 🟡 (MEGA SHIELD power-up).\n\n🏰 Armoured Towers: Tough enemies require 2 hits to destroy, appearing from Wave 4.\n\n♾️ Endless Waves: Face increasingly challenging enemies and earn +1 crystal health every 3 waves.\n\n🔥 Combo System: Chain successful blocks for up to x10 points and save your best score 🏆.\n\n🚫 Crystal Force Field: A no-block zone prevents you from simply parking your phone over the crystal.\n\n📐 Adaptive Orb Arcs: Trajectories adjust to your phone's height for tabletop and floor gameplay.\n\n🔊 Immersive Feedback: Synthesised sound effects and haptic vibrations.\n\n📊 Complete HUD: Score, best score, combo, wave, crystal health, power-up bar, pause, sound toggle, and Move Village controls.\n\n🖥️ Desktop Test Mode: Test gameplay directly in the Unity Editor without an AR device.\n\n⚙️ Technical\n\n🛠️ Engine: Unity 6000.3 LTS with URP.\n\n📱 AR Support: AR Foundation, ARCore, and ARKit 6.3.5.\n\n🎮 Input: Unity's New Input System.\n\n⚡ Quick Setup: One-click editor setup via Tools > Pocket Guardian > Setup Project and Scene.\n\n🤖 Android Build: IL2CPP, ARM64, and OpenGL ES 3.\n\n📲 Minimum Android API: Level 24 (Android 7.0).\n\n🛡️ Protect your crystal. Reflect every attack. Survive endless waves! 💎🔥"
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "6000.3.9f1",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-15T09:14:59.859Z",
+      "updatedAt": "2026-10-15T09:14:59.859Z",
+      "slug": "bounce-guard-ar"
     }
   ],
-  "updatedAt": "2026-10-15T06:55:07.762Z"
+  "updatedAt": "2026-10-15T09:15:01.140Z"
 }
