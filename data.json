@@ -575,10 +575,14 @@
       "otherUrl": "",
       "order": 4,
       "createdAt": "2026-10-14T06:38:41.365Z",
-      "updatedAt": "2026-10-14T14:26:39.357Z",
+      "updatedAt": "2026-10-15T10:46:57.634Z",
       "slug": "arrow-escape-ultimate-logic-puzzle",
       "cover": "uploads/images/1791960158641-gc12r-gemini-generated-image-ezovizezovizezov.webp",
-      "icon": "uploads/images/1791960158641-5occq-gemini-generated-image-m8x0jxm8x0jxm8x0.webp"
+      "icon": "uploads/images/1791960158641-5occq-gemini-generated-image-m8x0jxm8x0jxm8x0.webp",
+      "genres": [
+        "Puzzle",
+        "2D"
+      ]
     },
     {
       "type": "website",
@@ -876,5 +880,5 @@
       "slug": "core-rush-ar"
     }
   ],
-  "updatedAt": "2026-10-15T10:34:37.383Z"
+  "updatedAt": "2026-10-15T10:46:58.482Z"
 }
