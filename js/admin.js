@@ -16,6 +16,7 @@ const safeUrl = s => { s = String(s || '').trim(); return !s || /^https?:\/\//i.
 const TYPES = ['game', 'app', 'website', 'asset'];
 const TYPE_LABEL = { game: 'Game', app: 'Application', website: 'Website', asset: 'Unity Asset' };
 const typeOf = p => (p.type === 'plugin' ? 'asset' : TYPE_LABEL[p.type] ? p.type : 'game'); // old "plugin" items count as Unity Assets
+const GAME_GENRES = ['AR', 'VR', 'Multiplayer', 'Casual', 'Hyper-casual', 'Puzzle', 'Action', 'Adventure', 'Arcade', 'Racing', 'Shooter', 'Simulation', 'Strategy', 'Sports', 'RPG', 'Board', 'Card', 'Word', 'Trivia / Quiz', 'Kids & Educational', 'Idle / Clicker', 'Endless Runner', 'Platformer', 'Fighting', 'Open World', 'Horror', 'Music', '2D', '3D'];
 const PLATFORMS = ['Android', 'iOS', 'Windows', 'Mac', 'Linux', 'WebGL', 'Web'];
 const MAX_FILE = 95 * 1024 * 1024; // GitHub's limit is 100 MB per file
 const RULES = {
@@ -565,6 +566,10 @@ function viewEditor(id, presetType) {
           <div class="field"><label for="price">Price</label><input type="text" id="price" name="price" value="${esc(p.price)}" placeholder="Free / $9.99"></div>
         </div>
         <div class="field"><label for="tags">Tags</label><input type="text" id="tags" name="tags" value="${esc((p.tags || []).join(', '))}" placeholder="Hyper-casual, 3D, Offline"><small>Separate with commas</small></div>
+        <div class="field" id="genreField" ${p.type === 'game' ? '' : 'hidden'}><span class="label">Game type <small style="text-transform:none;letter-spacing:0">— shown as sub-tabs under Games on the website</small></span>
+          <div class="checks">${GAME_GENRES.map(g => `<label><input type="checkbox" name="genres" value="${esc(g)}" ${(p.genres || []).includes(g) ? 'checked' : ''}> ${esc(g)}</label>`).join('')}</div>
+          <input type="text" name="genresOther" value="${esc((p.genres || []).filter(g => !GAME_GENRES.includes(g)).join(', '))}" placeholder="Other game types (comma separated), e.g. Tower Defense, Battle Royale" style="margin-top:10px">
+        </div>
         <div class="field" style="margin:0"><span class="label">Platforms</span>
           <div class="checks">${PLATFORMS.map(pl => `<label><input type="checkbox" name="platforms" value="${pl}" ${(p.platforms || []).includes(pl) ? 'checked' : ''}> ${pl}</label>`).join('')}</div>
         </div>
@@ -643,6 +648,7 @@ function viewEditor(id, presetType) {
   </form>`;
 
   const form = $('#editor');
+  form.addEventListener('change', e => { if (e.target.name === 'type') $('#genreField').hidden = e.target.value !== 'game'; });
   form.addEventListener('input', () => (dirty = true));
   const sd = $('#shortDescription'); const upd = () => ($('#sdCount').textContent = sd.value.length); sd.addEventListener('input', upd); upd();
 
@@ -769,6 +775,7 @@ function viewEditor(id, presetType) {
       price: String(f.get('price') || '').trim(),
       tags: list(f.get('tags')),
       platforms: f.getAll('platforms'),
+      genres: f.get('type') === 'game' ? [...new Set([...f.getAll('genres'), ...list(f.get('genresOther'))])] : [],
       youtubeUrl: safeUrl(f.get('youtubeUrl')),
       downloadUrl: safeUrl(f.get('downloadUrl')),
       playStoreUrl: safeUrl(f.get('playStoreUrl')),

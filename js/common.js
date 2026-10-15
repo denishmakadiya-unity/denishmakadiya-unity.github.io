@@ -247,7 +247,7 @@ function projectCard(p, i = 0) {
   const cover = p.cover ? `<img src="${esc(asset(p.cover))}" alt="" loading="lazy">` : `<div class="ph">${esc((p.title || '?').charAt(0))}</div>`;
   const video = p.youtubeUrl || p.videoFile ? `<span class="has-video" title="Has video">${ICONS.play}</span>` : '';
   const icon = p.icon ? `<img class="card-icon" src="${esc(asset(p.icon))}" alt="" loading="lazy">` : '';
-  const tags = (p.tags || []).slice(0, 4).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+  const tags = [...(p.type === 'game' ? (p.genres || []).map(g => ['genre', g]) : []), ...(p.tags || []).map(t => ['', t])].slice(0, 5).map(([c, t]) => `<span class="tag${c ? ' ' + c : ''}">${esc(t)}</span>`).join('');
   const meta = [p.version && 'v' + p.version, (p.platforms || []).join(' · ')].filter(Boolean).join('  /  ');
   const dl = downloadInfo(p);
   let actions = '';
@@ -259,7 +259,7 @@ function projectCard(p, i = 0) {
   return `
   <article class="card" data-type="${esc(p.type)}" style="animation-delay:${Math.min(i, 8) * 60}ms">
     <a class="card-link" href="${projectHref(p.slug)}" aria-label="${esc(p.title)}"></a>
-    <div class="card-media">${cover}<span class="badge">${esc(TYPE_LABEL[p.type] || p.type)}</span>${video}${p.webgl ? '<span class="playable">▶ PLAYABLE</span>' : ''}</div>
+    <div class="card-media">${cover}<div class="badges"><span class="badge">${esc(TYPE_LABEL[p.type] || p.type)}</span>${p.type === 'game' ? (p.genres || []).slice(0, 2).map(g => `<span class="badge genre">${esc(g)}</span>`).join('') + ((p.genres || []).length > 2 ? `<span class="badge genre more">+${p.genres.length - 2}</span>` : '') : ''}</div>${video}${p.webgl ? '<span class="playable">▶ PLAYABLE</span>' : ''}</div>
     <div class="card-body">
       <div class="card-title">${icon}<div><h3>${esc(p.title)}</h3>${meta ? `<div class="meta">${esc(meta)}</div>` : ''}</div></div>
       ${p.shortDescription ? `<p>${esc(p.shortDescription)}</p>` : ''}

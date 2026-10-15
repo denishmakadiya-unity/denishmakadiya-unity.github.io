@@ -154,7 +154,8 @@ async function init() {
           </button>`).join('')}</div>` : ''}
         ${tabs.length > 1 ? `<div class="p-tabs" role="tablist">${tabs.map(([k, label], i) => `<button type="button" role="tab" class="p-tab${i === 0 ? ' active' : ''}" data-tab="${k}">${label}</button>`).join('')}</div>` : ''}
         ${tabs.map(([k, , html], i) => `<div class="prose tab-pane" data-pane="${k}"${i ? ' hidden' : ''}>${html}</div>`).join('')}
-        ${(p.tags || []).length ? `<div class="tags" style="margin-top:24px">${p.tags.map(t => `<span class="tag">#${esc(t)}</span>`).join('')}</div>` : ''}
+        ${(p.genres || []).length && p.type === 'game' ? `<div class="tags" style="margin-top:24px">${p.genres.map(g => `<span class="tag genre">${esc(g)}</span>`).join('')}</div>` : ''}
+        ${(p.tags || []).length ? `<div class="tags" style="margin-top:${(p.genres || []).length && p.type === 'game' ? 8 : 24}px">${p.tags.map(t => `<span class="tag">#${esc(t)}</span>`).join('')}</div>` : ''}
       </div>
       <aside class="side">
         <div class="side-card">${actions}</div>

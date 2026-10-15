@@ -1,6 +1,6 @@
 /* Home page */
 let ALL = [];
-let state = { type: 'all', q: '' };
+let state = { type: 'all', q: '', genre: '' };
 
 const SOCIAL_LABEL = { github: 'GitHub', linkedin: 'LinkedIn', youtube: 'YouTube', twitter: 'X / Twitter', instagram: 'Instagram', playstore: 'Google Play', assetstore: 'Unity Asset Store', itch: 'itch.io', discord: 'Discord' };
 const SOCIAL_ICON = { github: 'github', linkedin: 'linkedin', youtube: 'youtube', twitter: 'twitter', instagram: 'instagram', playstore: 'googleplay', assetstore: 'unity', itch: 'itch', discord: 'discord' };
@@ -153,8 +153,10 @@ function renderGrid() {
   const q = state.q.toLowerCase();
   const items = ALL.filter(p =>
     (state.type === 'all' || p.type === state.type) &&
-    (!q || [p.title, p.shortDescription, ...(p.tags || []), ...(p.platforms || [])].join(' ').toLowerCase().includes(q))
+    (!state.genre || (state.type === 'game' && (p.genres || []).includes(state.genre))) &&
+    (!q || [p.title, p.shortDescription, ...(p.tags || []), ...(p.genres || []), ...(p.platforms || [])].join(' ').toLowerCase().includes(q))
   );
+  renderGenres();
   const grid = $('#grid');
   if (!items.length) {
     const what = state.type === 'all' ? 'projects' : TYPE_PLURAL[state.type].toLowerCase();
@@ -162,6 +164,19 @@ function renderGrid() {
     return;
   }
   grid.innerHTML = items.map(projectCard).join('');
+}
+
+/* Sub-tabs under "Games": AR, VR, Multiplayer… (only the types your games have) */
+function renderGenres() {
+  const box = $('#genreTabs'); if (!box) return;
+  const games = ALL.filter(p => p.type === 'game');
+  const counts = {};
+  games.forEach(p => (p.genres || []).forEach(g => (counts[g] = (counts[g] || 0) + 1)));
+  const list = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+  if (state.type !== 'game' || !list.length) { box.hidden = true; box.innerHTML = ''; return; }
+  box.hidden = false;
+  box.innerHTML = `<button class="subtab${state.genre ? '' : ' active'}" data-genre="">All games <span>${games.length}</span></button>` +
+    list.map(g => `<button class="subtab${state.genre === g ? ' active' : ''}" data-genre="${esc(g)}">${esc(g)} <span>${counts[g]}</span></button>`).join('');
 }
 
 function setCounts() {
@@ -182,11 +197,12 @@ async function init() {
   const hashType = { '#games': 'game', '#apps': 'app', '#websites': 'website', '#assets': 'asset' }[location.hash];
   if (hashType) state.type = hashType;
   $$('.tab').forEach(tab => tab.addEventListener('click', () => {
-    state.type = tab.dataset.type;
+    state.type = tab.dataset.type; state.genre = '';
     $$('.tab').forEach(t => t.classList.toggle('active', t === tab));
     renderGrid();
   }));
   $$('.tab').forEach(t => t.classList.toggle('active', t.dataset.type === state.type));
+  $('#genreTabs').addEventListener('click', e => { const b = e.target.closest('[data-genre]'); if (!b) return; state.genre = b.dataset.genre; renderGrid(); });
   let tm;
   $('#search').addEventListener('input', e => { clearTimeout(tm); tm = setTimeout(() => { state.q = e.target.value.trim(); renderGrid(); }, 150); });
 
