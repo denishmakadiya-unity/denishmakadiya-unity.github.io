@@ -876,9 +876,12 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-15T10:23:46.541Z",
-      "updatedAt": "2026-10-15T10:34:36.434Z",
-      "slug": "core-rush-ar"
+      "updatedAt": "2026-10-15T12:15:22.580Z",
+      "slug": "core-rush-ar",
+      "genres": [
+        "AR"
+      ]
     }
   ],
-  "updatedAt": "2026-10-15T10:46:58.482Z"
+  "updatedAt": "2026-10-15T12:15:23.587Z"
 }
