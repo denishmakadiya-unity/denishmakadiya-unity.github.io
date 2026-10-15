@@ -812,7 +812,63 @@
       "createdAt": "2026-10-15T09:14:59.859Z",
       "updatedAt": "2026-10-15T09:22:22.210Z",
       "slug": "bounce-guard-ar"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "AR game",
+        "augmented reality",
+        "AR shooter",
+        "360 shooter",
+        "tower defense",
+        "core defense",
+        "alien invasion",
+        "space shooter",
+        "wave survival",
+        "arcade shooter",
+        "boss battle",
+        "real world game",
+        "ARCore",
+        "offline game",
+        "mobile AR",
+        "action game",
+        "endless waves",
+        "high score"
+      ],
+      "platforms": [
+        "Android"
+      ],
+      "gallery": [],
+      "cover": "uploads/images/1792059826538-ocwao-corerushar-cover-1280x720.webp",
+      "icon": "uploads/images/1792059826538-hll2o-corerushar-icon-512.webp",
+      "id": "4630ffa7-d1eb-4157-a239-cfd994dfaa17",
+      "title": "Core Rush AR",
+      "shortDescription": "🛡️ Defend your core in real-world AR! Enemies attack from all sides 🔥",
+      "description": "🛡️ CORE RUSH AR – Defend Your Room From Every Direction! 🛡️\n\nYour room is the battlefield! 🏠 Place a glowing Energy Core on your floor or table, and get ready – alien enemies spiral in from ALL around you. In front, behind, above… you have to physically turn, move and fight to survive! 🔄\n\n━━━━━━━━━━━━━━━━━━\n🎮 HOW TO PLAY\n━━━━━━━━━━━━━━━━━━\n📱 Scan your floor or table with the camera\n💎 Tap to place the Energy Core\n🔫 Tap or hold anywhere to fire twin plasma blasts\n🔄 Turn around – enemies attack from every side!\n🟡 Walk your phone INTO golden Energy Orbs to repair the core\n💥 Fill the NOVA meter and wipe out every enemy with one shockwave!\n\n━━━━━━━━━━━━━━━━━━\n🔥 GAME FEATURES\n━━━━━━━━━━━━━━━━━━\n🌍 True 360° AR action – the whole room is your arena\n🚶 Move to win – walk around to collect power-ups\n👾 5 unique enemy types:\n   • 💗 Drones – fast and sneaky\n   • 🟧 Brutes – tough, take 4 hits\n   • 🟩 Splitters – burst into tiny swarms\n   • 🟪 Blinkers – teleport around you\n   • 🔴 MOTHERSHIP BOSS – arrives every 5th wave!\n⚡ Combo system – chain hits for up to x8 score multiplier\n🌡️ Heat system – shoot smart or overheat!\n🎯 Smart aim assist for smooth, satisfying shooting\n➡️ Edge arrows show threats you can't see\n🔊 3D sound – hear where enemies are coming from\n🏆 Endless waves – beat your high score!\n\n━━━━━━━━━━━━━━━━━━\n💡 PRO TIPS\n━━━━━━━━━━━━━━━━━━\n✅ Play in a well-lit room with open space\n✅ Use a textured floor or table for fast scanning\n✅ Save NOVA for boss waves and big swarms\n✅ Watch out for the \"LOOK BEHIND YOU!\" alert 👀\n\n━━━━━━━━━━━━━━━━━━\n📲 REQUIREMENTS\n━━━━━━━━━━━━━━━━━━\nRequires an ARCore-supported Android device (Google Play Services for AR).\n\n⚠️ Please be aware of your surroundings while playing. Clear the area of obstacles and play safely!\n\nCan you keep the core alive? 💪\nDownload CORE RUSH AR now and defend your room! 🚀",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🚀 Core Rush AR v1.0 – First Release!\n\n🛡️ Defend your Energy Core in real-world AR\n🔄 360° action – enemies attack from every side\n👾 5 enemy types + Mothership boss every 5th wave\n💥 NOVA blast to wipe out swarms\n🟡 Walk into golden orbs to repair your core\n⚡ Combo multiplier up to x8\n🔊 3D sound & edge arrows to track threats\n🏆 Endless waves – beat your high score!\n\nThanks for playing! 💙"
+        }
+      ],
+      "version": "",
+      "unityVersion": "",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-15T10:23:46.541Z",
+      "updatedAt": "2026-10-15T10:23:46.541Z",
+      "slug": "core-rush-ar"
     }
   ],
-  "updatedAt": "2026-10-15T09:22:23.266Z"
+  "updatedAt": "2026-10-15T10:23:47.630Z"
 }
