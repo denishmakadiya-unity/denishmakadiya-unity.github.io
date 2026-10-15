@@ -712,7 +712,52 @@
       "createdAt": "2026-10-14T14:18:09.211Z",
       "updatedAt": "2026-10-14T15:36:18.097Z",
       "slug": "skyball-rush"
+    },
+    {
+      "type": "asset",
+      "published": true,
+      "featured": false,
+      "tags": [],
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "gallery": [
+        "uploads/images/1792047306217-za6rj-chronoscene-screenshot-1-timeline-change.webp",
+        "uploads/images/1792047306217-jzmrc-chronoscene-screenshot-2-play-mode-keepe.webp",
+        "uploads/images/1792047306217-aiyil-chronoscene-screenshot-3-scene-view-ghos.webp",
+        "uploads/images/1792047306217-3aqsf-chronoscene-screenshot-4-selective-resto.webp",
+        "uploads/images/1792047306217-l7zf1-chronoscene-screenshot-5-object-history.webp",
+        "uploads/images/1792047306217-cikip-chronoscene-screenshot-6-keep-values-aft.webp"
+      ],
+      "cover": "uploads/images/1792047306201-tzdjg-chronoscene-cover-1950x1300.png",
+      "icon": "uploads/images/1792047306217-9az83-chronoscene-icon-160x160.png",
+      "id": "e0535ce5-28c4-4961-b2e5-c4e07571fe7a",
+      "title": "ChronoScene - Scene History & Play Mode Keeper",
+      "shortDescription": "⏪ Pressed Stop and lost the perfect jump height you tuned in Play Mode? 🗑️ Deleted an object yesterday and only noticed today?",
+      "description": "⏪ Pressed Stop and lost the perfect jump height you tuned in Play Mode?\n🗑️ Deleted an object yesterday and only noticed today?\n\nChronoScene keeps a timeline of your scenes, so you can see exactly what changed and when, and bring it back with one click.\n\n🎮 Play Mode Keeper\nWhen you stop Play Mode, ChronoScene lists every value that changed. Values you edited by hand in the Inspector are detected automatically and pre-selected. Click Keep Selected and they stay in your scene. Changes made by physics or scripts are listed separately, so they never sneak in.\n\n📌 Keep Values After Play\nChanged values with a script or an in-game debug menu? During Play, right-click any component and choose \"ChronoScene: Keep Values After Play\". When you stop, all its changed values are pre-selected.\n\n🕒 Scene Timeline\nSnapshots are taken automatically when you save, before Play and when Play ends. Take named checkpoints before risky changes and pin the ones that matter ⭐.\n\n🔍 Changes View\nCompare any snapshot with the current scene or with another snapshot:\n✏️ Changed values, with before → after\n➕ Added and ❌ deleted objects\n🧩 Added and removed components\n🔀 Renamed and moved objects\n🔎 Search and filter by object or property\n\n👻 Scene View Ghosts\nSee the snapshot right in the Scene view: an orange marker shows where a moved object used to be, with a dotted line to its current position. Deleted objects are marked with a red ✕ and new objects with a green +.\n\n↩️ Selective Restore\nRestore one value, a few rows, one object or the whole scene. Deleted objects come back, and prefab instances keep their prefab link. Every restore is a single Undo step, and a backup snapshot is taken first 🛡️.\n\n📜 Object History\nRight-click any GameObject to see every change it went through, and restore it to any point.\n\n📋 Copy Report\nCopy all visible changes as text with one click, ready for a teammate, a task or a commit message.\n\n⚙️ Requirements & Details\n✅ Unity 6000.0 or newer\n🎨 Works with Built-in, URP and HDRP\n🧰 Editor-only: no runtime code, nothing is added to your builds\n📦 No dependencies, no internet connection, no data collection\n💾 Snapshots are stored as compressed files in your project's UserSettings folder, which is not committed to version control by default\n📖 Full C# source code and offline PDF documentation included\n\n⚠️ Limitations\n- References to objects that existed only in Play Mode (spawned clones, runtime material instances) cannot be restored.\n- Arrays larger than 256 elements track only their size (configurable).\n- Scenes only: prefabs edited in Prefab Mode are not snapshotted.\n- Scene View Ghosts are not drawn for UI objects (RectTransform).\n\n📩 Support: denish.makadiya@zohomail.com",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🚀 1.0.0 – Initial release\n📸 Scene snapshots: automatic on save, before Play and when Play ends, plus manual and named snapshots\n🕒 Timeline with names, notes, pinning and automatic clean-up\n🔍 Changes view: compare a snapshot with the current scene or another snapshot\n↩️ Restore selected changes, one object or the whole scene in a single Undo step\n🎮 Play Mode Keeper: keep values changed during Play Mode; values edited by hand are detected and pre-selected\n📌 Keep Values After Play: mark a whole component during Play from its right-click menu\n📜 Object History with restore to any point\n👻 Scene View Ghosts: old positions, deleted and new objects shown in the Scene view\n📋 Copy Report: copy the visible changes as text\n🗜️ Compressed snapshot storage (gzip) to save disk space"
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "6000.0.59.f2",
+      "price": "",
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-15T06:55:06.218Z",
+      "updatedAt": "2026-10-15T06:55:06.245Z",
+      "slug": "chronoscene-scene-history-play-mode-keeper"
     }
   ],
-  "updatedAt": "2026-10-14T15:36:19.098Z"
+  "updatedAt": "2026-10-15T06:55:07.762Z"
 }
