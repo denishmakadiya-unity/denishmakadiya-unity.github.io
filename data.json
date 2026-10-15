@@ -840,7 +840,13 @@
       "platforms": [
         "Android"
       ],
-      "gallery": [],
+      "gallery": [
+        "uploads/images/1792060476434-jhbp2-corerushar-screenshot-1.webp",
+        "uploads/images/1792060476434-8qpqe-corerushar-screenshot-2.webp",
+        "uploads/images/1792060476434-j0mr3-corerushar-screenshot-3.webp",
+        "uploads/images/1792060476434-lde8m-corerushar-screenshot-4.webp",
+        "uploads/images/1792060476434-87dt3-corerushar-screenshot-5.webp"
+      ],
       "cover": "uploads/images/1792059826538-ocwao-corerushar-cover-1280x720.webp",
       "icon": "uploads/images/1792059826538-hll2o-corerushar-icon-512.webp",
       "id": "4630ffa7-d1eb-4157-a239-cfd994dfaa17",
@@ -866,9 +872,9 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-15T10:23:46.541Z",
-      "updatedAt": "2026-10-15T10:23:46.541Z",
+      "updatedAt": "2026-10-15T10:34:36.434Z",
       "slug": "core-rush-ar"
     }
   ],
-  "updatedAt": "2026-10-15T10:23:47.630Z"
+  "updatedAt": "2026-10-15T10:34:37.383Z"
 }
