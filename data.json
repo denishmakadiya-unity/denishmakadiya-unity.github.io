@@ -952,7 +952,71 @@
       "slug": "indictmp-indian-languages-for-textmeshpro",
       "cover": "uploads/images/1792139219608-eeji9-cover-1950x1300.webp",
       "icon": "uploads/images/1792139219608-65mje-icon-160x160.png"
+    },
+    {
+      "type": "game",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "VR",
+        "Kintsugi",
+        "Puzzle",
+        "Relaxing",
+        "Meditative",
+        "Story Rich",
+        "Indian Culture",
+        "Atmospheric",
+        "Casual",
+        "Family Friendly",
+        "3D Puzzle",
+        "Narrative Adventure",
+        "Meta Quest",
+        "PC VR",
+        "Golden Mending"
+      ],
+      "platforms": [
+        "Android"
+      ],
+      "gallery": [
+        "uploads/images/1792153650772-e7lzz-1-title-screen.webp",
+        "uploads/images/1792153650772-r7esu-2-mending-the-matki.webp",
+        "uploads/images/1792153650772-408ns-3-memories-return.webp",
+        "uploads/images/1792153650772-fd3vo-4-the-golden-path.webp",
+        "uploads/images/1792153650772-2pxs3-5-first-light-ending.webp"
+      ],
+      "cover": "uploads/images/1792153650772-6aplj-kintsugi-cover-1280x720.jpg",
+      "icon": "uploads/images/1792153650772-mnl5r-kintsugi-icon-rounded-1024.webp",
+      "id": "d3ddc7ae-9537-457f-b781-bdca377e27ad",
+      "title": "KINTSUGI -VR",
+      "shortDescription": "✨ Mend a shattered city with gold in this relaxing, story-driven VR puzzle adventure.",
+      "description": "🌟 **KINTSUGI: The Golden Mending**\n\n✨ **What breaks can be mended, and shine.**\n\n🌙 **A City Lost in Pieces**\n\nOne night, an ancient Indian city shattered into floating fragments. Homes, a bell tower, a bridge, and the sacred heart of the city now drift above a sea of mist.\n\nYou are the Mender. Your mission is to restore the city's treasures, reconnect its memories, and bring life back to a broken world.\n\n🪙 **Experience the Art of Golden Repair**\n\nInspired by the Japanese art of Kintsugi, pick up broken 3D fragments, carefully fit them together, and trace every crack with liquid gold. Watch every repair shine as broken objects become beautiful once again.\n\n🎮 **Key Features**\n\n🧩 Hands-on 3D Puzzle Gameplay — Grab, rotate, align, and assemble broken fragments.\n\n✨ Golden Mending — Trace cracks and watch golden seams bring objects back to life.\n\n🏛️ Four Story Chapters — Explore a family courtyard, a majestic bell tower, a golden bridge, and the heart of the city.\n\n💫 Memories Come Alive — Discover glowing figures, story captions, and beautiful melodies as you restore each object.\n\n🌅 From Night to Sunrise — Watch the world transform as lamps illuminate, colours return, and the city awakens.\n\n🎵 Peaceful Soundscape — Enjoy a handcrafted atmosphere featuring tanpura, bansuri, bells, and gentle chimes.\n\n🧘 Relax at Your Own Pace — No enemies or timers. Focus on the simple pleasure of repairing what was broken.\n\n🥽 VR & Desktop Support — Play with VR controllers or use a keyboard and mouse in desktop mode.\n\n⚙️ Comfort Options — Choose snap or smooth turning, seated play, and adjustable puzzle assistance.\n\n🌄 **Restore More Than Objects**\n\nEvery repaired treasure brings back a memory. Every golden seam creates a connection. Every completed chapter restores another piece of the city.\n\nFollow the golden path through the floating islands and discover the beauty of a world made whole again.\n\n✨ **KINTSUGI: The Golden Mending**\n\nA peaceful puzzle journey about memory, restoration, and finding beauty in imperfection.\n\n🎮 **Platforms:** Meta Quest, PC VR, and Windows Desktop  \n🧩 **Genres:** Puzzle • Casual • Relaxing • Narrative",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "✨ **KINTSUGI: The Golden Mending — Initial Release**\n\n🎮 Added a peaceful, story-driven 3D puzzle experience.\n\n🧩 Introduced interactive fragment grabbing, rotation, alignment, and assembly.\n\n🪙 Added golden crack-tracing and mending mechanics.\n\n🏛️ Created 4 chapters featuring unique objects and story moments.\n\n💫 Added memory-restoration sequences with glowing figures and captions.\n\n🌅 Implemented a dynamic night-to-sunrise world progression.\n\n🎵 Added procedurally synthesized tanpura, bansuri, bells, and ambient sound effects.\n\n🥽 Added VR interaction support with a keyboard-and-mouse desktop mode.\n\n⚙️ Added comfort settings, turning options, seated mode, and puzzle assistance.\n\n💾 Added chapter progression saving and chapter replay.\n\n✨ Restore the city, one golden seam at a time!"
+        }
+      ],
+      "version": "",
+      "unityVersion": "",
+      "price": "",
+      "genres": [
+        "VR",
+        "Puzzle",
+        "3D"
+      ],
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "",
+      "order": 0,
+      "createdAt": "2026-10-16T12:27:30.772Z",
+      "updatedAt": "2026-10-16T12:27:30.772Z",
+      "slug": "kintsugi-vr"
     }
   ],
-  "updatedAt": "2026-10-16T10:25:30.744Z"
+  "updatedAt": "2026-10-16T12:27:31.779Z"
 }
