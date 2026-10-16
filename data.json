@@ -885,7 +885,7 @@
     {
       "type": "asset",
       "published": true,
-      "featured": false,
+      "featured": true,
       "tags": [
         "hindi",
         "gujarati",
@@ -954,5 +954,5 @@
       "icon": "uploads/images/1792139219608-65mje-icon-160x160.png"
     }
   ],
-  "updatedAt": "2026-10-16T08:33:17.620Z"
+  "updatedAt": "2026-10-16T10:24:15.205Z"
 }
