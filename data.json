@@ -907,7 +907,12 @@
         "shaping",
         "unicode"
       ],
-      "platforms": [],
+      "platforms": [
+        "Android",
+        "iOS",
+        "Windows",
+        "WebGL"
+      ],
       "gallery": [
         "uploads/images/1792139219608-9i7s4-cover-1950x1300.webp",
         "uploads/images/1792139219608-e8efd-screenshot-01-before-after.webp",
@@ -920,9 +925,9 @@
         "uploads/images/1792139219609-0yvup-social-1200x630.webp"
       ],
       "id": "8bf42818-b7c3-42fb-acf0-5b3554048c3f",
-      "title": "IndicTMP – Hindi, Gujarati & Indic Text Fix for TextMeshPro",
+      "title": "IndicTMP – Indian Languages for TextMeshPro",
       "shortDescription": "🇮🇳 Fix broken Hindi, Gujarati & Indian text in TextMeshPro. Conjuncts, matras, reph & nukta render perfectly. 1-click setup, runtime text, all platforms. ✅",
-      "description": "🔤 TextMeshPro breaks Indian scripts. IndicTMP fixes them.\n\nType \"क्षत्रिय\" in a TextMeshPro text and you get \"क्‌षत्‌रिय\": broken conjuncts, the ि matra in the wrong place, the reph (र्) floating away. IndicTMP shapes the text correctly, exactly like Chrome and Android do.\n\n⚡ 1-CLICK SETUP\n1️⃣ Drop a font into your project (e.g. free Noto Sans Devanagari / Gujarati)\n2️⃣ Tools › IndicTMP › Setup › Fix Everything\n3️⃣ Done! Write Indic text in any TextMeshPro text, in the Inspector or from code.\n\n✨ FEATURES\n✅ Correct conjuncts (क्ष त्र ज्ञ श्र द्ध), matras, reph, nukta, anusvara\n✅ Fully automatic: no component to add, no code to write\n✅ Runtime text changes: scores, names, dialogue, localisation\n✅ Exact mark positioning (OpenType GPOS) as designed by the font\n✅ Mixed text: Hindi + English + numbers + rich text tags\n✅ Works with UI (TextMeshProUGUI) and 3D TextMeshPro\n✅ Pure C#: no native plugins, works on Android, iOS, WebGL, Windows, macOS\n✅ Playable demo scene with language switch, live score and timer\n\n🌏 LANGUAGES\nHindi · Marathi · Nepali · Sanskrit (Devanagari) · Gujarati · Bengali · Assamese · Punjabi (Gurmukhi) · Odia · Tamil · Telugu · Kannada · Malayalam\n\n🧪 TESTED\nThe shaping engine is verified against HarfBuzz (the engine used by Chrome and Android) on 151,301 words and conjunct combinations: 100% identical glyphs and positions.\n\n💻 CODE (optional)\nscoreText.text = \"स्कोर: \" + score;   // shaped automatically\n\n📦 INCLUDES\n• IndicTMP runtime + editor tools\n• Setup window and demo scene builder\n• Noto Sans Devanagari & Gujarati fonts (SIL Open Font License)\n• Full source code\n\n💬 Support: reply on the forum thread or email us. We usually answer within 24 hours.",
+      "description": "🔤 TextMeshPro breaks Indian text. IndicTMP fixes it.\n\nType \"क्षत्रिय\" in a TextMeshPro text and you get \"क्‌षत्‌रिय\": broken conjuncts, the ि matra in the wrong place, the reph (र्) lost. Tamil, Telugu, Kannada, Malayalam and Bengali break the same way. IndicTMP shapes the text correctly, exactly like Chrome and Android do.\n\n⚡ 1-CLICK SETUP\n1️⃣ Import — Noto Sans fonts for all 9 scripts are included\n2️⃣ Tools › IndicTMP › Setup › Fix Everything\n3️⃣ Done! Write Indian text in any TextMeshPro text, in the Inspector or from code.\n\n✨ FEATURES\n✅ Correct conjuncts (क्ष त्र ज्ञ श्र), matras, reph, nukta, anusvara — in every script\n✅ Fully automatic: no component to add, no code to write\n✅ Runtime text changes: scores, names, dialogue, localisation\n✅ Real Bold: <b>, Bold style and <font-weight> use the font's real weights (not fake bold)\n✅ Exact mark positioning (OpenType GPOS) as designed by the font\n✅ Mixed text: Indian + English + numbers + rich text tags\n✅ Works with UI (TextMeshProUGUI) and 3D TextMeshPro\n✅ Pure C#, no native plugins: Android, iOS, WebGL, Windows, macOS, Linux\n✅ Playable Text Tester demo: paste any text, compare default TMP vs IndicTMP, copy the result\n\n🌏 13 LANGUAGES · 9 SCRIPTS\nHindi · Marathi · Nepali · Sanskrit (Devanagari) · Gujarati · Bengali · Assamese · Punjabi (Gurmukhi) · Odia · Tamil · Telugu · Kannada · Malayalam\n\n🧪 TESTED\nVerified against HarfBuzz (the text engine of Chrome and Android) on 271,729 words and conjunct combinations in all 9 scripts, Regular and Bold: 100% identical glyphs and positions.\n\n💻 CODE (optional)\nscoreText.text = \"स्कोर: \" + score;   // shaped automatically\n\n📦 INCLUDES\n• IndicTMP runtime + editor tools (full C# source)\n• Setup window with one-click \"Fix Everything\"\n• Text Tester demo scene\n• Noto Sans Regular + Bold for all 9 scripts (SIL Open Font License)\n• 10-page PDF user guide\n\n",
       "docs": "",
       "changelog": [
         {
@@ -931,7 +936,7 @@
           "notes": "🎉 v1.0.0 — First release\n• HarfBuzz-compatible shaping for 9 Indian scripts (13 languages)\n• One-click setup (Fix Everything) and automatic fixing, editor + runtime\n• Exact GPOS mark positioning\n• Real Bold and other font weights\n• Text Tester demo scene\n• Noto Sans Regular + Bold fonts for all scripts\n• PDF user guide"
         }
       ],
-      "version": "",
+      "version": "1.0.0",
       "unityVersion": "",
       "price": "",
       "genres": [],
@@ -943,11 +948,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-15T19:51:42.828Z",
-      "updatedAt": "2026-10-16T08:26:59.611Z",
-      "slug": "indictmp-hindi-gujarati-indic-text-fix-for-textmeshpro",
+      "updatedAt": "2026-10-16T08:30:21.900Z",
+      "slug": "indictmp-indian-languages-for-textmeshpro",
       "cover": "uploads/images/1792139219608-eeji9-cover-1950x1300.webp",
       "icon": "uploads/images/1792139219608-65mje-icon-160x160.png"
     }
   ],
-  "updatedAt": "2026-10-16T08:27:01.570Z"
+  "updatedAt": "2026-10-16T08:30:22.943Z"
 }
