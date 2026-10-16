@@ -814,8 +814,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-15T09:14:59.859Z",
-      "updatedAt": "2026-10-15T09:22:22.210Z",
-      "slug": "bounce-guard-ar"
+      "updatedAt": "2026-10-16T12:29:59.305Z",
+      "slug": "bounce-guard-ar",
+      "genres": [
+        "AR"
+      ]
     },
     {
       "type": "game",
@@ -1018,5 +1021,5 @@
       "slug": "kintsugi-vr"
     }
   ],
-  "updatedAt": "2026-10-16T12:27:31.779Z"
+  "updatedAt": "2026-10-16T12:30:01.166Z"
 }
