@@ -386,11 +386,14 @@
       "otherUrl": "",
       "order": 1,
       "createdAt": "2026-10-13T08:13:14.813Z",
-      "updatedAt": "2026-10-14T14:25:29.036Z",
+      "updatedAt": "2026-10-16T12:30:18.183Z",
       "slug": "nine-mens-morris-board-game",
       "icon": "uploads/images/1791894800939-d40rj-playstore.webp",
       "videoFile": "uploads/videos/1791896461460-jv8de-whatsapp-video-2026-10-13-at-6-1.mp4",
-      "cover": "uploads/images/1791897021465-9lta5-gemini-generated-image-iynqlkiynqlkiynq.webp"
+      "cover": "uploads/images/1791897021465-9lta5-gemini-generated-image-iynqlkiynqlkiynq.webp",
+      "genres": [
+        "Puzzle"
+      ]
     },
     {
       "type": "game",
@@ -1021,5 +1024,5 @@
       "slug": "kintsugi-vr"
     }
   ],
-  "updatedAt": "2026-10-16T12:30:01.166Z"
+  "updatedAt": "2026-10-16T12:30:19.049Z"
 }
