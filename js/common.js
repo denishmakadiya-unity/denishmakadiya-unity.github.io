@@ -63,7 +63,20 @@ function initAnalytics(site) {
   const sc = document.createElement('script');
   sc.async = true; sc.src = 'https://gc.zgo.at/count.js';
   sc.dataset.goatcounter = `https://${code}.goatcounter.com/count`;
+  sc.onload = countUniqueVisitor;
   document.head.appendChild(sc);
+}
+/* Unique visitors: each browser is counted ONCE, ever (a returning visitor is not counted again) */
+function countUniqueVisitor() {
+  let seen = true;
+  try { seen = !!localStorage.getItem('pv_visitor'); } catch (_) { return; } // storage blocked → don't risk double counting
+  if (seen) return;
+  const send = (tries = 0) => {
+    if (window.goatcounter && window.goatcounter.count) {
+      try { window.goatcounter.count({ path: 'unique-visitor', title: 'New unique visitor', event: true }); localStorage.setItem('pv_visitor', new Date().toISOString()); } catch (_) {}
+    } else if (tries < 20) setTimeout(() => send(tries + 1), 300);
+  };
+  send();
 }
 function track(name, title) {
   try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: title || name, event: true }); } catch (_) {}

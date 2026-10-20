@@ -397,3 +397,5 @@ input[type=date] { width: 100%; padding: 10px 13px; border: 1px solid var(--line
 .job-acts { min-width: 136px; }
 .modal .banner { margin-bottom: 14px; }
 .modal .field small a { text-decoration: underline; }
+
+.stats.vis { margin: 0; }
