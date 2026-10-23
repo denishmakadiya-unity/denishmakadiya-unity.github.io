@@ -240,7 +240,7 @@
       "instagram": "",
       "playstore": "",
       "assetstore": "",
-      "itch": "",
+      "itch": "https://getsolveit.com/unity-Assets",
       "discord": "https://discord.com/channels/@me"
     }
   },
@@ -1086,5 +1086,5 @@
       "slug": "ipopulse"
     }
   ],
-  "updatedAt": "2026-10-21T12:05:02.862Z"
+  "updatedAt": "2026-10-23T08:43:36.639Z"
 }
