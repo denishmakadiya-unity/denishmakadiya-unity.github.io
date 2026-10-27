@@ -240,7 +240,7 @@
       "instagram": "",
       "playstore": "",
       "assetstore": "",
-      "itch": "",
+      "itch": "https://getsolveit.com/unity-Assets",
       "discord": "https://discord.com/channels/@me"
     }
   },
@@ -1022,7 +1022,69 @@
       "createdAt": "2026-10-16T12:27:30.772Z",
       "updatedAt": "2026-10-16T12:27:30.772Z",
       "slug": "kintsugi-vr"
+    },
+    {
+      "type": "website",
+      "published": true,
+      "featured": false,
+      "tags": [
+        "IPO Pulse",
+        "#IPOPulse",
+        "#IPO",
+        "#IPOIndia",
+        "#UpcomingIPO",
+        "#IPOUpdates",
+        "#StockMarket",
+        "#ShareMarket",
+        "#IndianStockMarket",
+        "#IPOAnalysis",
+        "#Investing",
+        "#StockMarketIndia",
+        "#Finance",
+        "#FinancialLiteracy",
+        "#MarketUpdates",
+        "#NSE",
+        "#BSE",
+        "#Investment",
+        "#IPOListing",
+        "#GMP",
+        "#InvestSmart",
+        "#TradingIndia",
+        "#FinanceIndia",
+        "#StockMarketNews",
+        "#IndianInvestors 📈🚀📊"
+      ],
+      "platforms": [],
+      "gallery": [],
+      "cover": "uploads/images/1792584301893-az6xz-cover.webp",
+      "icon": "uploads/images/1792584301893-7yrul-icon-512.png",
+      "id": "81d5c0e8-2318-47ac-bf07-618001fc4e68",
+      "title": "IPOPulse",
+      "shortDescription": "📈 IPO Pulse – Your smart companion for IPO updates! 🚀 Track upcoming IPOs, explore market insights, and stay informed to make smarter investment decisions. 📊💹",
+      "description": "📈 **Welcome to IPO Pulse – Your IPO Information Hub!** 🚀\n\nStay updated with IPO-related information and explore the stock market with IPO Pulse! 📊\n\n✨ **What You Can Discover:**\n- 📅 IPO updates and upcoming IPO information\n- 🔍 IPO details to support your research\n- 📈 Market insights to help you stay informed\n- 💡 Useful information for understanding IPO opportunities\n\n🎯 **Why Explore IPO Pulse?**\nIPO Pulse aims to make IPO-related information easier to discover and explore, helping you stay informed about market developments.\n\n🌐 **Visit Now:** https://getsolveit.com/IPOPulse/\n\n🚀 Explore IPO Pulse and stay connected with the IPO market!\n\n⚠️ **Disclaimer:** IPO investments are subject to market risks. This information is for educational and informational purposes only and should not be considered financial advice. Always conduct your own research before making investment decisions.",
+      "docs": "",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "",
+          "notes": "🚀 IPO Pulse – Latest Updates\n\n✨ Improved IPO information and tracking experience.\n\n📈 Stay informed about IPO-related market updates.\n\n🔍 Easier access to IPO details and research.\n\n⚡ Ongoing improvements for a smoother user experience.\n\n🛠️ Bug fixes and performance improvements.\n\n🌐 Explore: https://getsolveit.com/IPOPulse/\n\nNote: Update this changelog to reflect features and fixes actually released."
+        }
+      ],
+      "version": "1.0.0",
+      "unityVersion": "",
+      "price": "",
+      "genres": [],
+      "youtubeUrl": "",
+      "downloadUrl": "",
+      "playStoreUrl": "",
+      "assetStoreUrl": "",
+      "githubUrl": "",
+      "otherUrl": "https://getsolveit.com/IPOPulse/",
+      "order": 0,
+      "createdAt": "2026-10-21T12:05:01.894Z",
+      "updatedAt": "2026-10-21T12:05:01.894Z",
+      "slug": "ipopulse"
     }
   ],
-  "updatedAt": "2026-10-20T05:56:26.098Z"
+  "updatedAt": "2026-10-23T08:43:36.639Z"
 }
