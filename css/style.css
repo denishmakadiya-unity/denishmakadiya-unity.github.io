@@ -746,3 +746,8 @@ button { font: inherit; cursor: pointer; }
 .subtab.active { color: #0a0d12; background: var(--c-game, var(--lime)); border-color: transparent; }
 .subtab.active span { color: rgba(10,13,18,.7); }
 .tag.genre { color: var(--c-game, var(--lime)); border-color: color-mix(in srgb, var(--c-game, var(--lime)) 40%, transparent); }
+
+/* Visitor counter in the footer */
+.footer .visits { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 12px; color: var(--dim); }
+.footer .visits b { color: var(--text); font-weight: 600; }
+.footer .visits i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 8px var(--lime); }

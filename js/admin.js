@@ -391,33 +391,31 @@ function route() {
 /* =========================================================
    HQ (dashboard)
    ========================================================= */
-/* Visitor numbers from GoatCounter's public counter (needs "Allow adding visitor counts on your website") */
-async function loadVisitors(code) {
-  code = String(code || '').replace(/[^\w-]/g, '');
-  if (!code) return;
-  const base = `https://${code}.goatcounter.com/counter/`;
-  const day = d => d.toISOString().slice(0, 10);
-  const now = new Date(), week = new Date(now - 6 * 864e5), month = new Date(now - 29 * 864e5);
-  const get = async (path, start) => {
-    const r = await fetch(base + encodeURIComponent(path) + '.json' + (start ? `?start=${start}&end=${day(now)}` : ''), { cache: 'no-store' });
-    if (r.status === 404) return 0; // no visits yet
-    if (!r.ok) throw Object.assign(new Error('counter ' + r.status), { status: r.status });
-    return Number(String((await r.json()).count || '0').replace(/[^\d]/g, '')) || 0;
-  };
+/* Visitor numbers — same free counter the website uses (new visitor = +1, returning visitor not counted) */
+function siteNamespace() {
+  const userSite = CFG.repo.toLowerCase() === CFG.owner.toLowerCase() + '.github.io';
+  return (`${CFG.owner}.github.io` + (userSite ? '' : '-' + CFG.repo)).toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 64);
+}
+async function loadVisitors() {
+  const ns = siteNamespace(), api = 'https://abacus.jasoncameron.dev';
+  const get = async key => { const r = await fetch(`${api}/get/${ns}/${key}`, { cache: 'no-store' }); if (r.status === 404) return 0; if (!r.ok) throw new Error(r.status); return Number((await r.json()).value) || 0; };
+  const d = new Date(), key = x => x.toISOString().slice(0, 10).replace(/-/g, '');
+  const days = [...Array(7)].map((_, i) => new Date(d - i * 864e5));
   const box = () => $('#visitors');
   try {
-    const [all, today, w, m, visits] = await Promise.all([get('unique-visitor'), get('unique-visitor', day(now)), get('unique-visitor', day(week)), get('unique-visitor', day(month)), get('TOTAL')]);
+    const [total, month, ...week] = await Promise.all([get('visitors'), get('month-' + key(d).slice(0, 6)), ...days.map(x => get('day-' + key(x)))]);
     if (!box()) return;
+    const w = week.reduce((a, b) => a + b, 0), max = Math.max(1, ...week);
     box().innerHTML = `<div class="stats vis">
-      <div class="stat" style="--c:var(--lime)">${ico('user')}<span>Unique visitors</span><b>${all.toLocaleString()}</b></div>
-      <div class="stat" style="--c:var(--cyan)">${ico('star')}<span>New today</span><b>${today.toLocaleString()}</b></div>
-      <div class="stat" style="--c:var(--pink)">${ico('dash')}<span>New · 7 days</span><b>${w.toLocaleString()}</b></div>
-      <div class="stat" style="--c:var(--amber)">${ico('dash')}<span>New · 30 days</span><b>${m.toLocaleString()}</b></div>
-      <div class="stat" style="--c:var(--muted)">${ico('ext')}<span>All visits</span><b>${visits.toLocaleString()}</b></div>
+      <div class="stat" style="--c:var(--lime)">${ico('user')}<span>Total visitors</span><b>${total.toLocaleString('en-IN')}</b></div>
+      <div class="stat" style="--c:var(--cyan)">${ico('star')}<span>New today</span><b>${week[0].toLocaleString('en-IN')}</b></div>
+      <div class="stat" style="--c:var(--pink)">${ico('dash')}<span>Last 7 days</span><b>${w.toLocaleString('en-IN')}</b></div>
+      <div class="stat" style="--c:var(--amber)">${ico('dash')}<span>This month</span><b>${month.toLocaleString('en-IN')}</b></div>
     </div>
-    <p class="hint" style="margin:10px 0 0">"Unique visitors" counts every person once, ever. "All visits" includes people who came back. Counting started when GoatCounter was turned on. <a href="https://${code}.goatcounter.com" target="_blank" rel="noopener" style="color:var(--cyan)">Full analytics ↗</a></p>`;
-  } catch (err) {
-    if (box()) box().innerHTML = `<div class="hint">Could not read the counter. In GoatCounter go to <b>Settings</b> and tick <b>"Allow adding visitor counts on your website"</b>, then reload. <a href="https://${code}.goatcounter.com/settings/main" target="_blank" rel="noopener" style="color:var(--cyan)">Open GoatCounter settings ↗</a></div>`;
+    <div class="vbars">${days.map((x, i) => ({ x, v: week[i] })).reverse().map(({ x, v }) => `<div title="${v} new visitors"><i style="height:${Math.round(v / max * 100)}%"></i><b>${v}</b><small>${x.toLocaleDateString('en-IN', { weekday: 'short' })}</small></div>`).join('')}</div>
+    <p class="hint" style="margin:10px 0 0">A new visitor adds +1. The same person coming back is not counted again. Your own visits to the admin panel are not counted.</p>`;
+  } catch (_) {
+    if (box()) box().innerHTML = '<div class="hint">Could not load the visitor counter right now — try again later.</div>';
   }
 }
 
@@ -446,8 +444,8 @@ async function viewDashboard(main) {
       <div class="stat" style="--c:var(--pink)">${ico('star')}<span>Featured</span><b>${projects.filter(x => x.featured).length}</b></div>
     </div>
     <div class="panel" id="visitorsPanel">
-      <h2>Visitors <span class="hint" style="text-transform:none;letter-spacing:0">each person counted once — a returning visitor is not counted again</span></h2>
-      <div id="visitors">${DATA.site.goatcounter ? '<div class="hint">Loading…</div>' : `<div class="hint">Turn on visitor counting (free, 3 min): create an account at <a href="https://www.goatcounter.com/signup" target="_blank" rel="noopener" style="color:var(--cyan)">goatcounter.com</a>, put its code in <a href="#site" style="color:var(--cyan)">World settings → Integrations</a>, then in GoatCounter <b>Settings</b> tick <b>"Allow adding visitor counts on your website"</b>.</div>`}</div>
+      <h2>Visitors</h2>
+      <div id="visitors"><div class="hint">Loading…</div></div>
     </div>
     <div class="panel">
       <h2>Quick spawn</h2>
@@ -460,7 +458,7 @@ async function viewDashboard(main) {
     </div>
     <div class="panel"><h2>Save log <span class="hint" style="text-transform:none;letter-spacing:0">${esc(CFG.owner)}/${esc(CFG.repo)} · ${esc(GH.branch)}</span></h2><ul class="log" id="log"><li>Loading…</li></ul></div>`;
   $$('[data-new]').forEach(b => b.addEventListener('click', () => (location.hash = 'new/' + b.dataset.new)));
-  loadVisitors(DATA.site.goatcounter);
+  loadVisitors();
   try {
     const commits = await GH.req('GET', `/commits?sha=${encodeURIComponent(GH.branch)}&per_page=6`);
     if (!$('#log')) return;

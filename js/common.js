@@ -63,21 +63,45 @@ function initAnalytics(site) {
   const sc = document.createElement('script');
   sc.async = true; sc.src = 'https://gc.zgo.at/count.js';
   sc.dataset.goatcounter = `https://${code}.goatcounter.com/count`;
-  sc.onload = countUniqueVisitor;
   document.head.appendChild(sc);
 }
-/* Unique visitors: each browser is counted ONCE, ever (a returning visitor is not counted again) */
-function countUniqueVisitor() {
-  let seen = true;
-  try { seen = !!localStorage.getItem('pv_visitor'); } catch (_) { return; } // storage blocked → don't risk double counting
-  if (seen) return;
-  const send = (tries = 0) => {
-    if (window.goatcounter && window.goatcounter.count) {
-      try { window.goatcounter.count({ path: 'unique-visitor', title: 'New unique visitor', event: true }); localStorage.setItem('pv_visitor', new Date().toISOString()); } catch (_) {}
-    } else if (tries < 20) setTimeout(() => send(tries + 1), 300);
-  };
-  send();
+/* ---------- Visitor counter ----------
+   A new visitor adds +1. The same visitor coming back is not counted again.
+   Free counter: abacus.jasoncameron.dev (no account needed). */
+const VC_API = 'https://abacus.jasoncameron.dev';
+function visitorNamespace() {
+  const h = location.hostname.toLowerCase();
+  if (!/\./.test(h) || /^(127\.|192\.168\.|10\.)/.test(h)) return ''; // don't count local testing
+  const seg = /\.github\.io$/.test(h) ? location.pathname.split('/').filter(Boolean)[0] : '';
+  const project = seg && !/\.html?$/i.test(seg) && !/^(index|profile|project|contact|404)$/i.test(seg) ? '-' + seg : '';
+  return (h + project).replace(/[^a-z0-9-]/g, '-').slice(0, 64);
 }
+async function visitorCounter() {
+  const ns = visitorNamespace(); if (!ns) return;
+  let isNew = false;
+  try { isNew = !localStorage.getItem('pv_visitor'); } catch (_) {}
+  try {
+    let total;
+    if (isNew) {
+      const d = new Date(), day = d.toISOString().slice(0, 10).replace(/-/g, ''), month = day.slice(0, 6);
+      fetch(`${VC_API}/hit/${ns}/day-${day}`).catch(() => {});
+      fetch(`${VC_API}/hit/${ns}/month-${month}`).catch(() => {});
+      total = (await (await fetch(`${VC_API}/hit/${ns}/visitors`)).json()).value;
+      try { localStorage.setItem('pv_visitor', new Date().toISOString()); } catch (_) {}
+    } else {
+      const r = await fetch(`${VC_API}/get/${ns}/visitors`);
+      total = r.ok ? (await r.json()).value : 0;
+    }
+    if (!total) return;
+    document.querySelectorAll('.footer-inner').forEach(f => {
+      let el = f.querySelector('.visits');
+      if (!el) { el = document.createElement('span'); el.className = 'visits'; f.appendChild(el); }
+      el.innerHTML = `<i></i><b>${Number(total).toLocaleString('en-IN')}</b> visitors`;
+    });
+  } catch (_) {}
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', visitorCounter); else visitorCounter();
+
 function track(name, title) {
   try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: title || name, event: true }); } catch (_) {}
 }
