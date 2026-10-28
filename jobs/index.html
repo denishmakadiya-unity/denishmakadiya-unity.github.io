@@ -5,35 +5,58 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Unity Career Hunter</title>
+<meta name="description" content="Unity developer job matches from around the world, scored against my resume, with email drafts and an application tracker.">
+<meta name="theme-color" content="#05070b">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 0h26v26l-6 6H0V6z' fill='%23c6ff3d'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' font-weight='700' text-anchor='middle' fill='%2305070b'%3EJR%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
+/* Dev HQ look (same tokens as the portfolio admin): dark first, light on request. */
 :root{
-  --bg:#f3f5f9;--panel:#ffffff;--panel2:#f8fafc;--ink:#111827;--mut:#64748b;--line:#e3e8ef;
-  --acc:#4f46e5;--acc-ink:#ffffff;--acc-soft:#eef0ff;--ok:#0f8a4b;--ok-soft:#e3f7ec;--warn:#b45309;--warn-soft:#fff4e0;--bad:#c2410c;
-  --ex:#0f8a4b;--st:#2563eb;--po:#d97706;--lo:#94a3b8;
-  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);--r:14px;
+  --bg:#05070b;--panel:#0e131c;--panel2:#141b27;--ink:#e9eef5;--mut:#8a96a8;--line:#1c2533;--line2:#2a3546;
+  --acc:#c6ff3d;--acc-ink:#05070b;--acc-soft:rgba(198,255,61,.1);--cyan:#3de0ff;--ok:#c6ff3d;--ok-soft:rgba(198,255,61,.1);--warn:#ffb547;--warn-soft:rgba(255,181,71,.12);--bad:#ff4d6a;
+  --ex:#c6ff3d;--st:#3de0ff;--po:#ffb547;--lo:#5a6577;
+  --shadow:none;--glow:0 0 0 1px rgba(198,255,61,.35),0 0 24px rgba(198,255,61,.08);--r:4px;
+  --cut:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  --cut-sm:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  --f-disp:"Chakra Petch","Segoe UI",system-ui,sans-serif;--f-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --grid-dot:rgba(255,255,255,.035);
+  color-scheme:dark;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0d1117;--panel:#151b23;--panel2:#1b222c;--ink:#e6edf3;--mut:#8b98a8;--line:#27303b;
-  --acc:#8b8cff;--acc-ink:#0d1117;--acc-soft:#22264a;--ok:#4cc38a;--ok-soft:#14301f;--warn:#f0a44b;--warn-soft:#33260f;--bad:#ff8a65;
-  --ex:#4cc38a;--st:#6ea8ff;--po:#f0a44b;--lo:#64748b;--shadow:0 1px 2px rgba(0,0,0,.4)}}
-:root[data-theme="dark"]{
-  --bg:#0d1117;--panel:#151b23;--panel2:#1b222c;--ink:#e6edf3;--mut:#8b98a8;--line:#27303b;
-  --acc:#8b8cff;--acc-ink:#0d1117;--acc-soft:#22264a;--ok:#4cc38a;--ok-soft:#14301f;--warn:#f0a44b;--warn-soft:#33260f;--bad:#ff8a65;
-  --ex:#4cc38a;--st:#6ea8ff;--po:#f0a44b;--lo:#64748b;--shadow:0 1px 2px rgba(0,0,0,.4)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f3f5ef;--panel:#ffffff;--panel2:#f7f9f3;--ink:#0b0f14;--mut:#556070;--line:#dfe4da;--line2:#c9d0c3;
+  --acc:#4c7d00;--acc-ink:#ffffff;--acc-soft:#ecf6d8;--cyan:#0077a3;--ok:#3f7300;--ok-soft:#ecf6d8;--warn:#a85d00;--warn-soft:#fdf0dc;--bad:#c8243f;
+  --ex:#4c7d00;--st:#0077a3;--po:#b86a00;--lo:#9aa3ae;--glow:0 0 0 1px #4c7d00;--grid-dot:rgba(0,0,0,.035);color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#f3f5ef;--panel:#ffffff;--panel2:#f7f9f3;--ink:#0b0f14;--mut:#556070;--line:#dfe4da;--line2:#c9d0c3;
+  --acc:#4c7d00;--acc-ink:#ffffff;--acc-soft:#ecf6d8;--cyan:#0077a3;--ok:#3f7300;--ok-soft:#ecf6d8;--warn:#a85d00;--warn-soft:#fdf0dc;--bad:#c8243f;
+  --ex:#4c7d00;--st:#0077a3;--po:#b86a00;--lo:#9aa3ae;--glow:0 0 0 1px #4c7d00;--grid-dot:rgba(0,0,0,.035);color-scheme:light}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 var(--f-body)}
+body{background-image:radial-gradient(var(--grid-dot) 1px,transparent 1px);background-size:22px 22px}
+h1,h2,h3,.jt,.brand b,.stat b{font-family:var(--f-disp)}
+h1{text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+h2{text-transform:uppercase;letter-spacing:.06em;font-size:13px!important;color:var(--mut);display:flex;align-items:center;gap:8px}
+h2::before{content:"//";color:var(--acc);font-family:var(--f-mono)}
+.kick{font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+.label,.navsec,.tbl th,.fhead b,.col h3,nav .count,.chip,.tmeta,.xl,.chart .grid span{font-family:var(--f-mono)}
+.stat b{font-variant-numeric:tabular-nums}
+::selection{background:var(--acc);color:var(--acc-ink)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
 button,select,input,textarea{font:inherit;color:inherit}
 .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
 /* sidebar */
 nav{background:var(--panel);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;overflow:auto}
 .brand{display:flex;gap:10px;align-items:center;margin:0 6px 18px}
-.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--acc),#06b6d4);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px}
-.brand b{display:block;font-size:14px}.brand small{color:var(--mut);font-size:12px}
-.navsec{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:14px 10px 6px}
-nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--ink)}
-nav button svg{width:17px;height:17px;flex:none;opacity:.75}
-nav button:hover{background:var(--panel2)}nav button.on{background:var(--acc-soft);color:var(--acc);font-weight:600}nav button.on svg{opacity:1}
+.logo{width:36px;height:36px;background:var(--acc);clip-path:var(--cut-sm);display:grid;place-items:center;color:var(--acc-ink);font:700 13px/1 var(--f-mono)}
+.brand b{display:block;font-size:15px;text-transform:uppercase;letter-spacing:.04em}.brand small{color:var(--mut);font:11px var(--f-mono);letter-spacing:.06em}
+.navsec{font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--lo);margin:16px 10px 6px}
+nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-left:2px solid transparent;padding:8px 10px;border-radius:0 4px 4px 0;cursor:pointer;color:var(--ink)}
+nav button svg{width:17px;height:17px;flex:none;opacity:.6}
+nav button:hover{background:var(--panel2)}nav button.on{background:var(--acc-soft);border-left-color:var(--acc);color:var(--acc);font-weight:600}nav button.on svg{opacity:1}
+.navfoot{margin:18px 6px 4px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px;font:11px/1.5 var(--f-mono);color:var(--mut)}
+.navfoot a{color:var(--mut)}.navfoot a:hover{color:var(--acc)}
 nav .count{margin-left:auto;font-size:11px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:0 7px;color:var(--mut)}
 /* main */
 .top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
@@ -45,7 +68,8 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:26px 0 12px}
 .mut{color:var(--mut)}.small{font-size:12px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.grow{flex:1}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:10px;border:1px solid var(--line);background:var(--panel);cursor:pointer;white-space:nowrap;color:var(--ink)}
 .btn:hover{border-color:var(--acc);text-decoration:none}.btn svg{width:15px;height:15px}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);font-weight:600}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);font-weight:700;clip-path:var(--cut-sm);text-transform:uppercase;letter-spacing:.04em;font-size:12.5px}
+.btn.pri:hover{filter:brightness(1.08)}
 .btn.ghost{border-color:transparent;background:none}.btn.ghost:hover{background:var(--panel2)}
 .btn.sm{padding:5px 9px;font-size:12.5px;border-radius:8px}.btn:disabled{opacity:.5;cursor:default}
 .btn.done{border-color:var(--ok);color:var(--ok)}
@@ -54,18 +78,21 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:26px 0 12px}
 .hero{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
 .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .12s}
-.stat:hover{transform:translateY(-2px);border-color:var(--acc)}
-.stat b{display:block;font-size:26px;line-height:1.1;letter-spacing:-.02em}.stat span{color:var(--mut);font-size:12.5px}
-.stat.accent{background:linear-gradient(135deg,var(--acc),#06b6d4);color:#fff;border:0}.stat.accent span{color:rgba(255,255,255,.85)}
+.stat:hover{transform:translateY(-2px);border-color:var(--acc);box-shadow:var(--glow)}
+.stat b{display:block;font-size:28px;line-height:1.1;letter-spacing:0}.stat span{color:var(--mut);font:11px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.08em}
+.stat.accent{background:var(--acc);color:var(--acc-ink);border:0;clip-path:var(--cut)}.stat.accent span{color:var(--acc-ink);opacity:.75}
 /* job cards */
 .jobs{display:flex;flex-direction:column;gap:10px}
 .job{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow);cursor:pointer;transition:border-color .12s}
-.job:hover{border-color:var(--acc)}
+.job:hover{border-color:var(--acc);box-shadow:var(--glow)}
+.job,.card,.stat,.tcard,.attn-item{position:relative}
+.job::after,.card::after{content:"";position:absolute;right:-1px;bottom:-1px;width:10px;height:10px;border-right:2px solid var(--line2);border-bottom:2px solid var(--line2);pointer-events:none}
+.job:hover::after{border-color:var(--acc)}
 .ring{--v:0;--c:var(--lo);width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--v)*1%),var(--line) 0);display:grid;place-items:center}
 .ring i{width:42px;height:42px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:14px}
 .jt{font-weight:650;font-size:15px;line-height:1.3}.jc{color:var(--mut);font-size:13px;margin:2px 0 7px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 9px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;padding:2px 8px;border-radius:3px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);white-space:nowrap}
 .chip.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}.chip.warn{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
 .chip.acc{background:var(--acc-soft);border-color:transparent;color:var(--acc)}
 .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
@@ -73,7 +100,7 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:26px 0 12px}
 .l-ex{color:var(--ex)}.l-st{color:var(--st)}.l-po{color:var(--po)}.l-lo{color:var(--lo)}
 /* filters */
 .qf{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
-.qf button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:13px}
+.qf button{border:1px solid var(--line);background:var(--panel);border-radius:3px;padding:5px 12px;cursor:pointer;font:12px var(--f-mono);letter-spacing:.02em}
 .qf button.on{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
 .filters{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:0 0 14px}
 .filters input,.filters select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
@@ -103,8 +130,8 @@ dl{display:grid;grid-template-columns:180px 1fr;gap:6px 14px;margin:0}dt{color:v
 .fhead b{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);flex:1}
 .field textarea,.field input{width:100%;border:0;background:var(--panel);padding:12px 14px;outline:none;resize:vertical;font:13.5px/1.55 inherit}
 .field textarea{min-height:120px}.field textarea.big{min-height:360px}
-textarea.json{width:100%;min-height:440px;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel);font:12.5px/1.5 ui-monospace,Consolas,monospace}
-pre{white-space:pre-wrap;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px;font:12.5px/1.5 ui-monospace,Consolas,monospace;max-height:520px;overflow:auto;margin:0}
+textarea.json{width:100%;min-height:440px;border:1px solid var(--line);border-radius:var(--r);padding:12px;background:var(--panel);font:12.5px/1.5 var(--f-mono)}
+pre{white-space:pre-wrap;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:12px;font:12.5px/1.5 var(--f-mono);max-height:520px;overflow:auto;margin:0}
 .notice{background:var(--acc-soft);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:13px}
 .empty{text-align:center;padding:40px 16px;color:var(--mut)}
 #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:50;pointer-events:none;font-weight:600}
@@ -180,6 +207,34 @@ const __D2A={'Saved':'saved','To Apply':'saved','Email Draft Ready':'saved','App
 const __A2D={saved:'Saved',applied:'Applied',interview:'Interview Scheduled',offer:'Offer Received',rejected:'Rejected',withdrawn:'Closed'};
 const __b64dec=(s)=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')),c=>c.charCodeAt(0)));
 const __b64enc=(s)=>{const b=new TextEncoder().encode(s);let o='';for(let i=0;i<b.length;i+=32768)o+=String.fromCharCode.apply(null,b.subarray(i,i+32768));return btoa(o);};
+async function __gh(token,url,method,body){
+  const r=await fetch(url+(method==='GET'?'?t='+Date.now():''),{method,cache:'no-store',headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
+  if(method==='GET'&&r.status===404)return null;
+  if(!r.ok){let msg=r.statusText;try{msg=(await r.json()).message||msg;}catch{}const e=new Error('GitHub '+r.status+': '+msg);e.status=r.status;throw e;}
+  return r.json();
+}
+// Website preferences + search settings in the private repo (career-hunter.json, next to status.json).
+// The app on the computer reads the "search", "scoring" and "profile" parts at the start of each run.
+const RemoteCfg={ready:false,data:null,
+  url(){return Tracker.gh.base.replace(/status\.json$/,'career-hunter.json');},
+  async read(){const f=await __gh(Tracker.gh.token,this.url(),'GET');return {data:f?JSON.parse(__b64dec(f.content)):{version:1},sha:f&&f.sha};},
+  async load(){
+    if(!Tracker.gh)return;
+    const {data}=await this.read();this.data=data;this.ready=true;
+    if(data.prefs)setPrefs(data.prefs,{sync:false});
+  },
+  async write(mut,message){
+    if(!this.ready)throw new Error('log in to Admin on this site first');
+    for(let attempt=0;attempt<3;attempt++){
+      const {data,sha}=await this.read();mut(data);data.version=1;
+      try{await __gh(Tracker.gh.token,this.url(),'PUT',{message,content:__b64enc(JSON.stringify(data,null,2)+'\n'),...(sha?{sha}:{})});this.data=data;return data;}
+      catch(e){if((e.status===409||e.status===422)&&attempt<2)continue;throw e;}
+    }
+  },
+  savePrefs(p){if(!this.ready)return Promise.resolve();return this.write(d=>{d.prefs=p;d.prefs_updated_at=new Date().toISOString();},'Career Hunter: website preferences');},
+  saveSearch({search,profile,scoring}){return this.write(d=>{d.search=search;d.profile=profile;d.scoring=scoring;d.updated_at=new Date().toISOString();},'Career Hunter: search settings');}
+};
+window.RemoteCfg=RemoteCfg;
 const Tracker={mode:'local',apps:{},ext:[],gh:null,
   async init(S){
     this.apps=__local();
@@ -198,12 +253,7 @@ const Tracker={mode:'local',apps:{},ext:[],gh:null,
       if(pending.length){for(const a of pending)await this.save(a.job_id,a,S.jobs.find(j=>j.id===+a.job_id));__saveLocal({});}
     }catch(e){this.gh=null;this.apps=__local();window.TRACKER_NOTE='could not reach your private tracker ('+e.message+') - saved in this browser only';}
   },
-  async req(method,body){
-    const r=await fetch(this.gh.base+(method==='GET'?'?t='+Date.now():''),{method,cache:'no-store',headers:{Authorization:'Bearer '+this.gh.token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
-    if(method==='GET'&&r.status===404)return null;
-    if(!r.ok){let msg=r.statusText;try{msg=(await r.json()).message||msg;}catch{}const e=new Error('GitHub '+r.status+': '+msg);e.status=r.status;throw e;}
-    return r.json();
-  },
+  req(method,body){return __gh(this.gh.token,this.gh.base,method,body);},
   async read(){const f=await this.req('GET');const status={saved:[],applied:{},hidden:[],apps:[],...(f?JSON.parse(__b64dec(f.content)):{})};if(!Array.isArray(status.apps))status.apps=[];return {status,sha:f&&f.sha};},
   fromStatus(st){
     this.apps={};this.ext=[];
@@ -238,7 +288,7 @@ const Tracker={mode:'local',apps:{},ext:[],gh:null,
 };
 let __snap=null;
 const __load=()=>__snap||(__snap=fetch('snapshot.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('Could not load snapshot.json ('+r.status+')');return r.json();})
-  .then(async(S)=>{await Tracker.init(S);return S;}));
+  .then(async(S)=>{await Tracker.init(S);if(Tracker.mode==='remote')await RemoteCfg.load().catch(e=>console.warn('settings:',e.message));return S;}));
 function __appOf(S,id){return Tracker.apps[id]||(S.applications||[]).find(a=>a.job_id===+id)||null;}
 function __allApps(S){const m={};for(const a of S.applications||[])m[a.job_id]=a;Object.assign(m,Tracker.apps);return Object.values(m);}
 const __like=(v,s)=>String(v??'').toLowerCase().includes(String(s).toLowerCase());
@@ -330,7 +380,7 @@ const VIEWS=[
   ['Overview'],['dashboard','Dashboard','home'],['new',"Today's new jobs",'spark'],['all','All jobs','list'],['best','Best matches','star'],['trends','Job openings','chart'],
   ['Filters'],['remote','Remote jobs','globe'],['office','On-site jobs','building'],['hybrid','Hybrid jobs','building'],['fulltime','Full-time','brief'],['contract','Contract / freelance','brief'],
   ['Outreach'],['drafts','Email drafts','pen'],['contacts','HR contacts','mail'],['tracker','Application tracker','check'],
-  ['Data'],['companies','Companies','users'],['history','Search history','clock']];
+  ['Data'],['companies','Companies','users'],['history','Search history','clock'],['settings','Settings','gear']];
 const since=(d)=>new Date(Date.now()-d*86400e3).toISOString();
 const PRESETS={new:{new_since:()=>since(1)},all:{},best:{min_score:()=>String(META.thresholds.strong||75)},remote:{work_mode:'Remote'},office:{work_mode:'On-site'},hybrid:{work_mode:'Hybrid'},fulltime:{employment_type:'Full-time'},contract:{employment_type:'Contract'}};
 let META={statuses:[],thresholds:{}},STATS=null,state={view:'dashboard',f:{}},CUR=null;
@@ -355,15 +405,26 @@ async function copyText(text,label='Copied'){
   toast(label+' ✓');
 }
 function toggleNav(){$('#nav').classList.toggle('show');}
-function toggleTheme(){const r=document.documentElement;const cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');r.dataset.theme=cur==='dark'?'light':'dark';try{localStorage.setItem('uch-theme',r.dataset.theme);}catch{}}
-try{const t=localStorage.getItem('uch-theme');if(t)document.documentElement.dataset.theme=t;}catch{}
+function toggleTheme(){const r=document.documentElement;const cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');setPrefs({theme:cur==='dark'?'light':'dark'});}
+// ---------- website preferences (this browser; the static site also keeps them in the private repo) ----------
+const PREF_DEF={theme:'system',home:'dashboard',min_score:'',hide_companies:[],follow_applied:7,stale_days:21};
+let PREFS={...PREF_DEF};
+try{PREFS={...PREF_DEF,...JSON.parse(localStorage.getItem('uch-prefs')||'{}')};const t=localStorage.getItem('uch-theme');if(t&&!localStorage.getItem('uch-prefs'))PREFS.theme=t;}catch{}
+function applyPrefs(){
+  const r=document.documentElement;if(PREFS.theme==='light'||PREFS.theme==='dark')r.dataset.theme=PREFS.theme;else delete r.dataset.theme;
+  FOLLOW_DAYS.Applied=Math.max(1,+PREFS.follow_applied||7);STALE_DAYS=Math.max(3,+PREFS.stale_days||21);
+}
+function setPrefs(p,{sync=true}={}){PREFS={...PREFS,...p};try{localStorage.setItem('uch-prefs',JSON.stringify(PREFS));localStorage.removeItem('uch-theme');}catch{}applyPrefs();if(sync&&window.RemoteCfg)window.RemoteCfg.savePrefs(PREFS).catch(()=>{});}
+const hiddenCo=()=>new Set((PREFS.hide_companies||[]).map(s=>s.toLowerCase()));
+const visibleJobs=(rows)=>{const h=hiddenCo();return h.size?rows.filter(j=>!h.has(String(j.company_name||'').toLowerCase())):rows;};
 
 function nav(){
   const cnt={new:STATS?.new_today,all:STATS?.active,best:STATS?(STATS.excellent+STATS.strong):null,drafts:STATS?.drafts,tracker:STATS?.applications?.reduce((x,y)=>x+y.n,0)};
-  $('#nav').innerHTML=`<div class="brand"><div class="logo">UCH</div><div><b>Career Hunter AI</b><small>Unity jobs · worldwide</small></div></div>`+
-   VIEWS.map(v=>v.length===1?`<div class="navsec">${v[0]}</div>`:`<button class="${state.view===v[0]?'on':''}" onclick="go('${v[0]}')">${svg(v[2])}<span>${v[1]}</span>${cnt[v[0]]!=null?`<span class="count">${cnt[v[0]]}</span>`:''}</button>`).join('');
+  $('#nav').innerHTML=`<div class="brand"><div class="logo">JR</div><div><b>Job Radar</b><small>UNITY · WORLDWIDE</small></div></div>`+
+   VIEWS.map(v=>v.length===1?`<div class="navsec">${v[0]}</div>`:`<button class="${state.view===v[0]?'on':''}" onclick="go('${v[0]}')">${svg(v[2])}<span>${v[1]}</span>${cnt[v[0]]!=null?`<span class="count">${cnt[v[0]]}</span>`:''}</button>`).join('')+
+   `<div class="navfoot" id="navfoot">${window.NAV_FOOT||`<span>Last search ${esc(ago(STATS?.latest_run?.started_at)||'—')}</span>`}</div>`;
 }
-function go(v,extra={}){state.view=v;state.f={page:1,page_size:30,sort:'score',status:'active'};const p=PRESETS[v]||{};for(const k in p)state.f[k]=typeof p[k]==='function'?p[k]():p[k];Object.assign(state.f,extra);nav();render();$('#nav').classList.remove('show');window.scrollTo(0,0);}
+function go(v,extra={}){state.view=v;state.f={page:1,page_size:30,sort:'score',status:'active'};if(PREFS.min_score&&PRESETS[v])state.f.min_score=String(PREFS.min_score);const p=PRESETS[v]||{};for(const k in p)state.f[k]=typeof p[k]==='function'?p[k]():p[k];Object.assign(state.f,extra);nav();render();$('#nav').classList.remove('show');window.scrollTo(0,0);}
 function globalSearch(q){go('all',{q});}
 
 async function render(){
@@ -410,7 +471,7 @@ async function renderDash(el){
   const tr=await api('/api/trends').catch(()=>null),tt=tr?trendTotals(tr,'all'):null;
   const h=new Date().getHours(),greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   const stat=(n,l,v,ex='',cls='')=>`<div class="stat ${cls}" onclick="go('${v}'${ex?','+ex:''})"><b>${n??0}</b><span>${l}</span></div>`;
-  el.innerHTML=`<div class="hero"><div><h1>${greet}, ${esc(META.name||'')} 👋</h1>
+  el.innerHTML=`<div class="hero"><div><div class="kick">${esc(new Date().toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'}))} · Unity jobs radar</div><h1>${greet}, ${esc((META.name||'').split(' ')[0])}</h1>
      <div class="mut">${lr?`Last search #${lr.id} · ${esc(lr.status)} · ${esc(new Date(lr.started_at).toLocaleString())}${lr.report_path?` · <a href="/reports/${esc(lr.report_path.split(/[\\/]/).pop())}" target="_blank">open daily report</a>`:''}`:'No search yet — click “Run search”.'}</div></div>
      <div class="row"><a class="btn" href="/api/export.csv?status=active">Export CSV</a><button class="btn" onclick="go('drafts')">${svg('pen')}Email drafts</button></div></div>
    <div class="stats">
@@ -421,8 +482,8 @@ async function renderDash(el){
      ${stat(s.followups_due,'Follow-ups due','tracker')}${stat(s.companies,'Companies','companies')}
    </div>
    ${tt?`<div class="card row" style="margin-top:12px;justify-content:space-between"><div><b>New Unity openings</b> <span class="mut">· today ${tt.day} · this week ${tt.week} · this month ${tt.month} · this year ${tt.year}</span></div><button class="btn sm" onclick="go('trends')">${svg('chart')}By day / week / month / year</button></div>`:''}
-   ${fresh.rows.length?`<h2>🆕 Fresh matches (last 48h)</h2><div class="jobs">${fresh.rows.map(jobCard).join('')}</div>`:''}
-   <h2>⭐ Top matches for you</h2><div class="jobs">${top.rows.map(jobCard).join('')||'<div class="card empty">No matches yet.</div>'}</div>
+   ${visibleJobs(fresh.rows).length?`<h2>Fresh matches · last 48h</h2><div class="jobs">${visibleJobs(fresh.rows).map(jobCard).join('')}</div>`:''}
+   <h2>Top matches for you</h2><div class="jobs">${visibleJobs(top.rows).map(jobCard).join('')||'<div class="card empty">No matches yet.</div>'}</div>
    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" onclick="go('all',{min_score:'${META.thresholds.potential}'})">See all ${s.relevant} matching jobs →</button></div>`;
 }
 async function runNow(){try{await api('/api/run',{method:'POST'});META.running=true;setRunBtn();toast('Search started');poll();}catch(e){toast(e.message);}}
@@ -454,7 +515,8 @@ async function renderJobs(el,title){
     ${sel('sort',[['score','Sort: best match'],['date','Sort: newest posted'],['discovered','Sort: newest found'],['salary','Sort: salary']])}
     ${sel('page_size',[['30','30 per page'],['60','60 per page'],['100','100 per page'],['all','Show all']])}
    </div></details>
-   <div class="jobs">${r.rows.map(jobCard).join('')||'<div class="card empty">No jobs match these filters.</div>'}</div>
+   ${r.rows.length-visibleJobs(r.rows).length?`<p class="small mut">${r.rows.length-visibleJobs(r.rows).length} job(s) on this page hidden by your company filter · <a href="#" onclick="go('settings');return false">Settings</a></p>`:''}
+   <div class="jobs">${visibleJobs(r.rows).map(jobCard).join('')||'<div class="card empty">No jobs match these filters.</div>'}</div>
    ${pages>1?`<div class="pager"><button class="btn" ${f.page<=1?'disabled':''} onclick="setF('page',${f.page-1},true)">‹ Prev</button><span class="mut">Page ${f.page} of ${pages}</span><button class="btn" ${f.page>=pages?'disabled':''} onclick="setF('page',${+f.page+1},true)">Next ›</button></div>`:''}`;
 }
 function setF(k,v,keepPage){state.f[k]=v;if(!keepPage)state.f.page=1;render();}
@@ -633,7 +695,7 @@ const stageOf=(s)=>(STAGES.find(([,l])=>l.includes(s))||STAGES[1])[0];
 const CLOSED=['Rejected','No Response','Closed'];
 // Days until the next reminder after moving to a status (none for closed ones)
 const FOLLOW_DAYS={'Saved':3,'To Apply':2,'Email Draft Ready':2,'Applied':7,'Recruiter Contacted':3,'Assessment':3,'Interview Scheduled':2,'Offer Received':2};
-const STALE_DAYS=21;
+let STALE_DAYS=21;
 const addDays=(iso,n)=>{const [y,m,d]=iso.split('-').map(Number);const x=new Date(y,m-1,d+n);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;};
 const dayDiff=(from,to)=>Math.round((Date.parse(to)-Date.parse(String(from).slice(0,10)))/86400e3);
 const niceDate=(iso)=>iso?new Date(iso+'T00:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short'}):'';
@@ -713,11 +775,72 @@ async function runSources(id){
   const rows=await api('/api/runs/sources?run='+id);
   $('#rs').innerHTML=`<h2>Run #${id} sources</h2><div class="wrap"><table class="tbl"><tr><th>Source</th><th>Status</th><th>Fetched</th><th>Relevant</th><th>Pages</th><th>Notes</th></tr>${rows.map(r=>`<tr><td>${esc(r.source_key)}</td><td>${esc(r.status)}</td><td>${r.fetched}</td><td>${r.relevant}</td><td>${r.pages}</td><td class="small mut">${esc(r.error||r.limitation||'')}</td></tr>`).join('')}</table></div>`;
 }
+function prefsCard(note){
+  const opt=(v,l,cur)=>`<option value="${esc(v)}" ${String(cur)===v?'selected':''}>${esc(l)}</option>`;
+  const homes=VIEWS.filter(v=>v.length>1&&v[0]!=='settings');
+  return `<div class="card"><div class="kick">Website</div><b>Preferences</b><div class="small mut">${esc(note)}</div>
+   <div class="filters" style="margin-top:12px">
+    <label class="small mut">Theme<select id="p-theme">${opt('system','Follow system',PREFS.theme)}${opt('dark','Dark',PREFS.theme)}${opt('light','Light',PREFS.theme)}</select></label>
+    <label class="small mut">Open on<select id="p-home">${homes.map(v=>opt(v[0],v[1],PREFS.home)).join('')}</select></label>
+    <label class="small mut">Default min score in job lists<input id="p-min" type="number" min="0" max="100" placeholder="none" value="${esc(PREFS.min_score)}"></label>
+    <label class="small mut">Follow up after applying (days)<input id="p-fu" type="number" min="1" max="60" value="${esc(PREFS.follow_applied)}"></label>
+    <label class="small mut">Flag “no reply” after (days)<input id="p-stale" type="number" min="3" max="120" value="${esc(PREFS.stale_days)}"></label>
+    <label class="small mut" style="grid-column:1/-1">Hide these companies (one per line)<textarea id="p-hide" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)">${esc((PREFS.hide_companies||[]).join('\n'))}</textarea></label>
+   </div><div class="row"><button class="btn pri" onclick="savePrefsForm()">Save preferences</button><button class="btn ghost" onclick="setPrefs({...PREF_DEF});render();toast('Preferences reset')">Reset</button></div></div>`;
+}
+function savePrefsForm(){
+  const n=(id,lo,hi,d)=>{const v=parseInt(fv2(id),10);return Number.isFinite(v)?Math.min(hi,Math.max(lo,v)):d;};
+  setPrefs({theme:fv2('p-theme')||'system',home:fv2('p-home')||'dashboard',min_score:fv2('p-min')?String(n('p-min',0,100,'')):'',
+    follow_applied:n('p-fu',1,60,7),stale_days:n('p-stale',3,120,21),hide_companies:[...new Set(fv2('p-hide').split('\n').map(s=>s.trim()).filter(Boolean))]});
+  toast(window.RemoteCfg?.ready?'Preferences saved · synced':'Preferences saved');
+}
+// Website copy: search settings go to the private repo (RemoteCfg, see static-site.js); the computer applies them on its next run.
+const SEARCH_LISTS=[['job_titles','Job titles to look for'],['search_terms','Search terms (job boards)'],['priority_countries','Priority countries'],['country_filter','Only these countries (empty = worldwide)'],['exclude_title_keywords','Skip titles containing']];
+async function renderWebSettings(el){
+  const R=window.RemoteCfg,ok=!!R?.ready,d=(ok&&R.data)||{},pub=META.search_public||{};
+  const se={...pub,...(d.search||{})},sc=d.scoring||{},pr=d.profile||{};
+  const pending=ok&&d.updated_at&&META.as_of&&d.updated_at>META.as_of;
+  const ta=(k,l)=>`<label class="small mut">${esc(l)}<textarea id="s-${k}" rows="5" style="width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);font:12.5px/1.5 var(--f-mono)">${esc((se[k]||[]).join('\n'))}</textarea></label>`;
+  el.innerHTML=`<div class="hero"><div><div class="kick">Control panel</div><h1>Settings</h1><div class="mut">Preferences change this website. Search settings change what the app on your computer looks for.</div></div></div>
+  ${prefsCard(ok?'Synced to your private job-radar repo, so every browser where you are logged in gets them.':'Saved in this browser. Log in to Admin on this site to sync them.')}
+  <div class="card"><div class="kick">Search</div><b>Search settings</b>
+   ${!ok?`<div class="notice" style="margin-top:10px">Log in to <a href="../admin.html">Admin</a> on this site first. Search settings are saved in your <b>private</b> job-radar repo (never in the public site) and the app on your computer applies them at the start of its next run.</div>`:`
+   <div class="small mut">Saved to <code>career-hunter.json</code> in your private repo. ${d.updated_at?`Last saved ${esc(new Date(d.updated_at).toLocaleString())}. `:''}${pending?'<b>Waiting for the next run on your computer</b> to apply them.':d.updated_at?'Applied in the latest update.':''}</div>
+   <div class="filters" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:12px">${SEARCH_LISTS.map(([k,l])=>ta(k,l)).join('')}</div>
+   <div class="filters" style="margin-top:4px">
+    <label class="small mut">Look back (days)<input id="s-lb" type="number" min="1" max="120" value="${esc(se.lookback_days??45)}"></label>
+    <label class="small mut">Internships<select id="s-int"><option value="0" ${se.include_internships?'':'selected'}>Hide</option><option value="1" ${se.include_internships?'selected':''}>Include</option></select></label>
+    <label class="small mut">Years of experience<input id="s-yrs" type="number" min="0" max="50" placeholder="unchanged" value="${esc(pr.years_experience??'')}"></label>
+    <label class="small mut">Notice period<input id="s-np" placeholder="unchanged" value="${esc(pr.notice_period??'')}"></label>
+    <label class="small mut">Minimum salary (annual)<input id="s-sal" type="number" min="0" placeholder="unchanged" value="${esc(sc.salary_min_annual??'')}"></label>
+    <label class="small mut">Salary currency<input id="s-cur" maxlength="3" placeholder="USD" value="${esc(sc.salary_currency??'')}"></label>
+    <label class="small mut" style="grid-column:1/-1">Work authorization / relocation sentence<input id="s-wa" placeholder="unchanged" value="${esc(pr.work_authorization??'')}"></label>
+   </div>
+   <div class="small mut" style="margin-bottom:10px">Fields left on “unchanged” keep the value set on your computer. Salary, notice period and work authorization stay private: they are only in your private repo.</div>
+   <button class="btn pri" onclick="saveWebSearch()">Save search settings</button>`}
+  </div>`;
+}
+async function saveWebSearch(){
+  const lines=(id)=>[...new Set(fv2(id).split('\n').map(s=>s.trim()).filter(Boolean))];
+  const search={lookback_days:Math.min(120,Math.max(1,parseInt(fv2('s-lb'),10)||45)),include_internships:fv2('s-int')==='1'};
+  for(const [k] of SEARCH_LISTS)search[k]=lines('s-'+k);
+  if(!search.job_titles.length&&!search.search_terms.length)return toast('Add at least one job title or search term');
+  const profile={},scoring={};
+  if(fv2('s-yrs'))profile.years_experience=Math.min(50,Math.max(0,parseInt(fv2('s-yrs'),10)||0));
+  if(fv2('s-np'))profile.notice_period=fv2('s-np');
+  if(fv2('s-wa'))profile.work_authorization=fv2('s-wa');
+  if(fv2('s-sal'))scoring.salary_min_annual=Math.max(0,parseInt(fv2('s-sal'),10)||0);
+  if(fv2('s-cur')){if(!/^[A-Za-z]{3}$/.test(fv2('s-cur')))return toast('Currency must be a 3-letter code like USD or INR');scoring.salary_currency=fv2('s-cur').toUpperCase();}
+  try{await window.RemoteCfg.saveSearch({search,profile,scoring});toast('Saved · applied on your computer at the next run');render();}
+  catch(e){toast('Not saved: '+e.message);}
+}
 async function renderSettings(el){
+  if(META.static)return renderWebSettings(el);
   const [p,s]=await Promise.all([api('/api/profile'),api('/api/settings')]);
-  el.innerHTML=`<div class="hero"><div><h1>Settings</h1><div class="mut">Saved to config/*.json (previous version kept as .bak). API keys belong in .env, never here.</div></div>
+  el.innerHTML=`<div class="hero"><div><div class="kick">Control panel</div><h1>Settings</h1><div class="mut">Search settings are saved to config/*.json (previous version kept as .bak). API keys belong in .env, never here.</div></div>
     <button class="btn" onclick="rescore()">↻ Re-score all jobs & refresh drafts</button></div>
-  <div class="card"><b>Quick profile</b><div class="filters" style="margin-top:10px">
+  ${prefsCard('Saved in this browser only.')}
+  <div class="card"><div class="kick">Search</div><b>Quick profile</b><div class="filters" style="margin-top:10px">
     <label class="small mut">Years of experience<input id="q-yrs" type="number" value="${esc(p.years_experience)}"></label>
     <label class="small mut">Notice period (used in drafts)<input id="q-np" placeholder="e.g. 30 days" value="${esc(p.notice_period||'')}"></label>
     <label class="small mut" style="grid-column:span 2">Work authorization / relocation sentence (optional)<input id="q-wa" placeholder="e.g. I'm open to relocation and would need visa sponsorship." value="${esc(p.work_authorization||'')}"></label>
@@ -741,7 +864,8 @@ const fv2=(id)=>($('#'+id)||{}).value?.trim()||'';
 async function saveCfg(kind,id){let obj;try{obj=JSON.parse($('#'+id).value);}catch(e){return toast('Invalid JSON: '+e.message);}await api('/api/'+kind,{method:'PUT',body:JSON.stringify(obj)});toast('Saved');}
 async function rescore(){toast('Re-scoring…');const r=await api('/api/rescore',{method:'POST'});toast(`Re-scored ${r.rescored} · hidden ${r.filtered} · ${r.drafted} drafts refreshed`);refreshStats();}
 
-(async()=>{META=await api('/api/meta');STATS=await api('/api/stats');setRunBtn();nav();render();if(META.running)poll();})();
+applyPrefs();
+(async()=>{META=await api('/api/meta');STATS=await api('/api/stats');setRunBtn();go(VIEWS.some(v=>v[0]===PREFS.home)?PREFS.home:'dashboard');if(META.running)poll();})();
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();$('#gsearch').focus();}});
 </script>
 <script>
