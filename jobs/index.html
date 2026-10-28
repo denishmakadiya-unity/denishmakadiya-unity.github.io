@@ -109,8 +109,38 @@ pre{white-space:pre-wrap;background:var(--panel2);border:1px solid var(--line);b
 .empty{text-align:center;padding:40px 16px;color:var(--mut)}
 #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:50;pointer-events:none;font-weight:600}
 #toast.show{opacity:1;transform:translateX(-50%)}
+/* openings over time */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:none;padding:6px 13px;cursor:pointer;color:var(--ink)}.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--acc);color:var(--acc-ink);font-weight:600}
+.chart{position:relative;height:230px;margin:18px 0 6px 34px}
+.chart .grid{position:absolute;left:0;right:0;border-top:1px dashed var(--line)}
+.chart .grid span{position:absolute;right:100%;margin-right:8px;transform:translateY(-50%);font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums}
+.chart .bars{position:absolute;inset:0;display:flex;align-items:flex-end;gap:2px;border-bottom:1px solid var(--mut)}
+.chart .b{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;cursor:default}
+.chart .b i{display:block;background:var(--acc);border-radius:4px 4px 0 0;transition:opacity .12s}
+.chart .b:hover i,.chart .b:focus i{opacity:.75}.chart .b:focus{outline:none}
+.chart .b.cur i{background:color-mix(in srgb,var(--acc) 70%,var(--ink))}
+.xl{display:flex;gap:2px;margin-left:34px;font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums}.xl span{flex:1;min-width:0;text-align:center;white-space:nowrap;overflow:visible}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:7px 10px;border-radius:8px;font-size:12px;z-index:60;display:none;line-height:1.4;max-width:240px}
+/* tracker */
+.funnel{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:6px}
+.funnel .stat{cursor:default}.funnel .stat:hover{transform:none;border-color:var(--line)}
+.attn{display:flex;flex-direction:column;gap:8px}
+.attn-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow)}
+.attn-item.due{border-left-color:var(--bad)}.attn-item.todo{border-left-color:var(--acc)}
+.attn-item b{font-weight:650}
+.board{display:grid;grid-template-columns:repeat(5,minmax(210px,1fr));gap:12px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.col h3{margin:2px 4px 2px;font-size:12px;display:flex;justify-content:space-between;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.tcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);min-width:0}
+.tcard .tt{font-weight:650;line-height:1.3;cursor:pointer;overflow-wrap:anywhere}.tcard .tt:hover{color:var(--acc)}
+.tcard select{width:100%;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.tmeta{font-size:12px;color:var(--mut);display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.chip.bad{background:var(--warn-soft);color:var(--bad);border-color:transparent}
 .menu-toggle{display:none}
 @media (max-width:900px){
+  .board{grid-template-columns:1fr;overflow:visible}.attn-item{grid-template-columns:1fr}
   .app{grid-template-columns:1fr}nav{position:fixed;inset:0 30% 0 0;z-index:30;display:none;height:100vh;box-shadow:var(--shadow)}nav.show{display:block}
   .menu-toggle{display:inline-flex}.topin,.content{padding-left:16px;padding-right:16px}
   .job{grid-template-columns:48px 1fr}.actions{grid-column:1/-1;justify-content:flex-start}
@@ -270,6 +300,7 @@ async function staticApi(path,o={}){
   if(p==='/api/runs')return S.runs;
   if(p==='/api/runs/sources')return S.run_sources[q.run]||[];
   if(p==='/api/reports')return [];
+  if(p==='/api/trends')return S.trends;
   throw new Error('Not available on the website. Use the app on your computer for this.');
 }
 </script>
@@ -291,11 +322,12 @@ const I = {
   copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
   ext:'<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/>',
   star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
+  chart:'<path d="M3 3v18h18"/><path d="M8 17v-4M13 17V8M18 17v-7"/>',
 };
 const svg=(k)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
 
 const VIEWS=[
-  ['Overview'],['dashboard','Dashboard','home'],['new',"Today's new jobs",'spark'],['all','All jobs','list'],['best','Best matches','star'],
+  ['Overview'],['dashboard','Dashboard','home'],['new',"Today's new jobs",'spark'],['all','All jobs','list'],['best','Best matches','star'],['trends','Job openings','chart'],
   ['Filters'],['remote','Remote jobs','globe'],['office','On-site jobs','building'],['hybrid','Hybrid jobs','building'],['fulltime','Full-time','brief'],['contract','Contract / freelance','brief'],
   ['Outreach'],['drafts','Email drafts','pen'],['contacts','HR contacts','mail'],['tracker','Application tracker','check'],
   ['Data'],['companies','Companies','users'],['history','Search history','clock']];
@@ -339,7 +371,7 @@ async function render(){
   try{
     if(v==='dashboard')return await renderDash(el);
     if(PRESETS[v])return await renderJobs(el,VIEWS.find(x=>x[0]===v)[1]);
-    return await ({companies:renderCompanies,contacts:renderContacts,drafts:renderDrafts,tracker:renderTracker,history:renderHistory,settings:renderSettings})[v](el);
+    return await ({trends:renderTrends,companies:renderCompanies,contacts:renderContacts,drafts:renderDrafts,tracker:renderTracker,history:renderHistory,settings:renderSettings})[v](el);
   }catch(e){el.innerHTML=`<div class="card">Error: ${esc(e.message)}</div>`;}
 }
 
@@ -365,7 +397,7 @@ function jobCard(j){
      ${!j.app_status?`<button class="btn sm" onclick="quickSave(${j.id},this)" title="Save to tracker">${svg('star')}Save</button>`:''}
    </div></div>`;
 }
-async function quickApplied(id,btn){try{await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify({status:'Applied',applied_at:todayLocal()})});btn.classList.add('done');btn.lastChild.textContent='Applied '+todayLocal();toast('Marked as applied today');refreshStats();}catch(e){toast(e.message);}}
+async function quickApplied(id,btn){const f={...smartFields('Applied',{}),applied_at:todayLocal()};try{await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify(f)});btn.classList.add('done');btn.lastChild.textContent='Applied today';toast(`Marked as applied · follow-up reminder ${niceDate(f.follow_up_at)}`);refreshStats();}catch(e){toast(e.message);}}
 async function quickCopy(id,btn){const d=await api('/api/jobs/'+id);const x=d.drafts[0];if(!x)return toast('No draft yet');await copyText(`Subject: ${x.subject}\n\n${x.body}`,'Email copied');btn.classList.add('done');}
 async function quickSave(id,btn){try{await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify({status:'Saved'})});btn.classList.add('done');btn.lastChild.textContent='Saved';toast('Saved to tracker');refreshStats();}catch(e){toast(e.message);}}
 async function refreshStats(){STATS=await api('/api/stats');nav();}
@@ -375,6 +407,7 @@ async function renderDash(el){
   STATS=await api('/api/stats');nav();const s=STATS,lr=s.latest_run;
   const top=await api(`/api/jobs?status=active&sort=score&page_size=8&min_score=${META.thresholds.potential||60}`);
   const fresh=await api(`/api/jobs?status=active&sort=discovered&page_size=5&min_score=${META.thresholds.potential||60}&new_since=${since(2)}`);
+  const tr=await api('/api/trends').catch(()=>null),tt=tr?trendTotals(tr,'all'):null;
   const h=new Date().getHours(),greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   const stat=(n,l,v,ex='',cls='')=>`<div class="stat ${cls}" onclick="go('${v}'${ex?','+ex:''})"><b>${n??0}</b><span>${l}</span></div>`;
   el.innerHTML=`<div class="hero"><div><h1>${greet}, ${esc(META.name||'')} 👋</h1>
@@ -387,6 +420,7 @@ async function renderDash(el){
      ${stat(s.drafts,'Drafts ready to copy','drafts')}${stat(s.with_email,'With public HR email','contacts')}
      ${stat(s.followups_due,'Follow-ups due','tracker')}${stat(s.companies,'Companies','companies')}
    </div>
+   ${tt?`<div class="card row" style="margin-top:12px;justify-content:space-between"><div><b>New Unity openings</b> <span class="mut">· today ${tt.day} · this week ${tt.week} · this month ${tt.month} · this year ${tt.year}</span></div><button class="btn sm" onclick="go('trends')">${svg('chart')}By day / week / month / year</button></div>`:''}
    ${fresh.rows.length?`<h2>🆕 Fresh matches (last 48h)</h2><div class="jobs">${fresh.rows.map(jobCard).join('')}</div>`:''}
    <h2>⭐ Top matches for you</h2><div class="jobs">${top.rows.map(jobCard).join('')||'<div class="card empty">No matches yet.</div>'}</div>
    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" onclick="go('all',{min_score:'${META.thresholds.potential}'})">See all ${s.relevant} matching jobs →</button></div>`;
@@ -493,7 +527,8 @@ function openTab(tab){
     const ap=d.application;
     el.innerHTML=`<div class="card"><b>Application status</b>
       <div class="qf" style="margin-top:10px">${META.statuses.map(s=>`<button class="${ap?.status===s?'on':''}" onclick="saveApp(${j.id},'${esc(s)}')">${esc(s)}</button>`).join('')}</div>
-      <div class="filters" style="grid-template-columns:1fr 1fr"><label class="small mut">Follow-up date<input id="fu" type="date" value="${esc(ap?.follow_up_at||'')}"></label>
+      <p class="small mut" style="margin:0 0 8px">Click a status to save it. The applied date and the next reminder fill in automatically (Applied → 7 days, interview → 2 days); change the dates below if you want.</p>
+      <div class="filters" style="grid-template-columns:1fr 1fr"><label class="small mut">Follow-up reminder<input id="fu" type="date" value="${esc(ap?.follow_up_at||'')}"></label>
        <label class="small mut">Applied on<input id="ad" type="date" value="${esc(ap?.applied_at||'')}"></label></div>
       <div class="field"><div class="fhead"><b>Notes</b></div><textarea id="nt" placeholder="Interview notes, recruiter name, salary discussed…">${esc(ap?.notes||'')}</textarea></div>
       <div class="row" style="margin-top:10px"><button class="btn pri" onclick="saveApp(${j.id},'${esc(ap?.status||'Saved')}')">Save details</button></div></div>
@@ -511,8 +546,62 @@ function copyField(id,label){copyText(fv(id),label+' copied');}
 function copyDraftAll(){const x=CUR.drafts[0];const subj=$('#f-subject')?fv('subject'):x.subject,body=$('#f-body')?fv('body'):x.body;copyText(`Subject: ${subj}\n\n${body}`,'Subject + email copied');}
 function openMail(e){e.preventDefault();const to=/@/.test(fv('to'))?fv('to').trim():'';location.href=`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(fv('subject'))}&body=${encodeURIComponent(fv('body'))}`;}
 function closeDrawer(){$('#drawer').classList.remove('open');}
-async function saveApp(id,status){await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify({status,notes:($('#nt')||{}).value||'',follow_up_at:($('#fu')||{}).value||'',applied_at:($('#ad')||{}).value||''})});toast('Saved: '+status);await openJob(id,'track');refreshStats();}
+async function saveApp(id,status){
+  // Dates typed by you win; otherwise a status change fills the applied date and the next reminder.
+  const cur=CUR.application||{},smart=status!==cur.status?smartFields(status,cur):{};
+  const fu=($('#fu')||{}).value||'',ad=($('#ad')||{}).value||'';
+  const follow=fu&&fu!==(cur.follow_up_at||'')?fu:(smart.follow_up_at||fu);
+  try{await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify({status,notes:($('#nt')||{}).value||'',follow_up_at:follow,applied_at:ad||smart.applied_at||''})});}catch(e){return toast(e.message);}
+  toast('Saved: '+status+(follow&&!CLOSED.includes(status)?` · reminder ${niceDate(follow)}`:''));await openJob(id,'track');refreshStats();
+}
 async function mkDraft(id){await api(`/api/jobs/${id}/draft`,{method:'POST'});toast('Draft created');await openJob(id,'draft');refreshStats();}
+
+// ---------- job openings over time ----------
+const pad2=(n)=>String(n).padStart(2,'0');
+const ymd=(x)=>`${x.getFullYear()}-${pad2(x.getMonth()+1)}-${pad2(x.getDate())}`;
+const pdate=(iso)=>{const [y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d||1);};
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+// Period key a date belongs to: the day, the Monday of its week, YYYY-MM, or YYYY
+function periodOf(iso,unit){const x=pdate(iso);if(unit==='day')return iso.slice(0,10);if(unit==='month')return iso.slice(0,7);if(unit==='year')return iso.slice(0,4);x.setDate(x.getDate()-((x.getDay()+6)%7));return ymd(x);}
+function stepBack(key,unit,i){if(unit==='year')return String(+key-i);if(unit==='month'){const x=pdate(key+'-01');x.setMonth(x.getMonth()-i);return ymd(x).slice(0,7);}const x=pdate(key);x.setDate(x.getDate()-(unit==='week'?7*i:i));return ymd(x);}
+function periodLabel(key,unit,long){const x=pdate(unit==='month'?key+'-01':unit==='year'?key+'-01-01':key);
+  if(unit==='year')return key;if(unit==='month')return MONTHS[x.getMonth()]+(long||x.getMonth()===0?' '+x.getFullYear():'');
+  const s=`${x.getDate()} ${MONTHS[x.getMonth()]}`;if(unit==='week'){if(!long)return s;const e=new Date(x);e.setDate(e.getDate()+6);return `Week ${s} – ${e.getDate()} ${MONTHS[e.getMonth()]}`;}return long?s+' '+x.getFullYear():s;}
+const TR={unit:'day',series:'all',table:false};
+const TR_SPAN={day:30,week:12,month:12,year:5};
+function trendTotals(t,series){const k=series==='match'?'n_match':'n_all',today=todayLocal(),sum=(unit)=>t.days.filter(r=>periodOf(r.d,unit)===periodOf(today,unit)).reduce((s,r)=>s+r[k],0);
+  return {day:sum('day'),week:sum('week'),month:sum('month'),year:sum('year')};}
+async function renderTrends(el){
+  const t=await api('/api/trends'),k=TR.series==='match'?'n_match':'n_all',today=todayLocal();
+  const first=t.days[0]?.d,tot=trendTotals(t,TR.series);
+  // Only periods from the first opening on: earlier ones were never searched, so they are not "zero".
+  const cur=periodOf(today,TR.unit),firstP=first?periodOf(first,TR.unit):cur,keys=[];
+  for(let i=TR_SPAN[TR.unit]-1;i>=0;i--){const p=stepBack(cur,TR.unit,i);if(p>=firstP)keys.push(p);}
+  const by={};for(const r of t.days){const p=periodOf(r.d,TR.unit);const o=by[p]||(by[p]={n:0,all:0,match:0,found:0});o.n+=r[k];o.all+=r.n_all;o.match+=r.n_match;o.found+=r.n_found_date;}
+  const vals=keys.map(p=>({p,...(by[p]||{n:0,all:0,match:0,found:0})})),max=Math.max(1,...vals.map(v=>v.n));
+  const nice=max<=5?5:max<=10?10:Math.ceil(max/10)*10,step=Math.max(1,Math.ceil(vals.length/10));
+  const tile=(v,l,u)=>`<div class="stat ${TR.unit===u?'accent':''}" onclick="TR.unit='${u}';render()"><b>${v}</b><span>${l}</span></div>`;
+  const unitBtn=(u,l)=>`<button class="${TR.unit===u?'on':''}" onclick="TR.unit='${u}';render()">${l}</button>`;
+  el.innerHTML=`<div class="hero"><div><h1>Job openings</h1><div class="mut">How many Unity openings were posted ${TR.series==='match'?`that match you (score ≥ ${t.potential})`:'in total'} per ${TR.unit}.</div></div>
+    <div class="row"><div class="seg">${unitBtn('day','Day')}${unitBtn('week','Week')}${unitBtn('month','Month')}${unitBtn('year','Year')}</div>
+    <div class="seg"><button class="${TR.series==='all'?'on':''}" onclick="TR.series='all';render()">All Unity jobs</button><button class="${TR.series==='match'?'on':''}" onclick="TR.series='match';render()">Matching (${t.potential}+)</button></div></div></div>
+   <div class="stats">${tile(tot.day,'Today','day')}${tile(tot.week,'This week','week')}${tile(tot.month,'This month','month')}${tile(tot.year,'This year','year')}</div>
+   <div class="card" style="margin-top:14px">
+    <div class="row" style="justify-content:space-between"><b>${TR.series==='match'?'Matching openings':'Unity openings'} per ${TR.unit}${vals.length?` · ${esc(periodLabel(vals[0].p,TR.unit,true))} to now`:''}</b>
+     <button class="btn sm" onclick="TR.table=!TR.table;render()">${TR.table?'Show chart':'Show as table'}</button></div>
+    ${!vals.length?'<div class="empty">No openings found yet. Run a search first.</div>':TR.table?`<div class="wrap" style="margin-top:12px"><table class="tbl"><tr><th>${TR.unit[0].toUpperCase()+TR.unit.slice(1)}</th><th>All Unity jobs</th><th>Matching (${t.potential}+)</th><th>Date from “first found”</th></tr>${vals.slice().reverse().map(v=>`<tr><td>${esc(periodLabel(v.p,TR.unit,true))}</td><td>${v.all}</td><td>${v.match}</td><td class="mut">${v.found}</td></tr>`).join('')}</table></div>`
+    :`<div class="chart" role="img" aria-label="Bar chart of openings per ${TR.unit}">
+      ${[1,.5].map(f=>`<div class="grid" style="bottom:${f*100}%"><span>${Math.round(nice*f)}</span></div>`).join('')}<div class="grid" style="bottom:0;border-top:0"><span>0</span></div>
+      <div class="bars">${vals.map(v=>`<div class="b ${v.p===cur?'cur':''}" tabindex="0" data-tip="${esc(`<b>${periodLabel(v.p,TR.unit,true)}${v.p===cur?' (so far)':''}</b><br>${v.all} Unity opening${v.all===1?'':'s'}<br>${v.match} matching you`)}"><i style="height:${v.n?Math.max(2,v.n/nice*100):0}%"></i></div>`).join('')}</div></div>
+     <div class="xl">${vals.map((v,i)=>`<span>${(vals.length-1-i)%step===0?esc(periodLabel(v.p,TR.unit)):''}</span>`).join('')}</div>`}
+   </div>
+   <p class="small mut">Counted by the date the company posted the job; when a site doesn't show one, the date it was first found is used. The search looks back ${t.lookback_days} days, so tracking starts on ${first?esc(periodLabel(first,'day',true)):'—'} and earlier ${TR.unit}s aren't shown. Closed openings still count for the ${TR.unit} they were posted in.</p>`;
+}
+// Hover / focus tooltip for chart bars
+(()=>{const tip=document.createElement('div');tip.id='tip';document.body.appendChild(tip);
+  const show=(b,x,y)=>{tip.innerHTML=b.dataset.tip;tip.style.display='block';const w=tip.offsetWidth;tip.style.left=Math.min(innerWidth-w-8,Math.max(8,x-w/2))+'px';tip.style.top=Math.max(8,y-tip.offsetHeight-12)+'px';};
+  document.addEventListener('mousemove',e=>{const b=e.target.closest&&e.target.closest('.chart .b');if(b)show(b,e.clientX,e.clientY);else tip.style.display='none';});
+  document.addEventListener('focusin',e=>{const b=e.target.closest&&e.target.closest('.chart .b');if(b){const r=b.getBoundingClientRect();show(b,r.left+r.width/2,r.top);}else tip.style.display='none';});})();
 
 // ---------- drafts ----------
 async function renderDrafts(el){
@@ -538,14 +627,77 @@ async function renderContacts(el){
   <div class="wrap"><table class="tbl"><tr><th>Company</th><th>Email / page</th><th>Role</th><th>Verification</th><th>Source</th><th>Checked</th></tr>
   ${rows.map(x=>`<tr><td><b>${esc(x.company)}</b>${x.job_title?`<br><span class="small mut">${esc(x.job_title)}</span>`:''}</td><td>${x.email?`${esc(x.email)} <button class="btn sm" onclick="copyText('${esc(x.email)}','Email address copied')">${svg('copy')}</button>`:a(x.contact_url,'contact page')}</td><td>${esc(x.role||'')}</td><td>${esc(x.email?x.verification_status:'Not found (page only)')}</td><td>${a(x.source_url,'source')}</td><td>${d10(x.checked_at)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">No contacts yet.</td></tr>'}</table></div>`;
 }
+// ---------- smart tracker ----------
+const STAGES=[['To apply',['Saved','To Apply','Email Draft Ready']],['Applied',['Applied','Recruiter Contacted']],['Interviewing',['Interview Scheduled','Assessment']],['Offer',['Offer Received']],['Closed',['Rejected','No Response','Closed']]];
+const stageOf=(s)=>(STAGES.find(([,l])=>l.includes(s))||STAGES[1])[0];
+const CLOSED=['Rejected','No Response','Closed'];
+// Days until the next reminder after moving to a status (none for closed ones)
+const FOLLOW_DAYS={'Saved':3,'To Apply':2,'Email Draft Ready':2,'Applied':7,'Recruiter Contacted':3,'Assessment':3,'Interview Scheduled':2,'Offer Received':2};
+const STALE_DAYS=21;
+const addDays=(iso,n)=>{const [y,m,d]=iso.split('-').map(Number);const x=new Date(y,m-1,d+n);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;};
+const dayDiff=(from,to)=>Math.round((Date.parse(to)-Date.parse(String(from).slice(0,10)))/86400e3);
+const niceDate=(iso)=>iso?new Date(iso+'T00:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short'}):'';
+/** Fields to send when a job moves to `status`: applied date on first "Applied", and a fresh follow-up reminder. */
+function smartFields(status,cur={}){
+  const t=todayLocal(),o={status};
+  if(status==='Applied'&&!cur.applied_at)o.applied_at=t;
+  if(FOLLOW_DAYS[status]&&(status!==cur.status||!cur.follow_up_at))o.follow_up_at=addDays(t,FOLLOW_DAYS[status]);
+  return o;
+}
+let TRK=[];
+const trkRow=(id)=>TRK.find(r=>r.job_id===id)||{};
+async function trkPost(id,body,msg){try{await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify(body)});toast(msg);await refreshStats();if(state.view==='tracker')render();}catch(e){toast(e.message);}}
+function trkStatus(id,status){const f=smartFields(status,trkRow(id));trkPost(id,f,status+(f.follow_up_at?` · reminder ${niceDate(f.follow_up_at)}`:''));}
+function trkFollowed(id,days=7){const r=trkRow(id),next=addDays(todayLocal(),days);trkPost(id,{status:r.status,follow_up_at:next},`Next reminder ${niceDate(next)}`);}
+async function trkCopyFollow(id,btn){try{const d=await api('/api/jobs/'+id),x=d.drafts[0];if(!x)return toast('No draft for this job yet');await copyText(`Subject: Re: ${x.subject}\n\n${x.followup_body}`,'Follow-up email copied');btn.classList.add('done');}catch(e){toast(e.message);}}
+
+function attentionItems(rows,today){
+  const out=[];
+  for(const r of rows){
+    if(CLOSED.includes(r.status))continue;
+    const st=stageOf(r.status),due=r.follow_up_at&&r.follow_up_at<=today,late=due?dayDiff(r.follow_up_at,today):0;
+    const who=`<b>${esc(r.company_name||'')}</b> · ${esc(r.title||'')}`;
+    if(st==='To apply'&&(due||dayDiff(r.updated_at||today,today)>=3))
+      out.push({k:'todo',o:0,html:`Apply to ${who}<div class="small mut">Saved ${daysSince(r.updated_at)} and not applied yet</div>`,acts:r.job_id?`<a class="btn sm" href="${safe(r.apply_url)}" target="_blank" rel="noopener">${svg('ext')}Apply</a><button class="btn sm pri" onclick="trkStatus(${r.job_id},'Applied')">${svg('check')}I applied</button><button class="btn sm" onclick="trkStatus(${r.job_id},'Closed')">Skip</button>`:''});
+    else if(due)
+      out.push({k:'due',o:1,html:`${st==='Interviewing'?'Check on your interview with':st==='Offer'?'Reply to the offer from':'Follow up with'} ${who}<div class="small mut">${late>0?`${late} day${late===1?'':'s'} overdue`:'due today'}${r.applied_at?` · applied ${daysSince(r.applied_at)}`:''}</div>`,
+        acts:r.job_id?`<button class="btn sm" onclick="trkCopyFollow(${r.job_id},this)">${svg('copy')}Copy follow-up email</button><button class="btn sm pri" onclick="trkFollowed(${r.job_id})">${svg('check')}Followed up</button>${st==='Applied'?`<button class="btn sm" onclick="trkStatus(${r.job_id},'No Response')">No response</button>`:''}`:''});
+    else if(st==='Applied'&&r.applied_at&&dayDiff(r.applied_at,today)>=STALE_DAYS)
+      out.push({k:'stale',o:2,html:`No reply from ${who}<div class="small mut">Applied ${daysSince(r.applied_at)}</div>`,
+        acts:r.job_id?`<button class="btn sm" onclick="trkStatus(${r.job_id},'No Response')">Mark no response</button><button class="btn sm" onclick="trkFollowed(${r.job_id},0)">Remind me today</button>`:''});
+  }
+  return out.sort((x,y)=>x.o-y.o);
+}
+
+function trackerCard(r,today){
+  const closed=CLOSED.includes(r.status),due=!closed&&r.follow_up_at&&r.follow_up_at<=today;
+  const remind=!closed&&r.follow_up_at?`<span class="chip ${due?'bad':''}">⏰ ${due?(r.follow_up_at<today?'overdue ':'today '):''}${esc(niceDate(r.follow_up_at))}</span>`:'';
+  const ext=!r.job_id;
+  return `<div class="tcard">
+    <div class="tt" ${ext?'':`onclick="openJob(${r.job_id},'track')"`}>${ext?a(r.ext_url,r.title):esc(r.title)}</div>
+    <div class="small mut">${esc(r.company_name||'')}${r.score!=null?` · score ${r.score}`:''}${r.job_status&&r.job_status!=='active'?` · <span class="chip warn">${esc(r.job_status)}</span>`:''}</div>
+    <div class="tmeta">${r.applied_at?`<span>Applied ${esc(niceDate(r.applied_at))} · ${daysSince(r.applied_at)}</span>`:'<span>Not applied yet</span>'}${remind}</div>
+    ${r.notes?`<div class="small" style="overflow-wrap:anywhere">${esc(String(r.notes).slice(0,140))}${String(r.notes).length>140?'…':''}</div>`:''}
+    ${ext?`<a class="btn sm" href="../admin.html#jobs/apps">Edit in Admin</a>`:`<select aria-label="Status" onchange="trkStatus(${r.job_id},this.value)">${META.statuses.map(s=>`<option ${s===r.status?'selected':''}>${esc(s)}</option>`).join('')}</select>
+    <div class="row">${stageOf(r.status)==='To apply'?`<a class="btn sm" href="${safe(r.apply_url)}" target="_blank" rel="noopener">${svg('ext')}Apply</a>`:''}${!closed&&stageOf(r.status)!=='To apply'?`<button class="btn sm" onclick="trkFollowed(${r.job_id})" title="Set the next reminder 7 days from today">${svg('check')}Followed up</button>`:''}<button class="btn sm ghost" onclick="openJob(${r.job_id},'track')">${svg('pen')}Notes</button></div>`}
+  </div>`;
+}
+
 async function renderTracker(el){
-  const rows=await api('/api/applications'),today=todayLocal();
-  const applied=rows.filter(r=>r.applied_at).length,due=rows.filter(r=>r.follow_up_at&&r.follow_up_at<=today&&!['Rejected','Closed','Offer Received'].includes(r.status)).length;
-  const groups=META.statuses.map(s=>[s,rows.filter(r=>r.status===s)]).filter(([,g])=>g.length);
-  const open=(r)=>r.job_id?`class="click" onclick="openJob(${r.job_id},'track')"`:'';
-  el.innerHTML=`<div class="hero"><div><h1>Application tracker</h1><div class="mut">${rows.length} tracked · ${applied} applied · ${due} follow-up${due===1?'':'s'} due · click a job to change status, dates or notes${window.TRACKER_NOTE?' · '+esc(window.TRACKER_NOTE):''}</div></div></div>
-  <div class="qf">${groups.map(([s,g])=>`<button onclick="document.getElementById('st-${esc(s).replace(/\W/g,'')}').scrollIntoView({behavior:'smooth'})">${esc(s)} · ${g.length}</button>`).join('')}</div>
-  ${groups.map(([s,g])=>`<h2 id="st-${esc(s).replace(/\W/g,'')}">${esc(s)} <span class="mut">(${g.length})</span></h2><div class="wrap"><table class="tbl"><tr><th>Job</th><th>Score</th><th>Applied on</th><th>Follow-up</th><th class="hide-sm">Notes</th><th>Listing</th></tr>${g.map(r=>`<tr ${open(r)}><td><b>${r.job_id?esc(r.title):a(r.ext_url,r.title)}</b><br><span class="small mut">${esc(r.company_name)}</span></td><td>${r.score??'—'}</td><td>${r.applied_at?`${esc(r.applied_at)}<br><span class="small mut">${daysSince(r.applied_at)}</span>`:'—'}</td><td>${r.follow_up_at?`<span class="chip ${r.follow_up_at<=today?'warn':''}">${esc(r.follow_up_at)}</span>`:'—'}</td><td class="hide-sm">${esc(r.notes||'')}</td><td>${esc(r.job_status||'')}</td></tr>`).join('')}</table></div>`).join('')||'<div class="card empty">Nothing tracked yet. Click ✓ Applied or ☆ Save on any job.</div>'}`;
+  const rows=await api('/api/applications'),today=todayLocal();TRK=rows;
+  const n=(stage)=>rows.filter(r=>stageOf(r.status)===stage).length;
+  const everApplied=rows.filter(r=>r.applied_at||!['To apply'].includes(stageOf(r.status))).length;
+  const replied=rows.filter(r=>['Interviewing','Offer'].includes(stageOf(r.status))||['Rejected','Recruiter Contacted'].includes(r.status)).length;
+  const items=attentionItems(rows,today);
+  const stat=(v,l)=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`;
+  el.innerHTML=`<div class="hero"><div><h1>Application tracker</h1><div class="mut">Change a status right on the card; the next reminder is set for you (Applied → 7 days, interview → 2 days).${window.TRACKER_NOTE?' · '+esc(window.TRACKER_NOTE):''}</div></div></div>
+   <div class="funnel">${stat(n('To apply'),'To apply')}${stat(everApplied,'Applied')}${stat(n('Interviewing'),'Interviewing')}${stat(n('Offer'),'Offers')}${stat(everApplied?Math.round(replied/everApplied*100)+'%':'—','Got a reply')}</div>
+   <h2>Needs your attention <span class="mut">(${items.length})</span></h2>
+   <div class="attn">${items.map(x=>`<div class="attn-item ${x.k}"><div style="min-width:0">${x.html}</div><div class="actions">${x.acts}</div></div>`).join('')||'<div class="card empty" style="padding:18px">All caught up ✓ Nothing to follow up today.</div>'}</div>
+   <h2>Pipeline</h2>
+   ${rows.length?`<div class="board">${STAGES.map(([stage])=>{const list=rows.filter(r=>stageOf(r.status)===stage).sort((x,y)=>(x.follow_up_at||'9999').localeCompare(y.follow_up_at||'9999')||String(y.updated_at||'').localeCompare(String(x.updated_at||'')));
+     return `<div class="col"><h3><span>${esc(stage)}</span><span>${list.length}</span></h3>${list.map(r=>trackerCard(r,today)).join('')||'<div class="small mut" style="padding:6px 4px">—</div>'}</div>`;}).join('')}</div>`
+   :'<div class="card empty">Nothing tracked yet. Click ✓ Applied or ☆ Save on any job and it shows up here.</div>'}`;
 }
 async function renderHistory(el){
   const d=await api('/api/runs');
