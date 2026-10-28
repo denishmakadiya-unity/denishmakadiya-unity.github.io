@@ -95,7 +95,11 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:26px 0 12px}
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;padding:2px 8px;border-radius:3px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);white-space:nowrap}
 .chip.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}.chip.warn{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
 .chip.acc{background:var(--acc-soft);border-color:transparent;color:var(--acc)}
-.actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.stsel{padding:5px 8px;border:1px solid var(--line);border-left:3px solid var(--lo);border-radius:4px;background:var(--panel);color:var(--mut);font:12px var(--f-mono);cursor:pointer;max-width:190px}
+.stsel:hover{border-color:var(--acc)}
+.stsel.st-toapply{border-left-color:var(--cyan);color:var(--ink)}.stsel.st-applied{border-left-color:var(--po);color:var(--po)}
+.stsel.st-interviewing{border-left-color:var(--cyan);color:var(--cyan)}.stsel.st-offer{border-left-color:var(--acc);color:var(--acc)}.stsel.st-closed{border-left-color:var(--lo);color:var(--mut)}
 .label{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
 .l-ex{color:var(--ex)}.l-st{color:var(--st)}.l-po{color:var(--po)}.l-lo{color:var(--lo)}
 /* filters */
@@ -188,6 +192,7 @@ a[href^="/api/export.csv"],a[href^="/reports/"]{display:none!important}
       <div class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="gsearch" placeholder="Search jobs, companies, skills…" onkeydown="if(event.key==='Enter')globalSearch(this.value)"></div>
       <div class="grow"></div>
+      <a class="btn" id="inboxbtn" target="_blank" rel="noopener" hidden></a>
       <span class="snap" id="snapnote"></span><a class="btn pri" href="../admin.html">← Back to Admin</a><button id="runbtn" hidden></button>
       <button class="btn ghost" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">◐</button>
     </div></div>
@@ -446,7 +451,6 @@ function jobCard(j){
   const posted=ago(j.published_at);chips.push(`<span class="chip">${posted?'Posted '+posted:'Found '+ago(j.first_discovered_at)}</span>`);
   if(j.contact?.email)chips.push(`<span class="chip acc">✉ HR email</span>`);
   if(j.draft_id)chips.push(`<span class="chip acc">✎ Draft ready</span>`);
-  if(j.app_status)chips.push(`<span class="chip warn">${esc(j.app_status)}</span>`);
   if(j.status!=='active')chips.push(`<span class="chip warn">${esc(j.status)}</span>`);
   return `<div class="job" onclick="openJob(${j.id})">${ring(j.score,j.score_label)}
    <div style="min-width:0"><div class="label l-${lcls(j.score_label)}">${esc(j.score_label||'')}</div><div class="jt">${esc(j.title)}</div><div class="jc">${esc(j.company_name)}${j.why?` · <span>${esc(j.why.split(';')[0])}</span>`:''}</div><div class="chips">${chips.join('')}</div></div>
@@ -454,9 +458,24 @@ function jobCard(j){
      ${j.draft_id?`<button class="btn sm" onclick="quickCopy(${j.id},this)">${svg('copy')}Copy email</button>`:''}
      <a class="btn sm" href="${safe(j.apply_url)}" target="_blank" rel="noopener">${svg('ext')}Apply</a>
      ${siteBtn(j.company_website,j.company_name)}
-     ${!j.app_status||EARLY.includes(j.app_status)?`<button class="btn sm" onclick="quickApplied(${j.id},this)" title="Mark as applied today">${svg('check')}Applied</button>`:''}
-     ${!j.app_status?`<button class="btn sm" onclick="quickSave(${j.id},this)" title="Save to tracker">${svg('star')}Save</button>`:''}
+     ${statusSelect(j)}
    </div></div>`;
+}
+// Application status right on the card, in every list
+function statusSelect(j){
+  const cur=j.app_status||'',st=cur?stageOf(cur):'';
+  return `<select class="stsel ${cur?'st-'+st.replace(/\s/g,'').toLowerCase():''}" data-cur="${esc(cur)}" onchange="cardStatus(${j.id},this)" title="Application status" aria-label="Application status for ${esc(j.title)}">
+    ${cur?'':'<option value="" selected>Status: not tracked</option>'}${(META.statuses||[]).map(s=>`<option ${s===cur?'selected':''}>${esc(s)}</option>`).join('')}</select>`;
+}
+async function cardStatus(id,sel){
+  const prev=sel.dataset.cur,status=sel.value;if(!status||status===prev)return;
+  // keep the original applied date when the job was already applied to
+  const f=smartFields(status,{status:prev,applied_at:prev&&!EARLY.includes(prev)?'kept':null});
+  try{
+    await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify(f)});
+    sel.dataset.cur=status;sel.className='stsel st-'+stageOf(status).replace(/\s/g,'').toLowerCase();sel.querySelector('option[value=""]')?.remove();
+    toast(status+(f.applied_at?' · applied today':'')+(f.follow_up_at?` · reminder ${niceDate(f.follow_up_at)}`:''));refreshStats();
+  }catch(e){sel.value=prev;toast(e.message);}
 }
 async function quickApplied(id,btn){const f={...smartFields('Applied',{}),applied_at:todayLocal()};try{await api(`/api/jobs/${id}/application`,{method:'POST',body:JSON.stringify(f)});btn.classList.add('done');btn.lastChild.textContent='Applied today';toast(`Marked as applied · follow-up reminder ${niceDate(f.follow_up_at)}`);refreshStats();}catch(e){toast(e.message);}}
 async function quickCopy(id,btn){const d=await api('/api/jobs/'+id);const x=d.drafts[0];if(!x)return toast('No draft yet');await copyText(`Subject: ${x.subject}\n\n${x.body}`,'Email copied');btn.classList.add('done');}
@@ -865,7 +884,8 @@ async function saveCfg(kind,id){let obj;try{obj=JSON.parse($('#'+id).value);}cat
 async function rescore(){toast('Re-scoring…');const r=await api('/api/rescore',{method:'POST'});toast(`Re-scored ${r.rescored} · hidden ${r.filtered} · ${r.drafted} drafts refreshed`);refreshStats();}
 
 applyPrefs();
-(async()=>{META=await api('/api/meta');STATS=await api('/api/stats');setRunBtn();go(VIEWS.some(v=>v[0]===PREFS.home)?PREFS.home:'dashboard');if(META.running)poll();})();
+function setInboxBtn(){const b=$('#inboxbtn');if(!META.inbox)return;b.href=safe(META.inbox.href).replace(/&amp;/g,'&');b.innerHTML=`${svg('mail')}<span class="hide-sm">${esc(META.inbox.label)}</span>`;b.title='Open '+META.inbox.label+' inbox';b.hidden=false;}
+(async()=>{META=await api('/api/meta');STATS=await api('/api/stats');setRunBtn();setInboxBtn();go(VIEWS.some(v=>v[0]===PREFS.home)?PREFS.home:'dashboard');if(META.running)poll();})();
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();$('#gsearch').focus();}});
 </script>
 <script>
