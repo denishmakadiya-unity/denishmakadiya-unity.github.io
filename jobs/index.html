@@ -448,7 +448,13 @@ function jobCard(j){
   if(j.place_display&&j.place_display!=='Remote')chips.push(`<span class="chip">📍 ${esc(j.place_display)}</span>`);
   if(j.employment_type&&j.employment_type!=='Not specified')chips.push(`<span class="chip">${esc(j.employment_type)}</span>`);
   if(j.salary_min||j.salary_max||j.salary_text)chips.push(`<span class="chip ok">💰 ${esc(j.salary_display.replace(/ \(.*\)$/,''))}</span>`);
-  const posted=ago(j.published_at);chips.push(`<span class="chip">${posted?'Posted '+posted:'Found '+ago(j.first_discovered_at)}</span>`);
+  // Opening date: the employer's posting date when the source gives one; otherwise only the date we found it (never a guessed date)
+  const fullDate=(d)=>d?new Date(d).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'}):'';
+  const calAgo=(d)=>{if(!d)return '';const x=new Date(d),n=Math.round((new Date().setHours(0,0,0,0)-new Date(x.getFullYear(),x.getMonth(),x.getDate()))/86400e3);return n<=0?'today':n===1?'yesterday':n+' days ago';};
+  const found=`Found by the radar ${fullDate(j.first_discovered_at)} (${calAgo(j.first_discovered_at)})`;
+  chips.push(j.published_at
+    ?`<span class="chip date" title="Posted by the employer ${esc(fullDate(j.published_at))} · ${esc(found)}">📅 Opened ${esc(fullDate(j.published_at))} · ${esc(calAgo(j.published_at))}</span>`
+    :`<span class="chip date" title="The source did not give a posting date · ${esc(found)}">🔎 Found ${esc(fullDate(j.first_discovered_at))} · posting date not given</span>`);
   if(j.contact?.email)chips.push(`<span class="chip acc">✉ HR email</span>`);
   if(j.draft_id)chips.push(`<span class="chip acc">✎ Draft ready</span>`);
   if(j.status!=='active')chips.push(`<span class="chip warn">${esc(j.status)}</span>`);
