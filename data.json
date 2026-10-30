@@ -321,7 +321,7 @@
       ],
       "version": "0.9.0",
       "unityVersion": "6000.0.59.f2",
-      "price": "39.99",
+      "price": "$39.99",
       "youtubeUrl": "",
       "downloadUrl": "",
       "playStoreUrl": "",
@@ -330,10 +330,11 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T06:59:33.454Z",
-      "updatedAt": "2026-10-14T06:53:38.635Z",
+      "updatedAt": "2026-10-30T16:33:08.110Z",
       "slug": "devforge-ai-ai-game-development-toolkit",
       "cover": "uploads/images/1791874898125-cvh5o-cover-1950x1300.webp",
-      "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png"
+      "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png",
+      "genres": []
     },
     {
       "type": "game",
@@ -1163,5 +1164,5 @@
       "slug": "vrx-optimizer-vr-comfort-performance-qa"
     }
   ],
-  "updatedAt": "2026-10-30T16:30:44.796Z"
+  "updatedAt": "2026-10-30T16:33:09.386Z"
 }
