@@ -754,7 +754,7 @@
       ],
       "version": "1.0.0",
       "unityVersion": "6000.0.59.f2",
-      "price": "",
+      "price": "$14.99",
       "youtubeUrl": "",
       "downloadUrl": "",
       "playStoreUrl": "",
@@ -763,8 +763,9 @@
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-15T06:55:06.218Z",
-      "updatedAt": "2026-10-15T06:55:06.245Z",
-      "slug": "chronoscene-scene-history-play-mode-keeper"
+      "updatedAt": "2026-10-30T16:34:34.853Z",
+      "slug": "chronoscene-scene-history-play-mode-keeper",
+      "genres": []
     },
     {
       "type": "game",
@@ -1164,5 +1165,5 @@
       "slug": "vrx-optimizer-vr-comfort-performance-qa"
     }
   ],
-  "updatedAt": "2026-10-30T16:33:52.597Z"
+  "updatedAt": "2026-10-30T16:34:35.914Z"
 }
