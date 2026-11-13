@@ -325,12 +325,12 @@
       "youtubeUrl": "",
       "downloadUrl": "",
       "playStoreUrl": "",
-      "assetStoreUrl": "",
+      "assetStoreUrl": "https://assetstore.unity.com/packages/tools/generative-ai/devforge-ai-ai-game-development-toolkit-412084",
       "githubUrl": "",
       "otherUrl": "",
       "order": 0,
       "createdAt": "2026-10-13T06:59:33.454Z",
-      "updatedAt": "2026-10-30T16:33:08.110Z",
+      "updatedAt": "2026-11-13T17:18:31.589Z",
       "slug": "devforge-ai-ai-game-development-toolkit",
       "cover": "uploads/images/1791874898125-cvh5o-cover-1950x1300.webp",
       "icon": "uploads/images/1791874898125-9w7dn-icon-512x512.png",
@@ -1165,5 +1165,5 @@
       "slug": "vrx-optimizer-vr-comfort-performance-qa"
     }
   ],
-  "updatedAt": "2026-10-30T16:34:35.914Z"
+  "updatedAt": "2026-11-13T17:18:32.418Z"
 }
